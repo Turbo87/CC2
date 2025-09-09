@@ -644,25 +644,38 @@ Sub ENLrefine()
 End Sub
 
 Sub NewBRecords()
-'
-' JLR 04/04/14 removed ref to CU Free
-'
+    ' NewBRecords processes imported flight data to extract and parse B-record information
+    ' B-records contain GPS position fixes with coordinates, altitude, and time data
+    ' This function handles multiple coordinate records and converts them from IGC format
+
+    ' Switch to IMP sheet containing imported flight data
     Sheets("IMP").Select
+    ' Extract C-type records (B-records) from imported data
     Range("R1:R1020").FormulaR1C1 = "=IF(RC[-16]=""C"",RC[-17],"""")"
     Range("R1:R1020").Value = Range("R1:R1020").Value
+    ' Identify start positions of new B-record sequences
     Range("S2:S1020").FormulaR1C1 = "=IF(AND(R[-1]C[-1]="""",RC[-17]=""C""),1,"""")"
     Range("S2:S1020").Value = Range("S2:S1020").Value
+    ' Count total number of B-record sequences
     Range("S1").FormulaR1C1 = "=SUM(R[1]C:R[1020]C)"
+    ' Extract actual B-record data for processing
     Range("T1:T1020").FormulaR1C1 = "=IF(RC[-1]=1,RC[-2],"""")"
     Range("T1:T1020").Value = Range("T1:T1020").Value
 If Range("S1") > 0 Then
+    ' Parse B-record data using fixed-width text-to-columns conversion
+    ' IGC B-record format: BHHMMSSDDMMMMMNDDDMMMMMEVPPPPPGGGGGCRLF
+    ' B=record type, H=hours, M=minutes, S=seconds, DD=latitude degrees, MMM=latitude minutes (thousandths),
+    ' N/S=latitude hemisphere, DDD=longitude degrees, MMM=longitude minutes (thousandths), E/W=longitude hemisphere,
+    ' V=validity (A=valid, V=invalid), PPPPP=pressure altitude, GGGGG=GPS altitude
     Columns("T:T").TextToColumns Destination:=Range("T1"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(1, 4), Array(7, 1), Array(9, 1 _
         ), Array(11, 1), Array(13, 9), Array(19, 9), Array(23, 1), Array(25, 1)), _
         TrailingMinusNumbers:=True
+    ' Convert time components to Excel time format (hours + minutes + seconds)
     Range("Y3:Y1020").FormulaR1C1 = _
         "=IF(RC[-6]="""","""",RC[-5]+TIME(RC[-4],RC[-3],RC[-2]))"
     Range("Y3:Y1020").Value = Range("Y3:Y1020").Value
+    ' Find maximum time value in the dataset
     Range("Y2").FormulaR1C1 = "=MAX(R[1]C:R[998]C)"
     Range("Y1").FormulaR1C1 = "=R[1]C"
     Range("Z3:Z1020").FormulaR1C1 = "=IF(OR(RC[-1]=R2C25,RC[-1]=R1021C25),RC[-2],"""")"
@@ -675,19 +688,32 @@ End If
 
 'If Range("Z1") <> "" Then changed per next 7/26/16
 If Range("Z1") <> 0 Then
+    ' Process coordinate records when data is available
     Range("AA3:AA1020").FormulaR1C1 = "=IF(AND(RC[-2]>0,OR(RC[-2]=R2C25,RC[-2]=R1021C25)),1,"""")"
     Range("AA2:AA1020").Value = Range("AA2:AA1020").Value
+    ' Extract coordinate data for first record set
     Range("AI3:AI1020").FormulaR1C1 = "=IF(R[-2]C[-8]=1,RC[-17],"""")"
     Range("AI3:AI1020").Value = Range("AI3:AI1020").Value
+    ' Parse coordinate string into components (latitude/longitude degrees, minutes, direction)
     Columns("AI:AI").TextToColumns Destination:=Range("AI1"), DataType:=xlFixedWidth, OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(1, 1), Array(3, 1), Array(8, 1), Array(9, 1), Array(12, 1), Array(17, 1), Array(18, 1)), TrailingMinusNumbers:=True
+    ' Sort latitude direction indicators (N/S)
     Range("AK1:AK1000").Sort Key1:=Range("AK1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+    ' Convert N/S indicators to numeric multipliers (+1 for North, -1 for South)
     Range("AK2").FormulaR1C1 = "=IF(R[-1]C=""N"",1,IF(R[-1]C=""S"",-1,0))"
+    ' Sort longitude direction indicators (E/W)
     Range("AN1:AN1000").Sort Key1:=Range("AN1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    Range("AN2").FormulaR1C1 = "=IF(R[-1]C=""E"",1,IF(R[-1]C=""W"",-1,0))"
+    ' Convert E/W indicators to numeric multipliers (+1 for East, -1 for West)
+    Range("AN2").FormulaR1C1 = "=IF(R[-1]C=""E"",1,IF(R[-1]C""W"",-1,0))"
+    ' Sort coordinate data by timestamp
     Range("AI3:AM1000").Sort Key1:=Range("AI3"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+    ' Convert coordinates to decimal degrees format
+    ' Latitude: degrees + (minutes * direction multiplier)
     Range("AI2").FormulaR1C1 = "=IF(AND(R[1019]C<>"""",R1C7=5),"""",R[1]C*RC[2])"
+    ' Latitude minutes with direction and conversion factor
     Range("AJ2").FormulaR1C1 = "=IF(AND(R[1019]C<>"""",R1C7=5),"""",R[1]C*RC[1]*0.001)"
+    ' Longitude: degrees + (minutes * direction multiplier)
     Range("AL2").FormulaR1C1 = "=IF(AND(R[1019]C<>"""",R1C7=5),"""",R[1]C*RC[2])"
+    ' Longitude minutes with direction and conversion factor
     Range("AM2").FormulaR1C1 = "=IF(AND(R[1019]C<>"""",R1C7=5),"""",R[1]C*RC[1]*0.001)"
     Range("AO1:AO1000").Sort Key1:=Range("AO1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("AP4:AP1020").FormulaR1C1 = "=IF(R[-3]C[-15]=1,RC[-24],"""")"
@@ -753,11 +779,16 @@ If Range("Z1") >= 3 Then
     Range("BQ1:BQ1000").Sort Key1:=Range("BQ1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
 End If
 
+    ' Switch to PRS sheet for final data organization
     Sheets("PRS").Select
+    ' Link sunrise time calculation
     Range("G13").FormulaR1C1 = "=sunrise!R17C4"
+    ' Copy coordinate references from processed data
     Range("M2").FormulaR1C1 = "=Sheet1!R6C11"
     Range("M3").FormulaR1C1 = "=Sheet1!R6C12"
+    ' Transfer parsed coordinate data to main processing workbook
     Workbooks("A.xlsm").Sheets("Parsed").Range("A1:H30").Value = Workbooks("Ab.xlsm").Worksheets("PRS").Range("A1:H30").Value
+    ' Activate main processing workbook for subsequent operations
     Workbooks("A.xlsm").Activate
     'Application.Run "A.xlsm!CALx"
     'Sheets("Parsed").Visible = False
