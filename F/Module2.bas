@@ -1,3 +1,8 @@
+' VBA Module: Turn Point and Distance Calculations
+' Purpose: Manages turn point analysis and distance calculations for flight path optimization.
+' Handles start turn point accuracy, leg distance calculations, and geographic coordinate
+' processing using spherical trigonometry for flight route analysis.
+
 Option Explicit
 #If VBA7 And Win64 Then
     Dim LastRow As LongPtr

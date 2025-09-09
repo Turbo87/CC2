@@ -1,3 +1,8 @@
+' VBA Module: Calibration Data Management
+' Purpose: Manages calibration data loading and worksheet visibility controls.
+' Handles calibration value transfers between sheets and conditional sheet visibility
+' based on existing calibration data availability.
+
 Option Explicit
 Sub FreeMe()
 Attribute FreeMe.VB_ProcData.VB_Invoke_Func = " \n14"

@@ -1,3 +1,8 @@
+' VBA Module: Triangle Task Analysis
+' Purpose: Manages triangle task calculations and turn point optimization.
+' Handles 2-point and 3-point triangle analysis, start/finish calculations,
+' and spherical trigonometry for competitive soaring task validation.
+
 Option Explicit
 #If VBA7 And Win64 Then
     Dim LastRow As LongPtr

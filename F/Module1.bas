@@ -1,3 +1,8 @@
+' VBA Module: Application Selection and Data Processing
+' Purpose: Manages application window selection and data corrections for flight analysis.
+' Handles workbook activation, data copying between sheets, and formula calculations
+' with support for large datasets and iterative processing.
+
 Option Explicit
 #If VBA7 And Win64 Then
     Dim LastRow As LongPtr

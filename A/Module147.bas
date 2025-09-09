@@ -1,3 +1,7 @@
+' VBA Module: Event Processing and Validation
+' Purpose: Manages event processing workflows and validation procedures.
+' Handles user interface transitions and data entry validation checks.
+
 Option Explicit
 Dim linkArray As Variant
 Dim newHour As Variant

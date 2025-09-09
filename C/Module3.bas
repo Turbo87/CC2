@@ -1,3 +1,8 @@
+' VBA Module: Comprehensive Flight Analysis and Calculations
+' Purpose: Performs complex flight analysis including ground track calculations, GPS altitude processing,
+' speed calculations, and competitive soaring record validation. Handles multiple flight parameters
+' including start accuracy, finish timing, and turn point validations for official flight records.
+
 Option Explicit
 #If VBA7 And Win64 Then
     Dim LastRow As LongPtr

@@ -1,3 +1,7 @@
+' VBA Class: Workbook Event Handler
+' Purpose: Manages workbook closing procedures including cleanup operations,
+' calculation mode restoration, and application termination for the calibration workbook.
+
 Option Explicit
 
 Private Sub Workbook_BeforeClose(Cancel As Boolean)

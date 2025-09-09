@@ -1,3 +1,7 @@
+' VBA Module: File Import and Processing
+' Purpose: Handles IGC file selection and import operations for flight data analysis.
+' Manages file dialogs, workbook navigation, and data processing workflows.
+
 Option Explicit
 Dim linkArray As Variant
 Dim newHour As Variant

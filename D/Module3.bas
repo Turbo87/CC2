@@ -1,3 +1,7 @@
+' VBA Module: Waypoint Entry and Validation
+' Purpose: Manages waypoint entry validation and coordinate lookups.
+' Handles saved waypoint selection and automatic coordinate population.
+
 Option Explicit
 Sub SVenter()
 Attribute SVenter.VB_ProcData.VB_Invoke_Func = " \n14"

@@ -1,3 +1,7 @@
+' VBA Module: Calendar and Date Management
+' Purpose: Handles calendar date selection and dropdown list management.
+' Controls date picker functionality and manages date range selections.
+
 Option Explicit
 Sub CalDate()
 '

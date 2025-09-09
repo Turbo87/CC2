@@ -1,3 +1,8 @@
+' VBA Module: Flight Performance Analysis and Optimization
+' Purpose: Performs detailed flight performance analysis including GPS altitude tracking,
+' start/finish line calculations, and optimization computations for competitive soaring.
+' Handles complex trigonometric calculations for flight path analysis.
+
 Option Explicit
 #If VBA7 And Win64 Then
     Dim LastRow As LongPtr

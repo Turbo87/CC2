@@ -1,3 +1,7 @@
+' VBA Class: Workbook Event Handler
+' Purpose: Manages workbook initialization and setup for waypoint management application.
+' Configures display settings, sheet protection, and initial view state on workbook open.
+
 Option Explicit
 Private Sub Workbook_Open()
 

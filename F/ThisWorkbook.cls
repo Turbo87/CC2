@@ -1,3 +1,7 @@
+' VBA Class: Workbook Event Handler
+' Purpose: Handles workbook initialization for flight analysis application.
+' Configures Excel settings for iterative calculations and disables AutoComplete.
+
 Option Explicit
 Private Sub Workbook_Open()
 

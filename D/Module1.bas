@@ -1,3 +1,7 @@
+' VBA Module: Waypoint Management and Data Operations
+' Purpose: Manages waypoint addition, deletion, and list operations for flight planning.
+' Handles waypoint saving, data sorting, and user interface controls for waypoint management.
+
 Option Explicit
 
 Sub ADDwp()

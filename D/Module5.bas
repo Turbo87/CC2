@@ -1,3 +1,7 @@
+' VBA Module: Window Management and View Control
+' Purpose: Manages window resizing, view control, and display formatting for waypoint interface.
+' Handles screen zoom, row visibility, and worksheet layout for waypoint entry mode.
+
 Option Explicit
 Sub resz()
 Attribute resz.VB_ProcData.VB_Invoke_Func = " \n14"

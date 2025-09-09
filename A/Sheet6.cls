@@ -1,3 +1,7 @@
+' VBA Class: Sheet6 Event Handler
+' Purpose: Handles worksheet activation and change events for Sheet6.
+' Manages automatic calculations and cell change responses.
+
 Private Sub Worksheet_Activate()
  
  'Application.ScreenUpdating=False

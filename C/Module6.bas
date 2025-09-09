@@ -1,3 +1,7 @@
+' VBA Module: Print and File Management
+' Purpose: Handles print operations and file management functions including desktop path retrieval,
+' conditional printing of claim sheets, and electronic copy operations for flight documentation.
+
 Option Explicit
 Public Function GetDesktop() As String
     GetDesktop = CreateObject("WScript.Shell").SpecialFolders("Desktop") & _

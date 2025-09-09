@@ -1,3 +1,8 @@
+' VBA Module: Pre-processing and Data Preparation
+' Purpose: Handles data pre-processing operations including time range filtering,
+' data extraction, and preparation for analysis. Manages start/finish line calculations
+' and data range validations for flight record processing.
+
 Option Explicit
 #If Win64 Then
     Dim LastRow As LongPtr

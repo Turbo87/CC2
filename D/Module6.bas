@@ -1,6 +1,10 @@
+' VBA Module: Application Control and User Interface
+' Purpose: Manages application termination, form displays, and user interface controls.
+' Handles calibration forms, cursor movement, and application exit procedures.
+
 Option Explicit
 Sub Buhby()
-    
+
     ActiveWorkbook.Saved = True
     MsgBox "Thanks for using Claim Check! Click OK to exit"
     Application.Quit

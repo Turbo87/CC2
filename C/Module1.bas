@@ -1,3 +1,8 @@
+' VBA Module: Calibration and Task Validation
+' Purpose: Manages calibration visibility controls and task validation calculations.
+' Handles dropdown change events, calibration sheet management, and complex flight
+' task calculations including trigonometric computations for soaring competitions.
+
 Option Explicit
 Sub DropDown1_Change()
 Application.ScreenUpdating = False

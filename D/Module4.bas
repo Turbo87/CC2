@@ -1,3 +1,7 @@
+' VBA Module: Waypoint List Management and Display
+' Purpose: Manages waypoint list display and formatting for user interface.
+' Handles list visibility controls, column management, and waypoint selection modes.
+
 Option Explicit
 Sub List()
 Attribute List.VB_ProcData.VB_Invoke_Func = " \n14"

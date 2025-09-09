@@ -1,3 +1,7 @@
+' VBA Class: Workbook Event Handler
+' Purpose: Manages workbook initialization, internet connectivity checks, and application settings.
+' Handles workbook opening procedures, link updates, and Excel environment configuration.
+
 Option Explicit
 
 'Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" (ByRef lpdwFlags As Long, ByVal lpszConnectionName As String, ByVal dwNameLen As Integer, ByVal dwReserved As Long) As Long

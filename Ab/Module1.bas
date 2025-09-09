@@ -1,3 +1,9 @@
+' VBA Module: Data Logger Processing and Analysis
+' Purpose: Processes logger data from flight recording devices, performs data parsing,
+' time calculations, and format conversions for flight analysis. Handles data sorting,
+' filtering, and preparation for import into analysis worksheets.
+' Contains functions for processing large datasets (10K-60K records) with time-based calculations.
+
 Option Explicit
 Dim myFile As Variant
 #If VBA7 And Win64 Then

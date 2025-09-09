@@ -1,3 +1,9 @@
+' VBA Module: Solar Position and Time Calculations
+' Purpose: Provides astronomical calculations for sunrise, sunset, solar noon, dawn, dusk,
+' solar azimuth and elevation. Based on NOAA algorithms from Astronomical Algorithms by Jean Meeus.
+' Supports custom solar depression angles and includes atmospheric refraction corrections.
+' Accuracy: ±1 minute between ±72° latitude, ±10 minutes outside these latitudes.
+'
 ' Calculation of local times of sunrise, solar noon, and sunset
 ' based on the calculation procedure by NOAA in the javascript in
 ' http://www.srrb.noaa.gov/highlights/sunrise/sunrise.html and

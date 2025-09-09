@@ -1,3 +1,8 @@
+' VBA Module: Ordinate and Optimization Analysis
+' Purpose: Performs ordinate analysis and optimization calculations for flight tasks.
+' Handles coordinate sorting, distance calculations, and removes overlapping points
+' within specified time and distance thresholds for flight path optimization.
+
 Option Explicit
 #If VBA7 And Win64 Then
     Dim LastRow As LongPtr

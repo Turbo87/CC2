@@ -1,3 +1,7 @@
+' VBA Module: Waypoint Data Transfer and Processing
+' Purpose: Handles waypoint data saving and transfer operations between workbooks.
+' Manages text parsing, data formatting, and coordinate processing for saved waypoints.
+
 Option Explicit
 Sub WPSave()
 Attribute WPSave.VB_ProcData.VB_Invoke_Func = " \n14"

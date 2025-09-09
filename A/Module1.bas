@@ -1,3 +1,8 @@
+' VBA Module: Workbook Integration and Navigation
+' Purpose: Manages inter-workbook communication and window states between multiple Excel files.
+' Handles opening and linking to external workbooks (D.xlsm), manages window visibility,
+' and provides navigation between different application views and data entry modes.
+
 Option Explicit
 
 Sub OpenD()

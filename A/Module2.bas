@@ -1,3 +1,8 @@
+' VBA Module: Data Calibration and Parsing
+' Purpose: Handles calibration data processing and text parsing operations.
+' Manages data validation, date calculations, and transfers parsed data between workbooks.
+' Includes text-to-columns parsing and data currency validation functions.
+
 Option Explicit
 
 Sub CALx()
