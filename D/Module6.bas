@@ -82,7 +82,7 @@ Attribute Cal.VB_ProcData.VB_Invoke_Func = " \n14"
         "=IF(R10C5=17,R[14]C[9],IF(R10C5=18,R[15]C[9],IF(R10C5=19,R[16]C[9],IF(R10C5=20,R[17]C[9],""""))))"
     Range("B14").FormulaR1C1 = _
         "=IF(R10C5=21,R[17]C[9],IF(R10C5=22,R[18]C[9],IF(R10C5=23,R[19]C[9],IF(R10C5=24,R[20]C[9],""""))))"
-    
+
     Range("B16").FormulaR1C1 = _
         "=IF(R[-6]C<>"""",CONCATENATE(R[-6]C,"" "",R[-4]C[4]),IF(R[-5]C<>"""",CONCATENATE(R[-5]C,"" "",R[-4]C[4]),IF(R[-4]C<>"""",CONCATENATE(R[-4]C,"" "",R[-4]C[4]),IF(R[-3]C<>"""",CONCATENATE(R[-3]C,"" "",R[-4]C[4]),""""))))"
     Range("B17").FormulaR1C1 = "=CONCATENATE(""                       "",R[-1]C)"
@@ -111,7 +111,7 @@ Attribute Caltyp.VB_ProcData.VB_Invoke_Func = " \n14"
 '
     Application.ScreenUpdating = False
     Sheets("Calibration").Unprotect Password:="spike"
-    
+
     If Range("E8") >= 3 And Range("L7") <> "" Then
         ActiveSheet.Shapes.Range(Array("Rounded Rectangle 1")).Visible = msoFalse
         ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoFalse
@@ -120,14 +120,14 @@ Attribute Caltyp.VB_ProcData.VB_Invoke_Func = " \n14"
         If Range("E8") = 4 Then
             ActiveSheet.Shapes.Range(Array("Rounded Rectangle 3")).Visible = msoTrue
         End If
-        
+
     ElseIf Range("E8") < 3 Or Range("L7") = "" Then
     ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoFalse
     ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoTrue
     ActiveSheet.Shapes.Range(Array("Rounded Rectangle 1")).Visible = msoTrue
     ActiveSheet.Shapes.Range(Array("Rounded Rectangle 3")).Visible = msoFalse
     ActiveSheet.Rows("11:12").Hidden = False
-   
+
     End If
     Range("E10").Select
     Sheets("Calibration").Protect Password:="spike"
@@ -231,9 +231,9 @@ If Range("D16") = "OK" Then
         Range("K58:K78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-6],"" "",R[-36]C[-5])"
         Range("K55:K78").Value = Range("K55:K78").Value
     End If
- 
+
  ElseIf Range("C16") = "dupe" Then
- 
+
     If Range("C17") = Range("M15") Or Range("C15") = Range("B55") Then
         Range("B56").Value = Range("F14").Value
         Range("B57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
@@ -286,7 +286,7 @@ If Range("D16") = "OK" Then
         Range("K55:K78").Value = Range("K55:K78").Value
     End If
  End If
- 
+
  Application.Run "D.xlsm!Clear"
  Range("E8").Select
  Sheets("Calibration").Protect Password:="spike"
@@ -301,7 +301,7 @@ Sub ViewCal()
     Application.ScreenUpdating = False
     Application.DisplayAlerts = False
     Sheets("Calibration").Unprotect Password:="spike"
-    
+
     ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoFalse
     ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoTrue
     ActiveSheet.Rows("11:12").Hidden = True
@@ -311,7 +311,7 @@ Sub ViewCal()
         Range("E10").Select
         Range("E10").Value = Range("C14").Value
         End If
-    
+
     If Range("E10") = 2 Or Range("B17") = Range("M15") Then
         Range("F14").Value = Range("B56").Value
         If Range("B57") = "Metres" Then
@@ -413,7 +413,7 @@ Sub ViewCal()
             Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
             :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
     End If
-  
+
   Range("F14").Select
   Sheets("Calibration").Protect Password:="spike"
   Application.DisplayAlerts = True

@@ -29,13 +29,13 @@ Sheets("Sheet11").Activate
     Sheets("Sheet11").Range("G10:G10009").Value = Sheets("TPOrder").Range("A11:A10010").Value
     Sheets("Sheet11").Range("H10:H10009").Value = Sheets("TPOrder").Range("C11:C10010").Value
     Sheets("Sheet11").Range("I10:K10009").Value = Sheets("TPOrder").Range("E11:G10010").Value
-   
+
     Range("G6:K6").Value = Range("A10:E10").Value
     'Keep A5:A7, B5 format
     Sheets("Sheet11").Range("A5").Value = Sheets("TPOrder").Range("CI1").Value
     Sheets("Sheet11").Range("A6").Value = Sheets("TPOrder").Range("CY1").Value
     Sheets("Sheet11").Range("A7").Value = Sheets("TPOrder").Range("DO1").Value
-    
+
     'Get FIST TP - added 10/29/27 in case < 3 TP
     Range("A4").FormulaR1C1 = "=MAX(R5C1:R7C1)"
     If Range("A4") = 3 Then
@@ -45,7 +45,7 @@ Sheets("Sheet11").Activate
     ElseIf Range("A4") = 1 Then
         Range("B5").FormulaR1C1 = "R5C1"
     End If
-    
+
     Range("B5").Value = Range("B5").Value
     Range("A4").Clear
     Range("B6").FormulaR1C1 = "=IF(R5C=R7C1,TPOrder!R3C119,IF(R5C=R6C1,TPOrder!R3C103,TPOrder!R3C87))"
@@ -63,9 +63,9 @@ Sheets("Sheet11").Activate
     ElseIf Range("B5") = 1 And Range("E3") > Range("E2") Then
         Sheets("Sheet11").Range("T5").Value = Sheets("YDWK2").Range("C369").Value
     End If
-    
+
     Range("M10:Q10").Value = Range("G10:K10").Value
-    
+
     Sheets("Sheet11").Range("S10").Value = Sheets("YDWK2").Range("C441").Value
     Range("T10").FormulaR1C1 = "=IF(RC[-1]-180<0,RC[-1]-180+360,RC[-1]-180)"
     Range("U10").FormulaR1C1 = _
@@ -74,14 +74,14 @@ Sheets("Sheet11").Activate
     Range("W10").FormulaR1C1 = "=IF(RC[-2]-45<0,RC[-2]-45+360,RC[-2]-45)"
     Sheets("Sheet11").Calculate
     Range("T10:W10").Value = Range("T10:W10").Value
-    
+
     Range("M10").Copy
     Range("Y1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
-    
+
     Range("V10:W10").Copy
     Range("Y2").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("Y7").FormulaR1C1 = "=MIN(R[3]C:R[10001]C)"
     Range("Y8").FormulaR1C1 = "=MAX(R[2]C:R[10001]C)"
     'X10 et al per TP
@@ -92,7 +92,7 @@ Sheets("Sheet11").Activate
     ElseIf Range("A5") = Range("B5") Then
         Sheets("Sheet11").Range("X10:X10009").Value = Sheets("TPOrder").Range("CF11:CG10010").Value
     End If
-    
+
     Range("Y10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC7="""",RC[-1]=""""),"""",IF(OR(AND(R2C>R3C,RC24>=R3C,RC24<=R2C),AND(R3C>R2C,OR(RC24>=R3C,RC24<=R2C))),RC7,""""))"
     'Copy Ref G
@@ -115,7 +115,7 @@ Sheets("Sheet11").Activate
     Range("B6").FormulaR1C1 = "=IF(R5C=R7C1,TPOrder!R3C119,IF(R5C=R6C1,TPOrder!R3C103,TPOrder!R3C87))"
     Range("C6").FormulaR1C1 = "=IF(AND(R5C2=R7C1,RC2=""SECTOR""),TPOrder!R6C118,IF(AND(R5C2=R7C1,RC2=""CYLINDER""),TPOrder!R6C119,IF(AND(R5C2=R6C1,RC2=""SECTOR""),TPOrder!R6C102,IF(AND(R5C2=R6C1,RC2=""CYLINDER""),TPOrder!R6C103,IF(AND(R5C2=R5C1,RC2=""SECTOR""),TPOrder!R6C86,IF(AND(R5C2=R5C1,RC2=""CYLINDER""),TPOrder!R6C87,""""))))))"
     Range("B6:C6").Value = Range("B6:C6").Value
-    
+
     'TESTS OK 5/1/15!!
     'Ck (E2) Rel to TP1 & (E3) St to TP1 in case only 1 TP achieved
     Sheets("Sheet11").Range("E2").Value = Sheets("Worksheet").Range("I34").Value
@@ -130,11 +130,11 @@ Sheets("Sheet11").Activate
     ElseIf Range("B5") = 1 And Range("E3") > Range("E2") Then
         Sheets("Sheet11").Range("T5").Value = Sheets("YDWK2").Range("C369").Value
     End If
-    
+
     'Check TPOrder FinFix value Added 12/30/2015 for HG (Wild departure from declared task)
     Sheets("Sheet11").Range("H7:I7").Value = Sheets("TPOrder").Range("DR3:DS3").Value
     Sheets("Sheet11").Range("J7").Value = Sheets("TPOrder").Range("DQ8").Value
-    
+
     Range("L8:Q8").FormulaR1C1 = "=MAX(R[2]C:R[59992]C)"
     Range("L10").FormulaR1C1 = "=IF(RC[-11]>R6C3,6371*ACOS(SIN(RC[-10])*SIN(R7C8)+COS(RC[-10])*COS(R7C8)*COS(R7C9-RC[-9])),"""")"
     Range("M10").FormulaR1C1 = "=IF(RC[-1]=R8C12,RC[-12],"""")"
@@ -157,7 +157,7 @@ Sheets("Sheet11").Activate
         Sheets("TPOrder").Calculate
         Sheets("YDWK2").Calculate
     End If
-    
+
     Sheets("Sheet11").Range("M10").Value = Sheets("TPOrder").Range("DT8").Value
     Sheets("Sheet11").Range("N10").Value = Sheets("TPOrder").Range("DR8").Value
     Sheets("Sheet11").Range("O10").Value = Sheets("TPOrder").Range("DS8").Value
@@ -172,14 +172,14 @@ Sheets("Sheet11").Activate
     Range("W10").FormulaR1C1 = "=IF(RC[-2]-45<0,RC[-2]-45+360,RC[-2]-45)"
     Sheets("Sheet11").Calculate
     Range("T10:W10").Value = Range("T10:W10").Value
-    
+
     Range("M10").Copy
     Range("Y1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
-    
+
     Range("V10:W10").Copy
     Range("Y2").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("Y8").FormulaR1C1 = "=MAX(R[2]C:R[10001]C)"
     'X10 et al per TP
     If Range("A7") = Range("B5") Then
@@ -189,7 +189,7 @@ Sheets("Sheet11").Activate
     ElseIf Range("A5") = Range("B5") Then
         Sheets("Sheet11").Range("X10:X10009").Value = Sheets("TPOrder").Range("CF11:CG10010").Value
     End If
-    
+
     Range("Y10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC7="""",RC7>R1C,RC[-1]=""""),"""",IF(OR(AND(R2C>R3C,RC24>=R3C,RC24<=R2C),AND(R3C>R2C,OR(RC24>=R3C,RC24<=R2C))),RC7,""""))"
     'Copy Ref G
@@ -200,13 +200,13 @@ Sheets("Sheet11").Activate
     End With
     Sheets("Sheet11").Calculate
     Range("Y8").Value = Range("Y8").Value
-    
+
     'NEW STUFF HERE
     If Range("B6") = "SECTOR" And Range("Y8") = 0 Then
         'We're in trouble!
         Application.Run "C.xlsm!POsolve"
     End If
-    
+
     'Correct for non-std PA
     Range("P11").FormulaR1C1 = "=IF(R[-1]C[-3]<=B!R2C6,R[-1]C+B!R1C6,R[-1]C+B!R3C6)"
     Sheets("Sheet11").Calculate
@@ -222,10 +222,10 @@ Sheets("Sheet11").Activate
     Sheets("Sheet11").Range("E4").Value = Sheets("Worksheet").Range("D9").Value
     Range("I2,I3").FormulaR1C1 = "=IF(R4C5=""Feet"",(RC[-3]/3.2808399)-R10C16,RC[-3]-R10C16)"
     Range("J2,J3").FormulaR1C1 = "=IF(RC[-2]= MAX(R2C[-2],R3C[-2]),""MAX"","""")"
-    
+
     Range("K2,K3").FormulaR1C1 = "=IF(RC[-3]>100,R9C4,IF(AND(RC[-3]<100,R9C5<>""PR""),10*RC[-3],(10*RC[-3])-100))"
     Range("L2,L3").FormulaR1C1 = "=IF(RC[-3]<RC[-1],""OK"","""")"
-    
+
     Range("M2").FormulaR1C1 = "=IF(RC[-4]>RC[-2],(RC[-8]+RC[-6]+R[8]C[5])-((RC[-4]-RC[-2])*0.1),RC[-8]+RC[-6]+R[8]C[5])"
     Range("M3").FormulaR1C1 = "=IF(RC[-4]>RC[-2],(RC[-8]+R[-1]C[-6]+R[7]C[5])-((RC[-4]-RC[-2])*0.1),RC[-8]+R[-1]C[-6]+R[7]C[5])"
     Range("M4").FormulaR1C1 = "=MAX(R[-2]C:R[-1]C)"
@@ -233,17 +233,17 @@ Sheets("Sheet11").Activate
     Range("L8:Q8").Value = Range("L8:Q8").Value
     Range("R8").Value = Range("Y8").Value
     Sheets("Sheet11").Calculate
-    
+
     If Range("J2") = "MAX" And Range("I2") > Range("K2") Then
         Application.Run "C.xlsm!LoHREDUX"
     ElseIf Range("J3") = "MAX" And Range("I3") > Range("K3") Then
         Application.Run "C.xlsm!LoHREDUX"
     End If
-    
+
      If Range("L10") < Range("M4") Or Range("L10") = "" Then
         Range("M10:R10").Value = Range("M8:R8").Value
     End If
-    
+
     'Restore altitude as recorded
     Range("P11").FormulaR1C1 = "=IF(R[-1]C[-3]<=B!R2C6,R[-1]C-B!R1C6,R[-1]C-B!R3C6)"
     Range("P10").Value = Range("P11").Value
@@ -263,13 +263,13 @@ Sheets("Sheet11").Activate
     Sheets("YDWK1").Calculate
     Sheets("Worksheet").Calculate
     Application.Calculation = xlCalculationAutomatic
-    
+
 End Sub
 Sub POsolve()
 '
 ' Testing on Gai, w/ TP 1 & 2 TPO FF invalidates TP2 Sector; revised 9/6/15 to retain GPS alt
 ' Amended 9/13/2017 in case fewer than 500 @ AP6
-    
+
     Range("M10").FormulaR1C1 = "=IF(RC[-12]>R6C3,RC[-12],"""")"
     Range("N10:Q10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-12],"""")"
     'Copy Ref A Value Sort
@@ -283,7 +283,7 @@ Sheets("Sheet11").Calculate
 
     Range("M10:Q10009").Value = Range("M10:Q10009").Value
     Range("M10:Q10009").Sort Key1:=Range("M10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     'Flattening @ O3
     Range("O3").Value = 3.35281066474748E-03
     'TO point lat @ AJ4, lon @ AL4 TEST CASE VALUES FROM TPO
@@ -297,13 +297,13 @@ Sheets("Sheet11").Calculate
         Sheets("Sheet11").Range("AJ4").Value = Sheets("TPOrder").Range("DL4").Value
         Sheets("Sheet11").Range("AL4").Value = Sheets("TPOrder").Range("DM4").Value
     End If
-    
+
     'Constants
     Range("AA5").FormulaR1C1 = "=(1-R3C15)*TAN(R4C36)"
     Range("AA6").FormulaR1C1 = "=ATAN(R[-1]C)"
     Range("AA7").FormulaR1C1 = "=SIN(R[-1]C)"
     Range("AA8").FormulaR1C1 = "=COS(R[-2]C)"
-    
+
     'Calcs for each candidate
     Range("T10").FormulaR1C1 = "=IF(RC[-3]="""","""",(1-R3C15)*TAN(RC[-6]))"
     Range("U10").FormulaR1C1 = "=IF(RC[-1]="""","""",ATAN(RC[-1]))"
@@ -353,7 +353,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     Range("AK9").FormulaR1C1 = "=R[-1]C-R[-2]C"
     Sheets("Sheet11").Calculate
     Range("AK7:AK9").Value = Range("AK7:AK9").Value
-    
+
     If Range("AK7") = 0 And Range("AK8") = 0 Then
          Range("AK10").FormulaR1C1 = "=IF(AND(RC[-1]>=R5C37-20,RC[-1]<=R5C37+20),RC[-24],"""")"
          'Copy Ref M
@@ -364,7 +364,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
         End With
     'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet11").Calculate
-    
+
          If Range("AK7") = 0 And Range("AK8") = 0 Then
              Range("AK10").FormulaR1C1 = "=IF(AND(RC[-1]>=R5C37-15,RC[-1]<=R5C37+15),RC[-24],"""")"
             'Copy Ref M
@@ -375,7 +375,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
             End With
         'Application.Calculation = xlCalculationAutomatic
         Sheets("Sheet11").Calculate
-        
+
             If Range("AK7") = 0 And Range("AK8") = 0 Then
                 Range("AK10").FormulaR1C1 = "=IF(AND(RC[-1]>=R5C37-15,RC[-1]<=R5C37+15),RC[-24],"""")"
                 'Copy Ref M
@@ -396,7 +396,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
                     End With
                 'Application.Calculation = xlCalculationAutomatic
                 Sheets("Sheet11").Calculate
-                
+
                     If Range("AK7") = 0 And Range("AK8") = 0 Then
                         Range("AK10").FormulaR1C1 = "=IF(AND(RC[-1]>=R5C37-5,RC[-1]<=R5C37+5),RC[-24],"""")"
                     'Copy Ref M
@@ -407,16 +407,16 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
                     End With
                 'Application.Calculation = xlCalculationAutomatic
                 Sheets("Sheet11").Calculate
-                
+
                 End If
             End If
         End If
     End If
     End If
-     
+
     Range("AK10:AQ10009").Value = Range("AK10:AQ10009").Value
     Range("AK10:AQ10009").Sort Key1:=Range("AK10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-                      
+
     Range("AR10").FormulaR1C1 = "=IF(RC[-1]-180<0,RC[-1]-180+360,RC[-1]-180)"
     'Copy Ref AK
     Application.Calculation = xlCalculationManual
@@ -426,7 +426,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     End With
     'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet11").Calculate
-    
+
     If Range("B5") = 3 Then
         Sheets("Sheet11").Range("AR5").Value = Sheets("YDWK2").Range("C513").Value
     ElseIf Range("B5") = 2 Then
@@ -448,9 +448,9 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     End With
     'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet11").Calculate
-    
+
     Range("AR10:AU10009").Value = Range("AR10:AU1009").Value
-    
+
     If Range("A7") = Range("B5") Then
         Sheets("Sheet11").Range("AV10:AV10009").Value = Sheets("TPOrder").Range("DL11:DL10010").Value
     ElseIf Range("A6") = Range("B5") Then
@@ -458,12 +458,12 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     ElseIf Range("A5") = Range("B5") Then
         Sheets("Sheet11").Range("AV10:AV10009").Value = Sheets("TPOrder").Range("CF11:CG10010").Value
     End If
-    
+
     Range("AP6").FormulaR1C1 = "=IF(R[514]C<>"""",LARGE(R[4]C:R[10003]C,500),MAX(R[4]C:R[10003]C))"
     'Range("AP6").FormulaR1C1 = "=LARGE(R[4]C:R[10003]C,500)"
     Sheets("Sheet11").Calculate
     Range("AP6").Value = Range("AP6").Value
-    
+
     Range("AK10:AU10009").Sort Key1:=Range("AP10"), Order1:=xlDescending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("AK10:AK509").Copy
     Range("AW1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -471,7 +471,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     Range("AW2").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Range("AP10:AP509").Copy
     Range("AW4").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     'Matrix
     Range("AW10:UB10").FormulaR1C1 = "=IF(OR(RC48="""",R1C=""""),"""",IF(OR(AND(R3C<R2C,RC48>=R3C,RC48<=R3C),AND(R2C<R3C,OR(RC48>=R3C,RC48<=R2C))),RC7,""""))"
     'Copy Ref G
@@ -482,13 +482,13 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     End With
     'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet11").Calculate
-    
+
     Range("AW10:UB10009").Value = Range("AW10:UB10009").Value
     Range("AW6:UB6").FormulaR1C1 = "=MAX(R[4]C:R[10003]C)"
     Range("AW7:UB7").FormulaR1C1 = "=IF(R[-1]C<>0,R[-3]C,"""")"
     Range("AT5").FormulaR1C1 = "=MAX(R7C49:R7C548)"
     Sheets("Sheet11").Calculate
-    
+
     Range("AT5").Value = Range("AT5").Value
     Range("AW8:UB8").FormulaR1C1 = "=IF(R[-1]C=R5C46,R[-7]C,"""")"
     Range("AW9:UB9").FormulaR1C1 = "=IF(R[-1]C<>"""",R[-3]C,"""")"
@@ -496,7 +496,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     Range("AT6").FormulaR1C1 = "=MAX(R9C[3]:R9C[502])"
     Sheets("Sheet11").Calculate
     Range("AT4:AT6").Value = Range("AT4:AT6").Value
-    
+
     If Range("AP6") > Range("AT5") Then
         'Save AT4:AT6 somewhere, Test next 500
         Range("AS4:AS6").Value = Range("AT4:AT6").Value
@@ -507,7 +507,7 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
         Range("AW2").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
         Range("AP510:AP1009").Copy
         Range("AW4").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
         'Matrix
         Range("AW10:UB10").FormulaR1C1 = "=IF(OR(RC48="""",R1C=""""),"""",IF(OR(AND(R3C<R2C,RC48>=R3C,RC48<=R3C),AND(R2C<R3C,OR(RC48>=R3C,RC48<=R2C))),RC7,""""))"
         'Copy Ref G
@@ -518,13 +518,13 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
         End With
         'Application.Calculation = xlCalculationAutomatic
         Sheets("Sheet11").Calculate
-    
+
         Range("AW10:UB10009").Value = Range("AW10:UB10009").Value
         Range("AW6:UB6").FormulaR1C1 = "=MAX(R[4]C:R[10003]C)"
         Range("AW7:UB7").FormulaR1C1 = "=IF(R[-1]C<>0,R[-3]C,"""")"
         Range("AT5").FormulaR1C1 = "=MAX(R7C49:R7C548)"
         Sheets("Sheet11").Calculate
-    
+
         Range("AT5").Value = Range("AT5").Value
         Range("AW8:UB8").FormulaR1C1 = "=IF(R[-1]C=R5C46,R[-7]C,"""")"
         Range("AW9:UB9").FormulaR1C1 = "=IF(R[-1]C<>"""",R[-3]C,"""")"
@@ -532,13 +532,13 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
         Range("AT6").FormulaR1C1 = "=MAX(R9C[3]:R9C[502])"
         Sheets("Sheet11").Calculate
         Range("AT4:AT6").Value = Range("AT4:AT6").Value
-          
+
         If Range("AS4") > Range("AT4") Then
             Range("AT4:AT6").Value = Range("AS4:AS6").Value
             Range("AS4:AS6").Clear
         End If
     End If
-       
+
     'Once all tested
     Columns("AW:UC").Clear
     Columns("M:AS").Clear
@@ -557,11 +557,11 @@ Range("AK10:AK10009").Value = Range("AK10:AK10009").Value
     End With
     'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet11").Calculate
-          
+
     Range("M10:R10").Value = Range("M10:R10").Value
     Range("Y8").Value = Range("Y8").Value
     Range("M11:R60009").Clear
-          
+
 End Sub
 Sub LoHREDUX()
 '
@@ -590,7 +590,7 @@ Sub LoHREDUX()
             Sheets("Sheet11").Range("C1").Value = Sheets("TPOrder").Range("CI6").Value
         End If
     End If
-    
+
     Range("AA10").FormulaR1C1 = "=IF(RC[-26]<MAX(R1C1,R1C3),0,6371*ACOS(SIN(R2C1)*SIN(RC[-25])+COS(R2C1)*COS(RC[-25])*COS(RC[-24]-R2C2)))"
     'Copy Ref A
     Application.Calculation = xlCalculationManual
@@ -598,12 +598,12 @@ Sub LoHREDUX()
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("AA10:AA10").AutoFill Destination:=.Range("AA10:AA" & LastRow), Type:=xlFillDefault
     End With
-    
+
     Range("AA8").FormulaR1C1 = "=IF(LARGE(R[2]C:R[60001]C,500)<>0,LARGE(R[2]C:R[60001]C,500),MIN(R[2]C:R[60001]C))"
     'Range("AA8").FormulaR1C1 = "=LARGE(R[2]C:R[60001]C,500)"
     Sheets("Sheet11").Calculate
     Range("AA8").Value = Range("AA8").Value
-   
+
     'Range("AB10").FormulaR1C1 = "=IF(RC[-1]<>0,RC[-27],"""")"
     Range("AB10").FormulaR1C1 = "=IF(RC[-1]>=R8C27,RC[-27],"""")"
     Range("AC10:AF10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-27],"""")"
@@ -613,12 +613,12 @@ Sub LoHREDUX()
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("AB10:AF10").AutoFill Destination:=.Range("AB10:AF" & LastRow), Type:=xlFillDefault
     End With
-    
+
     Sheets("Sheet11").Calculate
-    
+
     Range("AA10:AF60009").Value = Range("AA10:AF60009").Value
     Range("AA10:AF60009").Sort Key1:=Range("AB10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     If Range("J2") = "MAX" Then
         Range("AG10:AG509").FormulaR1C1 = "=IF(RC[-1]<>"""",R2C5+R2C7+RC[-6],"""")"
     ElseIf Range("J3") = "MAX" Then
@@ -630,7 +630,7 @@ Sub LoHREDUX()
     ElseIf Range("J3") = "MAX" Then
         Range("AI1").FormulaR1C1 = "=IF(Worksheet!R9C4=""Feet"",R3C[-29]/3.2808399,R3C[-29])"
     End If
-    
+
     'LoH Matrix ckd w / calculator
     If Range("E9") = "" Then
         Range("AI10:AI509").FormulaR1C1 = _
@@ -639,10 +639,10 @@ Sub LoHREDUX()
          Range("AI10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC[-2]=""""),"""",IF(OR(AND(RC33>100,R1C-RC31<R9C4),AND(RC33<=100,R1C-RC31<=0.01*(RC33*1000)-100)),RC33,IF(RC33>100,RC33-(R1C-RC31-R9C4)*0.1,RC33-(R1C-RC31-(0.01*(RC33*1000)-100))*0.1)))"
      End If
-    
+
     Sheets("Sheet11").Calculate
     Range("AI10:AI509").Value = Range("AI10:AI509").Value
-    
+
     Range("AI8").FormulaR1C1 = "=MAX(R10C:R509C)"
     Range("AJ8:AN8").FormulaR1C1 = "=MAX(R[2]C:R[501]C)"
     Sheets("Sheet11").Calculate
@@ -652,7 +652,7 @@ Sub LoHREDUX()
     Sheets("Sheet11").Calculate
     Range("L10:Q10").Value = Range("AI8:AN8").Value
     Columns("R:AN").Clear
- 
+
  Sheets("YDWK2").Range("E1609").Value = 0
  Sheets("YDWK2").Range("E1610").Value = 0
  Sheets("YDWK2").Range("E1611").Value = 0
@@ -664,7 +664,7 @@ Sub LoHREDUX()
  If Range("C1") = "" Then
     Application.Run ("C.xlsm!MinLOH")
  End If
-     
+
 End Sub
 Sub MinLOH()
 '
@@ -680,7 +680,7 @@ Sub MinLOH()
         Sheets("YDWK2").Range("E1609").Value = Sheets("TPOrder").Range("CF4").Value
         Sheets("YDWK2").Range("E1610").Value = Sheets("TPOrder").Range("CG4").Value
     End If
-    
+
     Sheets("YDWK2").Range("E1611").Value = Sheets("Sheet11").Range("N10").Value
     Sheets("YDWK2").Range("E1612").Value = Sheets("Sheet11").Range("O10").Value
     Sheets("YDWK2").Range("E1651").FormulaR1C1 = _
@@ -688,7 +688,7 @@ Sub MinLOH()
     'Application.Calculation = xlCalculationAutomatic
     Sheets("YDWK2").Calculate
     'Application.Calculation = xlCalculationManual
-    
+
     'T5 variable w/last TP
     If Range("B5") = 3 Then
         Sheets("Sheet11").Range("T5").Value = Sheets("YDWK2").Range("C513").Value
@@ -699,7 +699,7 @@ Sub MinLOH()
     ElseIf Range("B5") = 1 And Range("E3") > Range("E2") Then
         Sheets("Sheet11").Range("T5").Value = Sheets("YDWK2").Range("C369").Value
     End If
-            
+
     Sheets("Sheet11").Range("S10").Value = Sheets("YDWK2").Range("C1606").Value
     Range("T10").FormulaR1C1 = "=IF(RC[-1]-180<0,RC[-1]-180+360,RC[-1]-180)"
     Range("U10").FormulaR1C1 = _
@@ -708,14 +708,14 @@ Sub MinLOH()
     Range("W10").FormulaR1C1 = "=IF(RC[-2]-45<0,RC[-2]-45+360,RC[-2]-45)"
     Sheets("Sheet11").Calculate
     Range("T10:W10").Value = Range("T10:W10").Value
-            
+
     Range("M10").Copy
     Range("Y1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
-    
+
     Range("V10:W10").Copy
     Range("Y2").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("Y8").FormulaR1C1 = "=MAX(R[2]C:R[10001]C)"
     'X10 et al per TP
     If Range("A7") = Range("B5") Then
@@ -725,7 +725,7 @@ Sub MinLOH()
     ElseIf Range("A5") = Range("B5") Then
         Sheets("Sheet11").Range("X10:X10009").Value = Sheets("TPOrder").Range("CF11:CG10010").Value
     End If
-    
+
     Range("Y10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC7="""",RC7>R1C,RC[-1]=""""),"""",IF(OR(AND(R2C>R3C,RC24>=R3C,RC24<=R2C),AND(R3C>R2C,OR(RC24>=R3C,RC24<=R2C))),RC7,""""))"
     'Copy Ref G
@@ -753,7 +753,7 @@ Sub GPSsfLines()
     Sheets("Sheet11").Calculate
     Range("M10:N10009").Value = Range("M10:N10009").Value
     Range("M10:N10009").Sort Key1:=Range("M10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-   
+
     Sheets("Sheet11").Range("P5").Value = Sheets("TPOrder").Range("EY9").Value
     Range("P10").FormulaR1C1 = "=IF(OR(RC[-9]=R5C,R[1]C[-9]="""",R[1]C[-9]=R5C),RC[-9],"""")"
     Range("Q10").FormulaR1C1 = "=IF(RC[-1]="""","""",RC[-6])"
@@ -765,7 +765,7 @@ Sub GPSsfLines()
     Sheets("Sheet11").Calculate
     Range("P10:Q10009").Value = Range("P10:Q10009").Value
     Range("P10:Q10009").Sort Key1:=Range("P10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-   
+
     Range("M11:Q12").Cut Destination:=Range("M12:Q13")
     Sheets("Sheet11").Range("O6:O7").Value = Sheets("TPOrder").Range("FV29:FV30").Value
     Range("N11").FormulaR1C1 = "=IF(OR(R[-5]C[1]="""",R[-4]C[1]=""""),0,(R[1]C-R[-1]C)*R[-5]C[1]+R[-1]C)"

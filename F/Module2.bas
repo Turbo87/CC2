@@ -21,10 +21,10 @@ If Range("A10") = Range("A1") Then
     Application.Run "F.xlsm!NewOR2"
     Exit Sub
 ElseIf Range("A10") < Range("A1") Then
-    
+
     'First Leg longest 1000 if >1000, longest 500 if 500 - 999, > medidan if < 500
     Range("F10:F10009").FormulaR1C1 = "=IF(AND(RC[-5]<>"""",RC[-5]<R1C1),6371*ACOS(SIN(RC[-4])*SIN(R1C2)+COS(RC[-4])*COS(R1C2)*COS(R1C3-RC[-3])),"""")"
-    
+
     Range("F7").FormulaR1C1 = "=MAX(R[3]C:R[10002]C)"
     Range("F8").FormulaR1C1 = "=IF(R1009C6<>"""",LARGE(R[2]C:R[10001]C,1000),IF(R509C6<>"""",LARGE(R[2]C:R[501]C,500),MEDIAN(R[2]C:R[501]C)))"
     ActiveSheet.Calculate
@@ -42,12 +42,12 @@ ElseIf Range("A10") < Range("A1") Then
     Range("G10:L10009").Value = Range("G10:L10009").Value
     Range("G10:L10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("F10:F10009").Clear
-    
+
     'LAST Legs >= nth First Leg
     Range("M10:M10009").FormulaR1C1 = "=IF(AND(RC[-12]<>"""",RC[-12]>R1C1),6371*ACOS(SIN(RC[-11])*SIN(R1C2)+COS(RC[-11])*COS(R1C2)*COS(R1C3-RC[-10])),"""")"
     Range("M8").Value = Range("F8").Value
     ActiveSheet.Calculate
-    
+
     Range("N10").FormulaR1C1 = "=IF(AND(RC[-13]>R1C1,RC[-1]<>"""",RC[-1]>=R8C13,RC[-1]<=R7C6),RC[-13],"""")"
     Range("O10:R10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("S10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
@@ -57,11 +57,11 @@ ElseIf Range("A10") < Range("A1") Then
 .Range("N10:S10").AutoFill Destination:=.Range("N10:S" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("N10:S10009").Value = Range("N10:S10009").Value
     Range("N10:S10009").Sort Key1:=Range("N10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("M10:M10009").Clear
-    
+
     ''''NEXT FOUR LINES 7/24/2017; amended w/conditional 8/27/17; amended 4/15/2018
     If Range("G500") <> "" Then
         Range("L8").FormulaR1C1 = "=2*(RC[1]-5)"
@@ -77,10 +77,10 @@ ElseIf Range("A10") < Range("A1") Then
            Exit Sub
         End If
     End If
-    
+
     Range("G10:L509").Copy
     Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     'MATRIX
     'Range("U10:SZ10").FormulaR1C1 = "=IF(OR(R1C="""",RC16=R3C),"""",IF(OR(R6C>RC19,6371*ACOS(SIN(RC15)*SIN(R2C)+COS(RC15)*COS(R2C)*COS(R3C-RC16))>0.5),"""",IF(R4C-RC17<=R9C4,2*R6C,2*R6C-((R4C-RC17-R9C4)*0.1))))"
     ''Range("U10:SZ10").FormulaR1C1 = "=IF(OR(R1C="""",RC16=R3C),"""",IF(OR(R6C>RC19,R[1]C19<RC19,6371*ACOS(SIN(RC15)*SIN(R2C)+COS(RC15)*COS(R2C)*COS(R3C-RC16))>0.5),"""",IF(R4C-RC17<=R9C4,2*R6C,2*R6C-((R4C-RC17-R9C4)*0.1))))"
@@ -103,7 +103,7 @@ ElseIf Range("A10") < Range("A1") Then
     Range("T10:T10009").FormulaR1C1 = "=IF(AND(R1C14<>0,MAX(RC[1]:RC[500])=R1C14),RC[-6],"""")"
     ActiveSheet.Calculate
     Range("N1:P1").Value = Range("N1:P1").Value
-    
+
     If Range("G510") <> "" Then
         Range("G510:L1009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -116,7 +116,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("N2:P2").Value = Range("N2:P2").Value
     Else: Range("N2:P2").Clear
     End If
-    
+
     If Range("G1010") <> "" Then
         Range("G1010:L1509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -129,7 +129,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("N3:P3").Value = Range("N3:P3").Value
     Else: Range("N3:P3").Clear
     End If
-    
+
     If Range("G1510") <> "" Then
         Range("G1510:L2009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -142,7 +142,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("N4:P4").Value = Range("N4:P4").Value
     Else: Range("N4:P4").Clear
     End If
-    
+
     If Range("G2010") <> "" Then
         Range("G2010:L2509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -155,7 +155,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("N5:P5").Value = Range("N5:P5").Value
     Else: Range("N5:P5").Clear
     End If
-    
+
     If Range("G2510") <> "" Then
         Range("G2510:L3009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -168,7 +168,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("Q1:S1").Value = Range("Q1:S1").Value
     Else: Range("Q1:S1").Clear
     End If
-    
+
     If Range("G3010") <> "" Then
         Range("G3010:L3509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -181,7 +181,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("Q2:S2").Value = Range("Q2:S2").Value
     Else: Range("Q2:S2").Clear
     End If
-    
+
     If Range("G3510") <> "" Then
         Range("G3510:L4009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -194,7 +194,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("Q3:S3").Value = Range("Q3:S3").Value
     Else: Range("Q3:S3").Clear
     End If
-    
+
     If Range("G4010") <> "" Then
         Range("G4010:L4509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -207,7 +207,7 @@ ElseIf Range("A10") < Range("A1") Then
         Range("Q4:S4").Value = Range("Q4:S4").Value
     Else: Range("Q4:S4").Clear
     End If
-    
+
     If Range("G4510") <> "" Then
         Range("G4510:L5009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -220,24 +220,24 @@ ElseIf Range("A10") < Range("A1") Then
         Range("Q5:S5").Value = Range("Q5:S5").Value
     Else: Range("Q5:S5").Clear
     End If
-    
+
     Range("L8,L9,U1:SZ10009").Clear
     Range("G10:T10009").Clear
-    
+
     Range("T1:T5").FormulaR1C1 = "=IF(MAX(R1C14:R5C14,R1C17:R5C17)=RC[-6],RC[-5],IF(MAX(R1C14:R5C14,R1C17:R5C17)=RC[-3],RC[-2],""""))"
     Range("U1:U5").FormulaR1C1 = "=IF(RC[-1]=RC[-6],RC[-5],IF(RC[-1]=RC[-4],RC[-2],""""))"
-    
+
     Range("H1").FormulaR1C1 = "=MAX(RC[12]:R[4]C[12])"
     ActiveSheet.Calculate
     Range("H1").Value = Range("H1").Value
     Range("H3").FormulaR1C1 = "=MAX(R[-2]C[13]:R[2]C[13])"
     ActiveSheet.Calculate
     Range("H3").Value = Range("H3").Value
-    
+
     Range("H2:L2").Value = Range("A1:E1").Value
-    
+
     Range("N1:U5").Clear
-    
+
     Range("G7:J7").FormulaR1C1 = "=MAX(R[3]C:R[10002]C)"
     Range("G10").FormulaR1C1 = "=IF(RC[-6]=R1C8,RC[-5],"""")"
     Range("H10:J10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-5],"""")"
@@ -248,17 +248,17 @@ ElseIf Range("A10") < Range("A1") Then
     End With
     ActiveSheet.Calculate
     Range("I1:L1").Value = Range("G7:J7").Value
-    
+
     Range("G10:G10009").FormulaR1C1 = "=IF(RC[-6]=R3C8,RC[-5],"""")"
     ActiveSheet.Calculate
     Range("I3:L3").Value = Range("G7:J7").Value
-    
+
     Range("F8,M8,G7:J10009").Clear
-    
+
     Range("M2").FormulaR1C1 = _
         "=IF(AND(R[-1]C[-5]<>0,R[1]C[-5]<>0),2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3])),0)"
     Range("M2").Value = Range("M2").Value
-    
+
  End If
 
 Application.Run "F.xlsm!AORc"
@@ -281,7 +281,7 @@ Application.ScreenUpdating = False
     Range("H10").FormulaR1C1 = "=IF(RC[-1]=R[-3]C[-1],RC[-7],"""")"
     Range("H10").FormulaR1C1 = "=IF(RC[-1]=R7C7,RC[-7],"""")"
     Range("I10:L10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-7],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("G10:L10").AutoFill Destination:=.Range("G10:L" & LastRow), Type:=xlFillDefault
@@ -290,7 +290,7 @@ Application.ScreenUpdating = False
   If Range("G7") = 0 Or Range("H7") = Range("H1") Then
       Range("H2:L2").Value = Range("A7:E7").Value
       Range("A5:E7,G7:L10009").Clear
-      
+
   ElseIf Range("G7") <> 0 Then
     Range("G2:L2").Value = Range("G7:L7").Value
 
@@ -305,11 +305,11 @@ Application.ScreenUpdating = False
     Range("G7:L7").Value = Range("G7:L7").Value
     Range("G10:H10019").Clear
     Range("A4").Value = 0.003472222
-      
+
     Range("G10").FormulaR1C1 = _
         "=IF(RC[-4]=R2C10,"""",IF(AND(RC[-6]>=R7C8-R4C1,RC[-6]<=R7C8+R4C1),6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4])),""""))"
     Range("H10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-7],"""")"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
@@ -322,18 +322,18 @@ Application.ScreenUpdating = False
     Range("H10:L509").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("G10:G509").Copy
     Range("N6").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("G10:L10009").Clear
 
 'Starts
     Range("L6").FormulaR1C1 = "=MAX(RC[2]:RC[501])"
     Range("M6").FormulaR1C1 = "=MIN(RC[1]:RC[500])"
     Range("L6:M6").Value = Range("L6:M6").Value
-    
+
     Range("G10").FormulaR1C1 = _
         "=IF(RC[-4]=R2C10,"""",IF(AND(RC[-6]<R2C8,6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4]))>R6C13,6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4]))<=R6C12+1),RC[-6],""""))"
     Range("H10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
@@ -342,7 +342,7 @@ Application.ScreenUpdating = False
     Range("K10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     Range("L10").FormulaR1C1 = _
         "=IF(RC[-1]<>"""",6371*ACOS(SIN(RC[-10])*SIN(R2C9)+COS(RC[-10])*COS(R2C9)*COS(R2C10-RC[-9])),"""")"
-    
+
      Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
@@ -351,13 +351,13 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("G10:L10009").Value = Range("G10:L10009").Value
     Range("G10:L10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
 'Revert to Aorb if no Start found
 If Range("G10") = "" Then
     Range("H2:L2").Value = Range("A7:E7").Value
     Range("A7:E7,G2,G5:M10009").Clear
     Columns("N:SS").Clear
-    
+
 ElseIf Range("G10") <> "" Then
 'Matrix Amended 2/1/15 to add R1C<R2C8)
     'Range("N10:SS10").FormulaR1C1 = _
@@ -372,51 +372,51 @@ ElseIf Range("G10") <> "" Then
 .Range("N10:SS10").AutoFill Destination:=.Range("N10:SS" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("I5").FormulaR1C1 = "=MAX(R[5]C[5]:R[10014]C[504])"
     Range("H5").FormulaR1C1 = "=2*RC[1]"
     Range("H5:I5").Value = Range("H5:I5").Value
-    
+
   'Revert to Aorb if no Finish or shorter distance found
   If Range("H5") = 0 Or Range("H5") <= Range("M2") Then
     Range("H2:L2").Value = Range("A7:E7").Value
     Range("G2,G5:M10019").Clear
     Columns("N:SS").Clear
-  
+
   ElseIf Range("H5") > Range("M2") Then
-  
+
     Range("N10:SS3000").Value = Range("N10:SS3000").Value
-    
+
     Range("N8:SS8").FormulaR1C1 = _
         "=IF(R[-7]C="""","""",IF(MAX(R[2]C:R[2992]C)=R5C9,R1C,""""))"
     Range("N8:SS8").Value = Range("N8:SS8").Value
     Range("M10").FormulaR1C1 = "=IF(MAX(RC[1]:RC[500])=R5C9,RC[-6],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("M10:M10").AutoFill Destination:=.Range("M10:M" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
     Range("M10:M3009").Value = Range("M10:M3009").Value
-    
+
     Range("H1").FormulaR1C1 = "=MAX(R[9]C[5]:R[2999]C[5])"
     Range("H3").FormulaR1C1 = "=MIN(R[5]C[6]:R[5]C[505])"
     Range("H1:H3").Value = Range("H1:H3").Value
     Range("N10:SS10009").Clear
-                
+
     Range("N9:SS9").FormulaR1C1 = "=IF(R1C="""","""",IF(R[-1]C=R3C8,R2C,""""))"
     Range("N10:SS10").FormulaR1C1 = "=IF(R9C<>"""",R3C,"""")"
     Range("N11:SS11").FormulaR1C1 = "=IF(R10C<>"""",R4C,"""")"
     Range("N12:SS12").FormulaR1C1 = "=IF(R11C<>"""",R5C,"""")"
-    
+
     Range("I3").FormulaR1C1 = "=MAX(R[6]C[5]:R[6]C[504])"
     Range("J3").FormulaR1C1 = "=MAX(R[7]C[4]:R[7]C[503])"
     Range("K3").FormulaR1C1 = "=MAX(R[8]C[3]:R[8]C[502])"
     Range("L3").FormulaR1C1 = "=MAX(R[9]C[2]:R[9]C[501])"
     Range("I3:L3").Value = Range("I3:L3").Value
-    
+
     Range("N9:SS12").Clear
-    
+
     Range("N10:Q10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -424,12 +424,12 @@ ElseIf Range("G10") <> "" Then
     End With
     ActiveSheet.Calculate
     Range("N10:Q3009").Value = Range("N10:Q3009").Value
-    
+
     Range("I1:L1").FormulaR1C1 = "=MAX(R[9]C[5]:R[2999]C[5])"
     Range("I1:L1").Value = Range("I1:L1").Value
-    
+
     Range("A4:E7,G2,G5:M3000,N1:SS3000").Clear
-    
+
     Range("M2").FormulaR1C1 = _
         "=IF(OR(SUM(R1C8:R1C12)=0,SUM(R2C8:R2C12)=0),0,2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3])))"
     Range("M2").Value = Range("M2").Value
@@ -456,12 +456,12 @@ Sub NewOR2()
 .Range("L10:M10").AutoFill Destination:=.Range("L10:M" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("M8").FormulaR1C1 = "=(2*(MAX(R[1]C:R[10000]C)))"
     Range("M7").FormulaR1C1 = "=IF(R[1]C[-1]>1000,LARGE(R[3]C:R[10002]C,1000),IF(AND(R[1]C[-1]<1000,R[1]C[-1]>500),LARGE(R[3]C:R[10002]C,500),1))"
 
     If Range("M8") > Range("M2") Then
-    
+
     Range("N10").FormulaR1C1 = "=IF(AND(RC[-1]<>"""",RC[-1]>=R7C13,RC[-13]<>""""),RC[-13],"""")"
     Range("O10:R10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("S10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
@@ -473,17 +473,17 @@ Sub NewOR2()
     ActiveSheet.Calculate
     Range("M10:S10009").Value = Range("M10:S10009").Value
     Range("N10:S10009").Sort Key1:=Range("N10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("M7:M8").Value = Range("M7:M8").Value
     Range("L10:M10009").Clear
     Range("S7").FormulaR1C1 = "=Median(R[3]C:R[1002]C)"
     Range("S8").FormulaR1C1 = "=MIN(R[2]C:R[10001]C)"
     Range("S9").FormulaR1C1 = "=MAX(R[1]C:R[10000]C)"
     ActiveSheet.Calculate
-    
+
     Range("F10:F10009").FormulaR1C1 = "=IF(AND(RC[-5]<>"""",RC[-5]<R2C1),6371*ACOS(SIN(RC[-4])*SIN(R2C2)+COS(RC[-4])*COS(R2C2)*COS(RC[-3]-R2C3)),"""")"
     ActiveSheet.Calculate
-    
+
     Range("G10").FormulaR1C1 = "=IF(AND(RC[-6]<R2C1,RC[-1]>=R8C19,RC[-1]<=R9C19),RC[-6],"""")"
     Range("H10:L10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     'Copy Ref A
@@ -494,12 +494,12 @@ Sub NewOR2()
     ActiveSheet.Calculate
     Range("G10:L10009").Value = Range("G10:L10009").Value
     Range("G10:L10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("F10:F10009").Clear
-    
+
     Range("G10:L509").Copy
     Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     'MATRIX
     'Range("U10:SZ10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC16=R3C),"""",IF(OR(R6C>RC19,6371*ACOS(SIN(RC15)*SIN(R2C)+COS(RC15)*COS(R2C)*COS(R3C-RC16))>0.5),"""",IF(R4C-RC17<=R9C4,2*R6C,2*R6C-((R4C-RC17-R9C4)*0.1))))"
@@ -513,25 +513,25 @@ Sub NewOR2()
 .Range("U10:SZ10").AutoFill Destination:=.Range("U10:SZ" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("N1:N5,Q1:Q5").FormulaR1C1 = "=MAX(R10C21:R10009C520)"
     Range("O1:O5,R1:R5").FormulaR1C1 = "=MAX(R7C21:R7C520)"
     Range("P1:P5,S1:S5").FormulaR1C1 = "=MIN(R10C20:R10009C20)"
-    
+
     Range("U7:SZ7").FormulaR1C1 = "=IF(AND(R1C14<>0,MAX(R[3]C:R[10002]C)=R1C14),R[-6]C,"""")"
     Range("T10:T10009").FormulaR1C1 = "=IF(AND(R1C14<>0,MAX(RC[1]:RC[500])=R1C14),RC[-6],"""")"
     ActiveSheet.Calculate
     Range("N1:P1").Value = Range("N1:P1").Value
-    
+
     Range("N1:N5,Q1:Q5").FormulaR1C1 = "=MAX(R10C21:R10009C520)"
     Range("O1:O5,R1:R5").FormulaR1C1 = "=MAX(R7C21:R7C520)"
     Range("P1:P5,S1:S5").FormulaR1C1 = "=MIN(R10C20:R10009C20)"
-    
+
     Range("U7:SZ7").FormulaR1C1 = "=IF(AND(R1C14<>0,MAX(R[3]C:R[10002]C)=R1C14),R[-6]C,"""")"
     Range("T10:T10009").FormulaR1C1 = "=IF(AND(R1C14<>0,MAX(RC[1]:RC[500])=R1C14),RC[-6],"""")"
     ActiveSheet.Calculate
     Range("N1:P1").Value = Range("N1:P1").Value
-    
+
     If Range("G510") <> "" Then
         Range("G510:L1009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -541,7 +541,7 @@ Sub NewOR2()
         Range("N2:P2").Value = Range("N2:P2").Value
     Else: Range("N2:P2").Clear
     End If
-    
+
     If Range("G1010") <> "" Then
         Range("G1010:L1509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -551,7 +551,7 @@ Sub NewOR2()
         Range("N3:P3").Value = Range("N3:P3").Value
     Else: Range("N3:P3").Clear
     End If
-    
+
     If Range("G1510") <> "" Then
         Range("G1510:L2009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -561,7 +561,7 @@ Sub NewOR2()
         Range("N4:P4").Value = Range("N4:P4").Value
     Else: Range("N4:P4").Clear
     End If
-    
+
     If Range("G2010") <> "" Then
         Range("G2010:L2509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -571,7 +571,7 @@ Sub NewOR2()
         Range("N5:P5").Value = Range("N5:P5").Value
     Else: Range("N5:P5").Clear
     End If
-    
+
     If Range("G2510") <> "" Then
         Range("G2510:L3009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -581,7 +581,7 @@ Sub NewOR2()
         Range("Q1:S1").Value = Range("Q1:S1").Value
     Else: Range("Q1:S1").Clear
     End If
-    
+
     If Range("G3010") <> "" Then
         Range("G3010:L3509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -591,7 +591,7 @@ Sub NewOR2()
         Range("Q2:S2").Value = Range("Q2:S2").Value
     Else: Range("Q2:S2").Clear
     End If
-    
+
     If Range("G3510") <> "" Then
         Range("G3510:L4009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -601,7 +601,7 @@ Sub NewOR2()
         Range("Q3:S3").Value = Range("Q3:S3").Value
     Else: Range("Q3:S3").Clear
     End If
-    
+
     If Range("G4010") <> "" Then
         Range("G4010:L4509").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -611,7 +611,7 @@ Sub NewOR2()
         Range("Q4:S4").Value = Range("Q4:S4").Value
     Else: Range("Q4:S4").Clear
     End If
-    
+
     If Range("G4510") <> "" Then
         Range("G4510:L5009").Copy
         Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -621,17 +621,17 @@ Sub NewOR2()
         Range("Q5:S5").Value = Range("Q5:S5").Value
     Else: Range("Q5:S5").Clear
     End If
-        
+
     'Ck thru 7509 Starts(!)
     Range("T6").FormulaR1C1 = "=SUM(R1C[-6]:R5C[-1])"
     ActiveSheet.Calculate
     Range("T6").Value = Range("T6").Value
-    
+
     If Range("T6") = 0 Then
         Range("N1:N5,Q1:Q5").FormulaR1C1 = "=MAX(R10C21:R10009C520)"
         Range("O1:O5,R1:R5").FormulaR1C1 = "=MAX(R7C21:R7C520)"
         Range("P1:P5,S1:S5").FormulaR1C1 = "=MIN(R10C20:R10009C20)"
-    
+
         If Range("G5010") <> "" Then
             Range("G5010:L5509").Copy
             Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -641,7 +641,7 @@ Sub NewOR2()
             Range("N1:P1").Value = Range("N1:P1").Value
         Else: Range("N1:P1").Clear
         End If
-        
+
         If Range("G5510") <> "" Then
             Range("G5510:L6009").Copy
             Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -651,7 +651,7 @@ Sub NewOR2()
             Range("N2:P2").Value = Range("N2:P2").Value
         Else: Range("N2:P2").Clear
         End If
-        
+
         If Range("G6010") <> "" Then
             Range("G6010:L6509").Copy
             Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -661,7 +661,7 @@ Sub NewOR2()
             Range("N3:P3").Value = Range("N3:P3").Value
         Else: Range("N3:P3").Clear
         End If
-        
+
         If Range("G6510") <> "" Then
             Range("G6510:L7009").Copy
             Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -671,7 +671,7 @@ Sub NewOR2()
             Range("N4:P4").Value = Range("N4:P4").Value
         Else: Range("N4:P4").Clear
         End If
-        
+
         If Range("G7010") <> "" Then
             Range("G7010:L7509").Copy
             Range("U1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
@@ -682,22 +682,22 @@ Sub NewOR2()
         Else: Range("N5:P5").Clear
         End If
     End If
-    
+
     Range("U1:SZ5009").Clear
     Range("G10:T5009").Clear
-    
+
     Range("T1:T5").FormulaR1C1 = "=IF(MAX(R1C14:R5C14,R1C17:R5C17)=RC[-6],RC[-5],IF(MAX(R1C14:R5C14,R1C17:R5C17)=RC[-3],RC[-2],""""))"
     Range("U1:U5").FormulaR1C1 = "=IF(RC[-1]=RC[-6],RC[-5],IF(RC[-1]=RC[-4],RC[-2],""""))"
-    
+
     Range("H5").FormulaR1C1 = "=MAX(R[-4]C[12]:RC[12])"
     Range("H5").Value = Range("H5").Value
     Range("H7").FormulaR1C1 = "=MAX(R[-6]C[13]:R[-2]C[13])"
     Range("H7").Value = Range("H7").Value
-    
+
     Range("H6:L6").Value = Range("A2:E2").Value
-    
+
     Range("N1:U5").Clear
-    
+
     Range("G8:J8").FormulaR1C1 = "=MAX(R[2]C:R[10001]C)"
     Range("G10").FormulaR1C1 = "=IF(RC[-6]=R5C8,RC[-5],"""")"
     Range("H10:J10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-5],"""")"
@@ -708,25 +708,25 @@ Sub NewOR2()
     End With
     ActiveSheet.Calculate
     Range("I5:L5").Value = Range("G8:J8").Value
-    
+
     Range("G10:G10009").FormulaR1C1 = "=IF(RC[-6]=R7C8,RC[-5],"""")"
     ActiveSheet.Calculate
     Range("I7:L7").Value = Range("G8:J8").Value
-    
+
     Range("G8:J10009").Clear
-    
+
     Range("M6").FormulaR1C1 = _
         "=IF(AND(R[-1]C[-5]<>0,R[1]C[-5]<>0),2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3])),0)"
     ActiveSheet.Calculate
     Range("M6").Value = Range("M6").Value
-    
+
     If Range("M6") > Range("M2") Then
         Range("H1:M3").Value = Range("H5:M7").Value
     End If
-    
+
     Range("T6,H5:M8,S7:S9").Clear
     'Application.Run "F.xlsm!AORc"
-    
+
   End If
     Application.Run "F.xlsm!ORredeemer"
 
@@ -753,7 +753,7 @@ Application.ScreenUpdating = False
     Range("L10:P10009").Value = Range("L10:P10009").Value
     Range("G8:L8").Value = Range("G8:L8").Value
     Range("G10:L10009").Clear
-    
+
   If Range("G8") > Range("M2") Then
     Range("H2:L2").Value = Range("H8:L8").Value
     Range("M2").FormulaR1C1 = _
@@ -776,10 +776,10 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("G10:L10009").Value = Range("G10:L10009").Value
     Range("G10:L10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-   
+
     Range("L6").FormulaR1C1 = "=MIN(R[4]C:R[10003]C)"
     Range("L6").Value = Range("L6").Value
-    
+
     'FINIS TO TOP
     Range("N10").FormulaR1C1 = _
         "=IF(RC[-11]=R2C10,"""",IF(AND(RC[-13]>=R3C8-R6C1,RC[-13]<=R3C8+R6C1,6371*ACOS(SIN(RC[-12])*SIN(R2C9)+COS(RC[-12])*COS(R2C9)*COS(R2C10-RC[-11]))>R6C12),RC[-13],""""))"
@@ -797,9 +797,9 @@ Application.ScreenUpdating = False
     Range("N10:S509").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N10:S10009").Clear
-    
+
     'MATRIX Amended 7/29/17 to restore .5km radius OZSector/Line length
     'Range("N10:SS10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC9=R3C),"""",IF(OR(R6C<RC12,6371*ACOS(SIN(RC8)*SIN(R2C)+COS(RC8)*COS(R2C)*COS(R3C-RC9))>0.5,R6C<SQRT(RC12^2+0.25)),"""",IF(RC10-R4C<=R9C4,2*RC12,"""")))"
@@ -814,18 +814,18 @@ Application.ScreenUpdating = False
 .Range("N10:SS10").AutoFill Destination:=.Range("N10:SS" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("I5").FormulaR1C1 = "=MAX(R[5]C[5]:R[3004]C[504])"
     Range("I5").Value = Range("I5").Value
-    
+
     Range("N10:SS3009").Value = Range("N10:SS3009").Value
     Range("N7:SS7").FormulaR1C1 = "=IF(AND(R[-6]C<>"""",MAX(R[3]C:R[3002]C)=R5C9,RC[-1]=""""),R[-6]C,"""")"
     Range("N7:SS7").Value = Range("N7:SS7").Value
-    
+
     Range("M10:M3009").FormulaR1C1 = "=IF(MAX(RC[1]:RC[500])=R5C9,RC[-6],"""")"
     ActiveSheet.Calculate
     Range("M10:M3009").Value = Range("M10:M3009").Value
-    
+
     Range("H7").FormulaR1C1 = "=MIN(RC[6]:RC[505])"
     Range("N8:SS11").FormulaR1C1 = "=IF(R7C=R7C8,R[-6]C,"""")"
     Range("I7").FormulaR1C1 = "=MAX(R[1]C[5]:R[1]C[504])"
@@ -834,7 +834,7 @@ Application.ScreenUpdating = False
     Range("L7").FormulaR1C1 = "=MAX(R[4]C[2]:R[4]C[501])"
     Range("H7:L7").Value = Range("H7:L7").Value
     Range("H6:L6").Value = Range("H2:L2").Value
-   
+
     Range("N10:Q10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     'Copy Ref G
     With Worksheets("Sheet2")
@@ -842,16 +842,16 @@ Application.ScreenUpdating = False
 .Range("N10:Q10").AutoFill Destination:=.Range("N10:Q" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("H5:L5").FormulaR1C1 = "=MAX(R[5]C[5]:R[3004]C[5])"
     Range("H5:L5").Value = Range("H5:L5").Value
     Range("M6").FormulaR1C1 = "=2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3]))"
     Range("M6").Value = Range("M6").Value
-    
+
     If Range("M6") > Range("M2") Then
         Range("H1:M3").Value = Range("H5:M7").Value
     End If
-    
+
     Range("A6,A7,H5:M8,G10:M10009").Clear
     Columns("N:SS").Clear
     Application.Run "F.xlsm!FLine1"
@@ -862,7 +862,7 @@ Sub Fline1()
 'Setup to ck FINISH LINE @ AORb Start
 '
 Application.ScreenUpdating = False
-    
+
 'Ck TP
     Range("G8:L8").FormulaR1C1 = "=MAX(R[2]C:R[10001]C)"
     Range("G10").FormulaR1C1 = _
@@ -878,7 +878,7 @@ Application.ScreenUpdating = False
     Range("L10:P10009").Value = Range("L10:P10009").Value
     Range("G8:L8").Value = Range("G8:L8").Value
     Range("G10:L10009").Clear
-    
+
   If Range("G8") > Range("M2") Then
     Range("H2:L2").Value = Range("H8:L8").Value
     Range("M2").FormulaR1C1 = _
@@ -889,7 +889,7 @@ Application.ScreenUpdating = False
  'Resume as before
     Range("A1:F2").Clear
     Range("A1:F3").Value = Range("H1:M3").Value
-    
+
 'Select AORb FINI + 2 fixes before, 2 fixes after
     Range("G10").FormulaR1C1 = "=IF(RC[-6]=R3C1,1,"""")"
     Range("H10").FormulaR1C1 = "=IF(R[2]C[-1]=1,1,"""")"
@@ -899,7 +899,7 @@ Application.ScreenUpdating = False
     Range("L10").FormulaR1C1 = _
         "=IF(OR(RC[-5]=1,RC[-4]=1,RC[-3]=1,RC[-2]=1,RC[-1]=1),RC[-11],"""")"
     Range("M10:P10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-11],"""")"
-    
+
     'Copy Ref A
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
@@ -939,51 +939,51 @@ Application.ScreenUpdating = False
 ' DGfinfix1to2
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N25:O25").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("M35").Value = Range("F37").Value
 
     Range("N26:O26").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("N35").Value = Range("F37").Value
-    
+
     Range("N25:O25").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("O35").Value = Range("F37").Value
-    
+
     Range("N22:O22").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N23:O23").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("Q35").Value = Range("C36").Value
-    
+
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-   
+
     Range("N25:O25").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P44").Value = Range("C36").Value
-    
+
     Range("N26:O26").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P46").Value = Range("C36").Value
@@ -991,159 +991,159 @@ Application.ScreenUpdating = False
 ' DGfinfix2to3
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N26:O26").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("M50").Value = Range("F37").Value
 
     Range("N27:O27").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("N50").Value = Range("F37").Value
-    
+
     Range("N26:O26").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("O50").Value = Range("F37").Value
-    
+
     Range("N22:O22").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N23:O23").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("Q50").Value = Range("C36").Value
-    
+
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-   
+
     Range("N26:O26").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P59").Value = Range("C36").Value
-    
+
     Range("N27:O27").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P61").Value = Range("C36").Value
-    
+
 ' DGfinfix3to4
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N27:O27").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("M65").Value = Range("F37").Value
 
     Range("N28:O28").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("N65").Value = Range("F37").Value
-    
+
     Range("N27:O27").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("O65").Value = Range("F37").Value
-    
+
     Range("N22:O22").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N23:O23").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("Q65").Value = Range("C36").Value
-    
+
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-   
+
     Range("N27:O27").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P74").Value = Range("C36").Value
-    
+
     Range("N28:O28").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P76").Value = Range("C36").Value
-    
+
 ' DGfinfix4to5
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N28:O28").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("M80").Value = Range("F37").Value
 
     Range("N29:O29").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("N80").Value = Range("F37").Value
-    
+
     Range("N28:O28").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("O80").Value = Range("F37").Value
-    
+
     Range("N22:O22").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N23:O23").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("Q80").Value = Range("C36").Value
-    
+
     Range("N23:O23").Copy
     Range("E39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-   
+
     Range("N28:O28").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P89").Value = Range("C36").Value
-    
+
     Range("N29:O29").Copy
     Range("E41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("E81").FormulaR1C1 = "=R47C[-2]+(1-R79C)*R46C[-2]*R67C*(ACOS(R62C)+R79C*SIN(ACOS(R62C))*(R69C+R79C*R62C*(-1+2*R69C*R69C)))"
     ActiveSheet.Calculate
     Range("P91").Value = Range("C36").Value
-    
+
     Range("M17").FormulaR1C1 = _
         "=IF(AND(R[20]C[3]=""GOOD FINISH"",R[21]C[3]=""GOOD FINISH""),R[28]C[1],IF(AND(R[35]C[3]=""GOOD FINISH"",R[36]C[3]=""GOOD FINISH""),R[43]C[1],IF(AND(R[50]C[3]=""GOOD FINISH"",R[51]C[3]=""GOOD FINISH""),R[58]C[1],IF(AND(R[65]C[3]=""GOOD FINISH"",R[66]C[3]=""GOOD FINISH""),R[73]C[1],""NO FIN LINE""))))"
     Range("N17").FormulaR1C1 = _
@@ -1190,9 +1190,9 @@ Sub Fline2()
 ' Sets up to ck Fin Line after OZ Sector
 '
 Application.ScreenUpdating = False
-    
+
 If Range("M3") = "Sector" Then
- 
+
     Range("G10").FormulaR1C1 = "=IF(RC[-6]=R3C8,1,"""")"
     Range("H10").FormulaR1C1 = "=IF(R[2]C[-1]=1,1,"""")"
     Range("I10").FormulaR1C1 = "=IF(R[1]C[-2]=1,1,"""")"
@@ -1201,7 +1201,7 @@ If Range("M3") = "Sector" Then
     Range("L10").FormulaR1C1 = _
         "=IF(OR(RC[-5]=1,RC[-4]=1,RC[-3]=1,RC[-2]=1,RC[-1]=1),RC[-11],"""")"
     Range("M10:P10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-11],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("G10:P10").AutoFill Destination:=.Range("G10:P" & LastRow), Type:=xlFillDefault
@@ -1231,11 +1231,11 @@ If Range("M3") = "Sector" Then
     Application.Run "F.xlsm!YDWK3clear"
 
     If Range("H4") = "NO FIN LINE" Then
-    
+
     Range("A6").Value = 4.16666666666667E-02
      Range("H1:L1").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N7").FormulaR1C1 = "=6371*ACOS(SIN(R[-5]C)*SIN(R2C9)+COS(R[-5]C)*COS(R2C9)*COS(R2C10-R[-4]C))"
     Range("N8").FormulaR1C1 = "=SQRT(R[-1]C^2+0.25)"
     ActiveSheet.Calculate
@@ -1244,7 +1244,7 @@ If Range("M3") = "Sector" Then
     Range("G10").FormulaR1C1 = _
         "=IF(RC[-4]=R3C14,"""",IF(AND(RC[-6]>=R3C8-R6C1/2,RC[-6]<=R3C8+R6C1/2,6371*ACOS(SIN(RC[-5])*SIN(R2C14)+COS(RC[-5])*COS(R2C14)*COS(R3C14-RC[-4]))<=0.5),RC[-6],""""))"
     Range("H10:K10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("G10:K10").AutoFill Destination:=.Range("G10:K" & LastRow), Type:=xlFillDefault
@@ -1252,29 +1252,29 @@ If Range("M3") = "Sector" Then
     ActiveSheet.Calculate
     Range("G10:K10009").Value = Range("G10:K10009").Value
     Range("G10:K10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
  If Range("G10") = "" Or Range("G11") = "" And Range("G12") = "" Then
     Range("N1:N8").Clear
- 
+
  ElseIf Range("G10") <> "" Then
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R[-1]C[-4]<>"""",6371*ACOS(SIN(RC[-4])*SIN(R2C9)+COS(RC[-4])*COS(R2C9)*COS(R2C10-RC[-3]))>=R7C14,6371*ACOS(SIN(R[-1]C[-4])*SIN(R2C9)+COS(R[-1]C[-4])*COS(R2C9)*COS(R2C10-R[-1]C[-3]))<=R8C14),AND(R[1]C[-4]<>"""",6371*ACOS(SIN(RC[-4])*SIN(R2C9)+COS(RC[-4])*COS(R2C9)*COS(R2C10-RC[-3]))<=R8C14,6371*ACOS(SIN(R[1]C[-4])*SIN(R2C9)+COS(R[1]C[-4])*COS(R2C9)*COS(R2C10-RC[-3]))>=R7C14)),1,0)"
     Range("M10").FormulaR1C1 = "=IF(RC[-1]=1,RC[-6],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("L10:M10").AutoFill Destination:=.Range("L10:M" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
     Range("L10:M10009").Value = Range("L10:M10009").Value
-    
+
     Range("F9").FormulaR1C1 = "=MIN(R[1]C13:R[1000]C13)"
     ActiveSheet.Calculate
     Range("F9").Value = Range("F9").Value
     Range("G10:M10009").Clear
-    
+
   If Range("F9") > 0 Then
-  
+
   'Select new FINI + 2 fixes before, 2 fixes after
     Range("G10").FormulaR1C1 = "=IF(RC[-6]=R9C6,1,"""")"
     Range("H10").FormulaR1C1 = "=IF(R[2]C[-1]=1,1,"""")"
@@ -1292,7 +1292,7 @@ If Range("M3") = "Sector" Then
     ActiveSheet.Calculate
     Range("L10:P10009").Value = Range("L10:P10009").Value
     Range("F6:F9,G10:K10009,N1:N8").Clear
-    
+
     Range("L10:P10009").Sort Key1:=Range("L10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
 
     Sheets("YDWK3").Activate
@@ -1301,7 +1301,7 @@ If Range("M3") = "Sector" Then
     Sheets("YDWK3").Range("M25:Q29").Value = Sheets("Sheet2").Range("L10:P14").Value
 
 Application.Run "F.xlsm!FINlines"
-    
+
     Sheets("Sheet2").Activate
     Sheets("Sheet2").Range("H4").Value = Sheets("YDWK3").Range("M17").Value
     Sheets("Sheet2").Range("I4").FormulaR1C1 = "=IF(RC[-1]<>""NO FIN LINE"",""        FINISH LINE"","""")"
@@ -1310,13 +1310,13 @@ Application.Run "F.xlsm!FINlines"
     Range("L10:P14").Clear
 
     Application.Run "F.xlsm!YDWK3clear"
-  
+
 ElseIf Range("G10") = "" Or Range("F9") = 0 Then
-    
+
     Range("N1:N8,F9:M10009").Clear
     Range("G10").FormulaR1C1 = _
         "=IF(AND(RC[-6]>=R1C8-R6C1,RC[-6]<=R1C8+R6C1,6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4]))<R2C13/2),6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4])),"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("G10:G10").AutoFill Destination:=.Range("G10:G" & LastRow), Type:=xlFillDefault
@@ -1327,14 +1327,14 @@ ElseIf Range("G10") = "" Or Range("F9") = 0 Then
     Range("F8").FormulaR1C1 = "=SUM(R[2]C:R[10001]C)"
     Range("F8").Value = Range("F8").Value
     Range("F10:F10009").Clear
-    
+
     Range("G8").FormulaR1C1 = "=IF(R8C[-1]>500,MEDIAN(R[2]C:R[10001]C),MIN(R[2]C:R[10001]C))"
     ActiveSheet.Calculate
     Range("G8").Value = Range("G8").Value
     Range("H10").FormulaR1C1 = _
         "=IF(AND(RC[-1]<>"""",RC[-1]>=R8C7,RC[-1]<=R2C13/2),RC[-7],"""")"
     Range("I10:L10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-7],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("G10:L10").AutoFill Destination:=.Range("G10:L" & LastRow), Type:=xlFillDefault
@@ -1346,7 +1346,7 @@ ElseIf Range("G10") = "" Or Range("F9") = 0 Then
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
         :=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("F8:L10009").Clear
     Range("N6:SS6").FormulaR1C1 = _
         "=IF(R[-5]C<>"""",6371*ACOS(SIN(R[-4]C)*SIN(R2C9)+COS(R[-4]C)*COS(R2C9)*COS(R2C10-R[-3]C)),"""")"
@@ -1354,7 +1354,7 @@ ElseIf Range("G10") = "" Or Range("F9") = 0 Then
     Range("N6:SS6").Value = Range("N6:SS6").Value
     Range("M6").FormulaR1C1 = "=MIN(RC[1]:RC[500])"
     Range("M6").Value = Range("M6").Value
-    
+
     'FINISHES within an hour of sector Fin, >= M6 AFTER H2
     Range("G10").FormulaR1C1 = _
         "=IF(AND(RC[-6]>R2C8,RC[-6]>=R3C8-R6C1,RC[-6]<=R3C8+R6C1,6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4]))>R6C13,6371*ACOS(SIN(RC[-5])*SIN(R2C9)+COS(RC[-5])*COS(R2C9)*COS(R2C10-RC[-4]))<=R2C13/2),RC[-6],"""")"
@@ -1367,64 +1367,64 @@ ElseIf Range("G10") = "" Or Range("F9") = 0 Then
     ActiveSheet.Calculate
     Range("G10:K10009").Value = Range("G10:K10009").Value
     Range("G10:K10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     'MATRIX
     Range("N10:SS10").FormulaR1C1 = _
         "=IF(OR(R1C="""",R[1]C7="""",RC9=R3C,R[1]C9=R3C),"""",IF(OR(AND(6371*ACOS(SIN(RC8)*SIN(R2C)+COS(RC8)*COS(R2C)*COS(R3C-RC9))<=0.5,6371*ACOS(SIN(R[1]C8)*SIN(R2C)+COS(R[1]C8)*COS(R2C)*COS(R3C-R[1]C9))<=0.7),AND(6371*ACOS(SIN(RC8)*SIN(R2C)+COS(RC8)*COS(R2C)*COS(R3C-RC9))<=0.7,6371*ACOS(SIN(R[1]C8)*SIN(R2C)+COS(R[1]C8)*COS(R2C)*COS(R3C-R[1]C9))<=0.5)),1,""""))"
-   
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("N10:SS10").AutoFill Destination:=.Range("N10:SS" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
     Range("N10:SS600").Value = Range("N10:SS600").Value
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(SUM(R[3]C:R[593]C)>=2,R[-6]C,"""")"
     Range("N7:SS7").Copy
     Range("N1000").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(SUM(R[3]C:R[593]C)>=2,R[-5]C,"""")"
     Range("N7:SS7").Copy
     Range("O1000").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(SUM(R[3]C:R[593]C)>=2,R[-4]C,"""")"
     Range("N7:SS7").Copy
     Range("P1000").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(SUM(R[3]C:R[593]C)>=2,R[-3]C,"""")"
     Range("N7:SS7").Copy
     Range("Q1000").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(SUM(R[3]C:R[593]C)>=2,R[-2]C,"""")"
     Range("N7:SS7").Copy
     Range("R1000").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(SUM(R[3]C:R[593]C)>=2,R[-1]C,"""")"
     Range("N7:SS7").Copy
     Range("S1000").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("N1000:S1599").Sort Key1:=Range("N1000"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("N1:SS700").Clear
-   
+
     Range("N1000:S1499").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("N1000:S1499").Clear
-    
+
 If Range("N1") <> "" Then
-    
+
     Range("N7:SS7").FormulaR1C1 = "=IF(R1C="""","""",SQRT(R[-1]C^2+0.25))"
     Range("N7:SS7").Value = Range("N7:SS7").Value
-    
+
     Range("L10").FormulaR1C1 = "=6371*ACOS(SIN(RC[-4])*SIN(R2C9)+COS(RC[-4])*COS(R2C9)*COS(R2C10-RC[-3]))"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("L10:L10").AutoFill Destination:=.Range("L10:L" & LastRow), Type:=xlFillDefault
@@ -1433,20 +1433,20 @@ If Range("N1") <> "" Then
     Range("L10:L10009").Value = Range("L10:L10009").Value
     Range("N10:SS10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC9=R3C),"""",IF(AND(RC12>R6C,6371*ACOS(SIN(RC8)*SIN(R2C)+COS(RC8)*COS(R2C)*COS(R3C-RC9))<0.7,R[1]C12>RC12),1,""""))"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("N10:SS10").AutoFill Destination:=.Range("N10:SS" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
     Range("N10:SS600").Value = Range("N10:SS600").Value
-    
+
     Range("N8:SS8").FormulaR1C1 = "=IF(R1C="""","""",IF(SUM(R[2]C:R[592]C)>1,R[-2]C,""""))"
     Range("M8").FormulaR1C1 = "=MAX(RC[1]:RC[500])"
     Range("M8:SS8").Value = Range("M8:SS8").Value
-    
+
     Range("L10").FormulaR1C1 = "=IF(MAX(RC[2]:RC[501])=1,6371*ACOS(SIN(RC[-4])*SIN(R2C9)+COS(RC[-4])*COS(R2C9)*COS(R2C10-RC[-3])),0)"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("L10:L10").AutoFill Destination:=.Range("L10:L" & LastRow), Type:=xlFillDefault
@@ -1454,13 +1454,13 @@ If Range("N1") <> "" Then
     ActiveSheet.Calculate
     Range("L10:L10009").Value = Range("L10:L1009").Value
     Range("N10:SS600").Clear
-    
+
     Range("N9:SS9").FormulaR1C1 = "=IF(R[-1]C=R8C13,R1C,"""")"
     Range("N10:SS10").FormulaR1C1 = "=IF(R[-1]C<>"""",R2C,"""")"
     Range("N11:SS11").FormulaR1C1 = "=IF(R[-1]C<>"""",R3C,"""")"
     Range("N12:SS12").FormulaR1C1 = "=IF(R[-1]C<>"""",R4C,"""")"
     Range("N13:SS13").FormulaR1C1 = "=IF(R[-1]C<>"""",R5C,"""")"
-    
+
     Range("H6").FormulaR1C1 = "=MAX(R9C[6]:R9C[505])"
     Range("I6").FormulaR1C1 = "=MAX(R10C[5]:R10C[504])"
     Range("J6").FormulaR1C1 = "=MAX(R11C[4]:R11C[503])"
@@ -1469,11 +1469,11 @@ If Range("N1") <> "" Then
     Range("H6:L6").Value = Range("H6:L6").Value
     Columns("N:SS").Clear
     Range("M6").Clear
-    
+
     Range("H7:L7").Value = Range("H2:L2").Value
-    
+
     Range("M10").FormulaR1C1 = "=IF(RC[-1]>=R8C13,RC[-6],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("M10:M10").AutoFill Destination:=.Range("M10:M" & LastRow), Type:=xlFillDefault
@@ -1488,17 +1488,17 @@ If Range("N1") <> "" Then
     Range("H10").FormulaR1C1 = "=IF(R[-1]C[-1]=1,1,"""")"
     Range("I10").FormulaR1C1 = "=IF(R[-2]C[-1]=1,1,"""")"
     Range("J10").FormulaR1C1 = "=IF(R[-1]C[-1]=1,1,"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("F10:J10").AutoFill Destination:=.Range("F10:J" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
     Range("F10:J10009").Value = Range("F10:J10009").Value
-    
+
     Range("L10").FormulaR1C1 = "=IF(OR(RC[-6]=1,RC[-5]=1,RC[-4]=1,RC[-3]=1,RC[-2]=1),RC[-11],"""")"
     Range("M10:P10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-11],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("L10:P10").AutoFill Destination:=.Range("L10:P" & LastRow), Type:=xlFillDefault
@@ -1507,14 +1507,14 @@ If Range("N1") <> "" Then
     Range("L10:P10009").Value = Range("L10:P10009").Value
     Range("L10:P10009").Sort Key1:=Range("L10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("F9:J10009").Clear
-    
+
     Range("H8:L8").Value = Range("L12:P12").Value
-    
+
     Sheets("YDWK3").Activate
     Sheets("YDWK3").Range("M22:Q22").Value = Sheets("Sheet2").Range("H7:L7").Value
     Sheets("YDWK3").Range("M23:Q23").Value = Sheets("Sheet2").Range("H6:L6").Value
     Sheets("YDWK3").Range("M25:Q29").Value = Sheets("Sheet2").Range("L10:P14").Value
-    
+
     Application.Run "F.xlsm!FINlines"
 
     Sheets("Sheet2").Activate
@@ -1532,14 +1532,14 @@ If Range("N1") <> "" Then
 Application.Run "F.xlsm!YDWK3clear"
         End If
     End If
-    
+
 ''''''Sib: N1 Nothing
 ElseIf Range("N1") = "" Then
     Range("A5:E7,G6:M100009").Clear
-            
+
     If Range("M3") <> "SECTOR" And ("H4") = "NO FIN LINE" Then
         Application.Run ("F.xlsm!NearestSF")
-    
+
     ElseIf Range("A1") >= 42278 And Range("A4") = "NO FIN LINE" And Range("H4") = "NO FIN LINE" Then
         Application.Run ("F.xlsm!FLineLast")
     End If
@@ -1556,7 +1556,7 @@ Sub OZSector()
 ' Tests for OZ Sector On Sheet2 after AORb; Tests for/finds OZ Sector; revised 10/1/2015 for FlineLAST
 '
 Application.ScreenUpdating = False
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("B1:C1").Value
     Sheets("YDWK3").Range("C6:D6").Value = Sheets("Sheet2").Range("B2:C2").Value
     Sheets("YDWK3").Calculate
@@ -1569,7 +1569,7 @@ Application.ScreenUpdating = False
     Sheets("Sheet2").Activate
     'CK OZ for AORb result
     Range("H1:L4").Value = Range("A1:E4").Value
-   
+
    'Find 7 Fixes - 3 before & 3 after raw Fin
     Range("G10").FormulaR1C1 = "=IF(RC[-6]=R3C1,1,"""")"
     Range("H10").FormulaR1C1 = "=IF(R[3]C[-1]=1,1,"""")"
@@ -1578,7 +1578,7 @@ Application.ScreenUpdating = False
     Range("K10").FormulaR1C1 = "=IF(R[-1]C[-4]=1,1,"""")"
     Range("L10").FormulaR1C1 = "=IF(R[-2]C[-5]=1,1,"""")"
     Range("M10").FormulaR1C1 = "=IF(R[-3]C[-6]=1,1,"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("G10:M10").AutoFill Destination:=.Range("G10:M" & LastRow), Type:=xlFillDefault
@@ -1591,7 +1591,7 @@ Application.ScreenUpdating = False
     Range("P10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("Q10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("R10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
-      
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("N10:R10").AutoFill Destination:=.Range("N10:R" & LastRow), Type:=xlFillDefault
@@ -1600,7 +1600,7 @@ Application.ScreenUpdating = False
     Range("N10:R10009").Value = Range("N10:R10009").Value
     Range("G10:M10009").Clear
     Range("N10:R10009").Sort Key1:=Range("N10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     'Test 3 earlier, 3 later than A3
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("O10:P10").Value
     Sheets("YDWK3").Range("C6:D6").Value = Sheets("Sheet2").Range("B1:C1").Value
@@ -1666,7 +1666,7 @@ Application.ScreenUpdating = False
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     Sheets("YDWK3").Calculate
     Application.Run "F.xlsm!YDWK3clear"
-    
+
     Range("G10:G16").FormulaR1C1 = _
         "=IF(OR(6371*ACOS(SIN(RC[8])*SIN(R1C9)+COS(RC[8])*COS(R1C9)*COS(R1C10-RC[9]))>1,RC[6]=""""),"""",IF(OR(AND(R6C3>R7C3,RC[6]>=R7C3,RC[6]<=R6C3),AND(R6C3<R7C3,OR(RC[6]<=R6C3,RC[6]>=R7C3))),RC[7],""""))"
     Range("H10:K16").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[7],"""")"
@@ -1682,7 +1682,7 @@ Application.ScreenUpdating = False
     Range("H10:H16").FormulaR1C1 = "=IF(R6C7=0,"""",IF(RC[-1]=R6C7,RC[7],""""))"
     Range("H6:K6").FormulaR1C1 = "=MAX(R[4]C:R[10]C)"
     Range("G6:K6").Value = Range("G6:K6").Value
-    
+
     If Range("G6") > 0 Then
         Range("D6").Value = "OK"
         Range("H3:L3").Value = Range("G6:K6").Value
@@ -1691,38 +1691,38 @@ Application.ScreenUpdating = False
         Range("M2").Value = Range("M2").Value
         Range("M3").Value = "SECTOR"
         Range("G6:R16").Clear
-           
+
     ElseIf Range("G6") = 0 Then
       Range("G6:K6,G10:K16").Clear
       Range("G10:K16").Value = Range("N10:R16").Value
     Range("M10:R16").Clear
-    
+
     'Find Revised Start candidates
     Range("A5").Value = 0.00347222222222
     'find distance to TP @ each fix within 5 mins & 1.5km of Aorb Start
     Range("M10").FormulaR1C1 = _
         "=IF(RC[-10]=R1C3,"""",IF(AND(RC[-12]>=R1C1-R5C1,RC[-12]<=R1C1+R5C1,6371*ACOS(SIN(RC[-11])*SIN(R1C2)+COS(RC[-11])*COS(R1C2)*COS(R1C3-RC[-10]))<1.5),6371*ACOS(SIN(RC[-11])*SIN(R2C2)+COS(RC[-11])*COS(R2C2)*COS(R2C3-RC[-10])),""""))"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("M10:M10").AutoFill Destination:=.Range("M10:M" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
     Range("M10:M10019").Value = Range("M10:M10019").Value
-    
+
     Range("L10:L10019").FormulaR1C1 = "=IF(RC[1]<>"""",1,"""")"
     ActiveSheet.Calculate
     Range("L9").FormulaR1C1 = "=SUM(R[1]C:R[10010]C)"
     Range("L9").Value = Range("L9").Value
     Range("L10:L10019").Clear
-    
+
     'find at most 50 longest first legs
     Range("L8").FormulaR1C1 = _
         "=IF(R[1]C<=50,MIN(R[2]C[1]:R[10011]C[1]),LARGE(R[2]C[1]:R[10011]C[1],50))"
     ActiveSheet.Calculate
     Range("N10").FormulaR1C1 = "=IF(AND(RC[-1]<>"""",RC[-1]>=R8C12),RC[-13],"""")"
     Range("O10:R10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("N10:R10").AutoFill Destination:=.Range("N10:R" & LastRow), Type:=xlFillDefault
@@ -1730,11 +1730,11 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("N10:R10009").Value = Range("N10:R10009").Value
     Range("N10:R10009").Sort Key1:=Range("N10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("N10:R59").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Application.CutCopyMode = False
-    
+
     Range("F9,L8:R10019").Clear
 
     Range("N8:BK8").FormulaR1C1 = "=IF(R1C<>"""",0.0033528107,"""")"
@@ -1775,25 +1775,25 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("N8:BK33").Value = Range("N8:BK33").Value
     Range("N6:BK7").Value = Range("N32:BK33").Value
-    
+
     Range("N8:BK10008").Clear
-    
+
     Application.Run "F.xlsm!Sect1"
     Application.Run "F.xlsm!Last"
 
     If Range("A1") < 42278 And Range("M3") <> "" Then
         Application.Run "F.xlsm!OZsectorB"
         Exit Sub
-    
+
     ElseIf Range("A4") = "NO FIN LINE" And Range("H4") = "NO FIN LINE" And Range("H9") = "NO FIN LINE" And Range("M3") = "" Then
         Application.Run "F.xlsm!NearestSF"
         Exit Sub
-    
+
     ElseIf Range("A1") >= 42278 And Range("A4") = "NO FIN LINE" And Range("H4") = "NO FIN LINE" Then
         Application.Run "F.xlsm!FlineLast"
         Exit Sub
     End If
-        
+
 End If
 
 Application.Run "F.xlsm!Fline2"
@@ -1815,7 +1815,7 @@ If Range("N1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("N10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1827,7 +1827,7 @@ If Range("N1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("N12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1845,7 +1845,7 @@ If Range("N1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("N15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1881,7 +1881,7 @@ If Range("O1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("O10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1893,7 +1893,7 @@ If Range("O1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("O12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1911,7 +1911,7 @@ If Range("O1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("O15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1947,7 +1947,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("P10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1959,7 +1959,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("P12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1977,7 +1977,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("P15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -1989,7 +1989,7 @@ Sheets("YDWK3").Activate
     Range("P8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[4]>R7C[4],RC[4]>=R7C[4],RC[4]<=R6C[4]),AND(R6C[4]<R7C[4],OR(RC[4]>=R7C[4],RC[4]<=R6C[4]))),RC[4],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2013,7 +2013,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Q10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2025,7 +2025,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Q12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2043,7 +2043,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Q15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2055,7 +2055,7 @@ Sheets("YDWK3").Activate
     Range("Q8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[5]>R7C[5],RC[5]>=R7C[5],RC[5]<=R6C[5]),AND(R6C[5]<R7C[5],OR(RC[5]>=R7C[5],RC[5]<=R6C[5]))),RC[5],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2079,7 +2079,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("R10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2091,7 +2091,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("R12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2109,7 +2109,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("R15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2121,7 +2121,7 @@ Sheets("YDWK3").Activate
     Range("R8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[6]>R7C[6],RC[6]>=R7C[6],RC[6]<=R6C[6]),AND(R6C[6]<R7C[6],OR(RC[6]>=R7C[6],RC[6]<=R6C[6]))),RC[6],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2145,7 +2145,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("S10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2157,7 +2157,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("S12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2175,7 +2175,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("S15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2187,7 +2187,7 @@ Sheets("YDWK3").Activate
     Range("S8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[7]>R7C[7],RC[7]>=R7C[7],RC[7]<=R6C[7]),AND(R6C[7]<R7C[7],OR(RC[7]>=R7C[7],RC[7]<=R6C[7]))),RC[7],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2211,7 +2211,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("T10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2223,7 +2223,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("T12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2241,7 +2241,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("T15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2253,7 +2253,7 @@ Sheets("YDWK3").Activate
     Range("T8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[8]>R7C[8],RC[8]>=R7C[8],RC[8]<=R6C[8]),AND(R6C[8]<R7C[8],OR(RC[8]>=R7C[8],RC[8]<=R6C[8]))),RC[8],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2277,7 +2277,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("U10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2289,7 +2289,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("U12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2307,7 +2307,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("U15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2319,7 +2319,7 @@ Sheets("YDWK3").Activate
     Range("U8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[9]>R7C[9],RC[9]>=R7C[9],RC[9]<=R6C[9]),AND(R6C[9]<R7C[9],OR(RC[9]>=R7C[9],RC[9]<=R6C[9]))),RC[9],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2343,7 +2343,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("V10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2355,7 +2355,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("V12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2373,7 +2373,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("V15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2385,7 +2385,7 @@ Sheets("YDWK3").Activate
     Range("V8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[10]>R7C[10],RC[10]>=R7C[10],RC[10]<=R6C[10]),AND(R6C[10]<R7C[10],OR(RC[10]>=R7C[10],RC[10]<=R6C[10]))),RC[10],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2409,7 +2409,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("W10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2421,7 +2421,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("W12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2439,7 +2439,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("W15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2451,7 +2451,7 @@ Sheets("YDWK3").Activate
     Range("W8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[11]>R7C[11],RC[11]>=R7C[11],RC[11]<=R6C[11]),AND(R6C[11]<R7C[11],OR(RC[11]>=R7C[11],RC[11]<=R6C[11]))),RC[11],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2484,7 +2484,7 @@ If Range("X1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("X10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2496,7 +2496,7 @@ If Range("X1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("X12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2514,7 +2514,7 @@ If Range("X1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("X15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2543,7 +2543,7 @@ End If
 'Column Y
 If Range("Y1") <> "" Then
     Sheets("YDWK3").Activate
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H10:I10").Value
     Sheets("YDWK3").Range("C6").Value = Sheets("Sheet2").Range("Y2").Value
     Sheets("YDWK3").Range("D6").Value = Sheets("Sheet2").Range("Y3").Value
@@ -2551,7 +2551,7 @@ If Range("Y1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Y10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2563,7 +2563,7 @@ If Range("Y1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Y12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2581,7 +2581,7 @@ If Range("Y1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Y15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2617,7 +2617,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Z10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2629,7 +2629,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Z12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2647,7 +2647,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("Z15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2659,7 +2659,7 @@ Sheets("YDWK3").Activate
     Range("Z8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[14]>R7C[14],RC[14]>=R7C[14],RC[14]<=R6C[14]),AND(R6C[14]<R7C[14],OR(RC[14]>=R7C[14],RC[14]<=R6C[14]))),RC[14],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2683,7 +2683,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AA10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2695,7 +2695,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AA12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2713,7 +2713,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AA15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2725,7 +2725,7 @@ Sheets("YDWK3").Activate
     Range("AA8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[15]>R7C[15],RC[15]>=R7C[15],RC[15]<=R6C[15]),AND(R6C[15]<R7C[15],OR(RC[15]>=R7C[15],RC[15]<=R6C[15]))),RC[15],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2749,7 +2749,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AB10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2761,7 +2761,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AB12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2779,7 +2779,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AB15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2791,7 +2791,7 @@ Sheets("YDWK3").Activate
     Range("AB8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[16]>R7C[16],RC[16]>=R7C[16],RC[16]<=R6C[16]),AND(R6C[16]<R7C[16],OR(RC[16]>=R7C[16],RC[16]<=R6C[16]))),RC[16],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2815,7 +2815,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AC10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2827,7 +2827,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AC12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2845,7 +2845,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AC15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2857,7 +2857,7 @@ Sheets("YDWK3").Activate
     Range("AC8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[17]>R7C[17],RC[17]>=R7C[17],RC[17]<=R6C[17]),AND(R6C[17]<R7C[17],OR(RC[17]>=R7C[17],RC[17]<=R6C[17]))),RC[17],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2881,7 +2881,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AD10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2893,7 +2893,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AD12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2911,7 +2911,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AD15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2923,7 +2923,7 @@ Sheets("YDWK3").Activate
     Range("AD8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[18]>R7C[18],RC[18]>=R7C[18],RC[18]<=R6C[18]),AND(R6C[18]<R7C[18],OR(RC[18]>=R7C[18],RC[18]<=R6C[18]))),RC[18],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -2947,7 +2947,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AE10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2959,7 +2959,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AE12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2977,7 +2977,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AE15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -2989,7 +2989,7 @@ Sheets("YDWK3").Activate
     Range("AE8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[19]>R7C[19],RC[19]>=R7C[19],RC[19]<=R6C[19]),AND(R6C[19]<R7C[19],OR(RC[19]>=R7C[19],RC[19]<=R6C[19]))),RC[19],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3013,7 +3013,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AF10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3025,7 +3025,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AF12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3043,7 +3043,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AF15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3055,7 +3055,7 @@ Sheets("YDWK3").Activate
     Range("AF8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[20]>R7C[20],RC[20]>=R7C[20],RC[20]<=R6C[20]),AND(R6C[20]<R7C[20],OR(RC[20]>=R7C[20],RC[20]<=R6C[20]))),RC[20],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3079,7 +3079,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AG10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3091,7 +3091,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AG12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3109,7 +3109,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AG15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3121,7 +3121,7 @@ Sheets("YDWK3").Activate
     Range("AG8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[21]>R7C[21],RC[21]>=R7C[21],RC[21]<=R6C[21]),AND(R6C[21]<R7C[21],OR(RC[21]>=R7C[21],RC[21]<=R6C[21]))),RC[21],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3154,7 +3154,7 @@ If Range("AH1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AH10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3166,7 +3166,7 @@ If Range("AH1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AH12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3184,7 +3184,7 @@ If Range("AH1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AH15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3220,7 +3220,7 @@ If Range("AI1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AI10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3232,7 +3232,7 @@ If Range("AI1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AI12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3250,7 +3250,7 @@ If Range("AI1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AI15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3286,7 +3286,7 @@ If Range("AJ1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AJ10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3298,7 +3298,7 @@ If Range("AJ1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AJ12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3316,7 +3316,7 @@ If Range("AJ1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AJ15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3352,7 +3352,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AK10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3364,7 +3364,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AK12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3382,7 +3382,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AK15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3394,7 +3394,7 @@ Sheets("YDWK3").Activate
     Range("AK8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[25]>R7C[25],RC[25]>=R7C[25],RC[25]<=R6C[25]),AND(R6C[25]<R7C[25],OR(RC[25]>=R7C[25],RC[25]<=R6C[25]))),RC[25],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3418,7 +3418,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AL10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3430,7 +3430,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AL12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3448,7 +3448,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AL15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3460,7 +3460,7 @@ Sheets("YDWK3").Activate
     Range("AL8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[26]>R7C[26],RC[26]>=R7C[26],RC[26]<=R6C[26]),AND(R6C[26]<R7C[26],OR(RC[26]>=R7C[26],RC[26]<=R6C[26]))),RC[26],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3484,7 +3484,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AM10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3496,7 +3496,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AM12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3514,7 +3514,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AM15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3526,7 +3526,7 @@ Sheets("YDWK3").Activate
     Range("AM8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[27]>R7C[27],RC[27]>=R7C[27],RC[27]<=R6C[27]),AND(R6C[27]<R7C[27],OR(RC[27]>=R7C[27],RC[27]<=R6C[27]))),RC[27],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3550,7 +3550,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AN10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3562,7 +3562,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AN12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3580,7 +3580,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AN15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3592,7 +3592,7 @@ Sheets("YDWK3").Activate
     Range("AN8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[28]>R7C[28],RC[28]>=R7C[28],RC[28]<=R6C[28]),AND(R6C[28]<R7C[28],OR(RC[28]>=R7C[28],RC[28]<=R6C[28]))),RC[28],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3616,7 +3616,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AO10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3628,7 +3628,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AO12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3646,7 +3646,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AO15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3658,7 +3658,7 @@ Sheets("YDWK3").Activate
     Range("AO8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[29]>R7C[29],RC[29]>=R7C[29],RC[29]<=R6C[29]),AND(R6C[29]<R7C[29],OR(RC[29]>=R7C[29],RC[29]<=R6C[29]))),RC[29],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3682,7 +3682,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AP10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3694,7 +3694,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AP12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3712,7 +3712,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AP15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3724,7 +3724,7 @@ Sheets("YDWK3").Activate
     Range("AP8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[30]>R7C[30],RC[30]>=R7C[30],RC[30]<=R6C[30]),AND(R6C[30]<R7C[30],OR(RC[30]>=R7C[30],RC[30]<=R6C[30]))),RC[30],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3748,7 +3748,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AQ10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3760,7 +3760,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AQ12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3778,7 +3778,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AQ15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3790,7 +3790,7 @@ Sheets("YDWK3").Activate
     Range("AQ8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[31]>R7C[31],RC[31]>=R7C[31],RC[31]<=R6C[31]),AND(R6C[31]<R7C[31],OR(RC[31]>=R7C[31],RC[31]<=R6C[31]))),RC[31],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3823,7 +3823,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AR10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3835,7 +3835,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AR12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3853,7 +3853,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AR15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3865,7 +3865,7 @@ Sheets("YDWK3").Activate
     Range("AR8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[32]>R7C[32],RC[32]>=R7C[32],RC[32]<=R6C[32]),AND(R6C[32]<R7C[32],OR(RC[32]>=R7C[32],RC[32]<=R6C[32]))),RC[32],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -3889,7 +3889,7 @@ If Range("AS1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AS10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3901,7 +3901,7 @@ If Range("AS1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AS12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3919,7 +3919,7 @@ If Range("AS1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AS15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3955,7 +3955,7 @@ If Range("AT1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AT10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3967,7 +3967,7 @@ If Range("AT1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AT12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -3985,7 +3985,7 @@ If Range("AT1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AT15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4021,7 +4021,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AU10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4033,7 +4033,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AU12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4051,7 +4051,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AU15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4063,7 +4063,7 @@ Sheets("YDWK3").Activate
     Range("AU8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[35]>R7C[35],RC[35]>=R7C[35],RC[35]<=R6C[35]),AND(R6C[35]<R7C[35],OR(RC[35]>=R7C[35],RC[35]<=R6C[35]))),RC[35],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4087,7 +4087,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AV10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4099,7 +4099,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AV12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4117,7 +4117,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AV15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4129,7 +4129,7 @@ Sheets("YDWK3").Activate
     Range("AV8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[36]>R7C[36],RC[36]>=R7C[36],RC[36]<=R6C[36]),AND(R6C[36]<R7C[36],OR(RC[36]>=R7C[36],RC[36]<=R6C[36]))),RC[36],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4153,7 +4153,7 @@ If Range("AW1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AW10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4165,7 +4165,7 @@ If Range("AW1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AW12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4183,7 +4183,7 @@ If Range("AW1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AW15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4195,7 +4195,7 @@ If Range("AW1") <> "" Then
     Range("AW8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[37]>R7C[37],RC[37]>=R7C[37],RC[37]<=R6C[37]),AND(R6C[37]<R7C[37],OR(RC[37]>=R7C[37],RC[37]<=R6C[37]))),RC[37],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4219,7 +4219,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AX10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4231,7 +4231,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AX12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4249,7 +4249,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AX15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4261,7 +4261,7 @@ Sheets("YDWK3").Activate
     Range("AX8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[38]>R7C[38],RC[38]>=R7C[38],RC[38]<=R6C[38]),AND(R6C[38]<R7C[38],OR(RC[38]>=R7C[38],RC[38]<=R6C[38]))),RC[38],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4285,7 +4285,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AY10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4297,7 +4297,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AY12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4315,7 +4315,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AY15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4327,7 +4327,7 @@ Sheets("YDWK3").Activate
     Range("AY8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[39]>R7C[39],RC[39]>=R7C[39],RC[39]<=R6C[39]),AND(R6C[39]<R7C[39],OR(RC[39]>=R7C[39],RC[39]<=R6C[39]))),RC[39],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4351,7 +4351,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AZ10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4363,7 +4363,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AZ12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4381,19 +4381,19 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AZ15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("AZ16").Value = Sheets("YDWK3").Range("C2").Value
-  
+
 ' Test Column(Starts) for FIN in OZ Sector
     Sheets("Sheet2").Activate
     Range("AZ8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[40]>R7C[40],RC[40]>=R7C[40],RC[40]<=R6C[40]),AND(R6C[40]<R7C[40],OR(RC[40]>=R7C[40],RC[40]<=R6C[40]))),RC[40],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4417,7 +4417,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BA10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4429,7 +4429,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BA12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4447,7 +4447,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BA15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4459,7 +4459,7 @@ Sheets("YDWK3").Activate
     Range("BA8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[41]>R7C[41],RC[41]>=R7C[41],RC[41]<=R6C[41]),AND(R6C[41]<R7C[41],OR(RC[41]>=R7C[41],RC[41]<=R6C[41]))),RC[41],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4491,7 +4491,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BB10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4503,7 +4503,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BB12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4521,7 +4521,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BB15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4533,7 +4533,7 @@ Sheets("YDWK3").Activate
     Range("BB8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[42]>R7C[42],RC[42]>=R7C[42],RC[42]<=R6C[42]),AND(R6C[42]<R7C[42],OR(RC[42]>=R7C[42],RC[42]<=R6C[42]))),RC[42],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4557,7 +4557,7 @@ If Range("BC1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BC10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4569,7 +4569,7 @@ If Range("BC1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BC12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4587,7 +4587,7 @@ If Range("BC1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BC15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4623,7 +4623,7 @@ If Range("BD1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BD10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4635,7 +4635,7 @@ If Range("BD1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BD12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4653,7 +4653,7 @@ If Range("BD1") <> "" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BD15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4665,14 +4665,14 @@ If Range("BD1") <> "" Then
     Range("BD8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[44]>R7C[44],RC[44]>=R7C[44],RC[44]<=R6C[44]),AND(R6C[44]<R7C[44],OR(RC[44]>=R7C[44],RC[44]<=R6C[44]))),RC[44],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("L10:L10").AutoFill Destination:=.Range("L10:L" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("BD8").Value = Range("BD8").Value
 
 If Range("BD8") < 0 Then
@@ -4690,7 +4690,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BE10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4702,7 +4702,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BE12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4720,7 +4720,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BE15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4732,7 +4732,7 @@ Sheets("YDWK3").Activate
     Range("BE8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[45]>R7C[45],RC[45]>=R7C[45],RC[45]<=R6C[45]),AND(R6C[45]<R7C[45],OR(RC[45]>=R7C[45],RC[45]<=R6C[45]))),RC[45],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4756,7 +4756,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BF10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4768,7 +4768,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BF12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4786,7 +4786,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BF15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4797,7 +4797,7 @@ Sheets("YDWK3").Activate
     Range("BF8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[46]>R7C[46],RC[46]>=R7C[46],RC[46]<=R6C[46]),AND(R6C[46]<R7C[46],OR(RC[46]>=R7C[46],RC[46]<=R6C[46]))),RC[46],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4821,7 +4821,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BG10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4833,7 +4833,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BG12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4851,7 +4851,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BG15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4863,7 +4863,7 @@ Sheets("YDWK3").Activate
     Range("BG8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[47]>R7C[47],RC[47]>=R7C[47],RC[47]<=R6C[47]),AND(R6C[47]<R7C[47],OR(RC[47]>=R7C[47],RC[47]<=R6C[47]))),RC[47],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4887,7 +4887,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BH10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4899,7 +4899,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BH12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4917,7 +4917,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BH15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4929,7 +4929,7 @@ Sheets("YDWK3").Activate
     Range("BH8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[48]>R7C[48],RC[48]>=R7C[48],RC[48]<=R6C[48]),AND(R6C[48]<R7C[48],OR(RC[48]>=R7C[48],RC[48]<=R6C[48]))),RC[48],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -4953,7 +4953,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BI10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4965,7 +4965,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BI12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4982,7 +4982,7 @@ Sheets("YDWK3").Activate
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     Sheets("Sheet2").Range("BI15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -4994,7 +4994,7 @@ Sheets("YDWK3").Activate
     Range("BI8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[49]>R7C[49],RC[49]>=R7C[49],RC[49]<=R6C[49]),AND(R6C[49]<R7C[49],OR(RC[49]>=R7C[49],RC[49]<=R6C[49]))),RC[49],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -5018,7 +5018,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BJ10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -5030,7 +5030,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BJ12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -5048,7 +5048,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BJ15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -5060,7 +5060,7 @@ Sheets("YDWK3").Activate
     Range("BJ8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[50]>R7C[50],RC[50]>=R7C[50],RC[50]<=R6C[50]),AND(R6C[50]<R7C[50],OR(RC[50]>=R7C[50],RC[50]<=R6C[50]))),RC[50],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -5084,7 +5084,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BK10").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H11:I11").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -5096,7 +5096,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BK12").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H13:I13").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -5114,7 +5114,7 @@ Sheets("YDWK3").Activate
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     ActiveSheet.Calculate
     Sheets("Sheet2").Range("BK15").Value = Sheets("YDWK3").Range("C2").Value
-    
+
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet2").Range("H16:I16").Value
     Range("C24").FormulaR1C1 = _
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
@@ -5126,7 +5126,7 @@ Sheets("YDWK3").Activate
     Range("BK8").FormulaR1C1 = "=MAX(R[2]C12:R[493]C12)"
     Range("L10").FormulaR1C1 = _
         "=IF(OR(AND(R6C[51]>R7C[51],RC[51]>=R7C[51],RC[51]<=R6C[51]),AND(R6C[51]<R7C[51],OR(RC[51]>=R7C[51],RC[51]<=R6C[51]))),RC[51],-1)"
-    
+
     Application.Calculation = xlCalculationManual
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
@@ -5150,28 +5150,28 @@ Sub Last()
     Application.Calculation = xlCalculationManual
     Range("N102:BK102").FormulaR1C1 = _
         "=IF(R8C>0,6371*ACOS(SIN(R2C)*SIN(R2C2)+COS(R2C)*COS(R2C2)*COS(R2C3-R3C)),"""")"
-    
+
     Range("N101").FormulaR1C1 = "=MAX(R[1]C:R[1]C[49])"
     Range("N101").Value = Range("N101").Value
-    
+
   If Range("N101") = 0 Then
     Columns("N:BK").Clear
-  
+
   ElseIf Range("N101") <> 0 Then
     Range("N103:BK103").FormulaR1C1 = "=IF(R102C=R101C14,R1C,"""")"
     Range("N104:BK104").FormulaR1C1 = "=IF(R[-1]C<>"""",R2C,"""")"
     Range("N105:BK105").FormulaR1C1 = "=IF(R[-1]C<>"""",R3C,"""")"
     Range("N106:BK106").FormulaR1C1 = "=IF(R[-1]C<>"""",R4C,"""")"
     Range("N107:BK107").FormulaR1C1 = "=IF(R[-1]C<>"""",R5C,"""")"
-    
+
     Range("L103:L107").FormulaR1C1 = "=MAX(RC[2]:RC[51])"
     Range("L103:L107").Value = Range("L103:L107").Value
-    
+
     Range("L103:L107").Copy
     Range("H1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("G105:K129").Value = Range("G10:K34").Value
-     
+
     Range("N103:BK103").FormulaR1C1 = "=IF(R102C=R101C14,R6C,"""")"
     Range("N104:BK104").FormulaR1C1 = "=IF(R[-1]C<>"""",R7C,"""")"
     Range("N105:BK105").FormulaR1C1 = "=IF(R[-1]C<>"""",R10C,"""")"
@@ -5184,7 +5184,7 @@ Sub Last()
     Range("N103:BK111").Value = Range("N103:BK111").Value
     Range("L103:L109").Clear
     Range("L103:L111").FormulaR1C1 = "=MAX(RC[2]:RC[51])"
-     
+
     Range("M105").FormulaR1C1 = _
         "=IF(OR(AND(R103C[-1]>R104C[-1],RC[-1]>=R104C[-1],RC[-1]<=R103C[-1]),AND(R103C[-1]<R104C[-1],OR(RC[-1]<=R103C[-1],RC[-1]>=R104C[-1]))),RC[-6],"""")"
 
@@ -5193,25 +5193,25 @@ Sub Last()
 .Range("M105:M105").AutoFill Destination:=.Range("M105:M" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("G101").FormulaR1C1 = "=MAX(R[4]C[6]:R[28]C[6])"
     Range("G101").Value = Range("G101").Value
-    
+
     Range("H105").FormulaR1C1 = "=IF(RC[-1]=R101C[-1],R[-95]C,"""")"
     Range("I105").FormulaR1C1 = "=IF(RC[-1]<>"""",R[-95]C,"""")"
     Range("J105").FormulaR1C1 = "=IF(RC[-1]<>"""",R[-95]C,"""")"
     Range("K105").FormulaR1C1 = "=IF(RC[-1]<>"""",R[-95]C,"""")"
-    
+
     With Worksheets("Sheet2")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("H105:K105").AutoFill Destination:=.Range("H105:K" & LastRow), Type:=xlFillDefault
     End With
     ActiveSheet.Calculate
-    
+
     Range("H101:K101").FormulaR1C1 = "=MAX(R[4]C:R[24]C)"
     Range("H101:K101").Value = Range("H101:K101").Value
     Range("H3:L3").Value = Range("G101:K101").Value
-    
+
     Range("H2:L2").Value = Range("A2:E2").Value
     Range("M2").FormulaR1C1 = _
         "=IF(R[-1]C[-2]-R[1]C[-2]<=R9C4,2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3])),2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3]))-((R[-1]C[-2]-R[1]C[-2]-R9C4)*0.1))"
@@ -5221,7 +5221,7 @@ Sub Last()
     Range("A5,C6:E7").Clear
     Range("G10:M10009").Clear
     Columns("N:BK").Clear
-    
+
   End If
 End Sub
 Sub NearestSF()
@@ -5232,7 +5232,7 @@ Application.ScreenUpdating = False
 
     Range("H6:L9").Clear
     Range("A5").Value = "0.00138888888888889"
-    
+
     Range("M10").FormulaR1C1 = "=IF(AND(RC[-12]>=R3C8-R5C1,RC[-12]<=R3C8+R5C1),RC[-12],"""")"
     Range("N10:Q10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-12],"""")"
     Range("R10").FormulaR1C1 = "=IF(OR(RC[-1]="""",RC[-3]=R1C10),"""",6371*ACOS(SIN(RC[-4])*SIN(R1C9)+COS(RC[-4])*COS(R1C9)*COS(R1C10-RC[-3])))"
@@ -5245,10 +5245,10 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("M10:R10009").Value = Range("M10:R10009").Value
     Range("M10:R10009").Sort Key1:=Range("M10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-     
+
     Range("R8").FormulaR1C1 = "=MIN(R[2]C:R[501]C)"
     Range("S8:W8").FormulaR1C1 = "=MAX(R[2]C:R[501]C)"
-    
+
     Range("S10").FormulaR1C1 = "=IF(RC[-1]=R8C18,RC[-6],"""")"
     Range("T10:W10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     'Copy Ref M
@@ -5258,9 +5258,9 @@ Application.ScreenUpdating = False
     End With
     ActiveSheet.Calculate
     Range("R8:W8").Value = Range("R8:W8").Value
-    
+
     Range("R10:R509").Clear
-    
+
     Range("R10").FormulaR1C1 = "=IF(AND(RC[-17]>=R1C8-R5C1,RC[-17]<=R1C8+R5C1),RC[-17],"""")"
     Range("S10:V10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-17],"""")"
     Range("W10").FormulaR1C1 = "=IF(OR(RC[-1]="""",RC[-2]=R8C21),"""",6371*ACOS(SIN(RC[-4])*SIN(R8C20)+COS(RC[-4])*COS(R8C20)*COS(R8C21-RC[-3])))"
@@ -5272,10 +5272,10 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("R10:W10009").Value = Range("R10:W10009").Value
     Range("R10:W10009").Sort Key1:=Range("R10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-     
+
     Range("R6").FormulaR1C1 = "=MIN(R[4]C[5]:R[496]C[5])"
     Range("S6:W6").FormulaR1C1 = "=MAX(R[4]C[5]:R[496]C[5])"
-    
+
     Range("X10").FormulaR1C1 = "=IF(RC[-1]=R6C18,RC[-6],"""")"
     Range("Y10:AB10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     'Copy Ref R
@@ -5287,13 +5287,13 @@ Application.ScreenUpdating = False
     Range("S6:W6").Value = Range("S6:W6").Value
     Range("S7:W7").Value = Range("H2:L2").Value
     Range("H6:L8").Value = Range("S6:W8").Value
-    
+
     Range("S6:W8,M10:W10009").Clear
     Columns("X:AB").Clear
     Range("M7").FormulaR1C1 = "=2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3]))"
     ActiveSheet.Calculate
     Range("A5").Value = "0.000208333333333333"
-    
+
     Range("M10").FormulaR1C1 = "=IF(AND(RC[-12]>=R8C8-R5C1,RC[-12]<=R8C8+R5C1),RC[-12],"""")"
     Range("N10:Q10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-12],"""")"
     Range("R10").FormulaR1C1 = "=IF(RC[-1]<>"""",6371*ACOS(SIN(RC[-4])*SIN(R7C9)+COS(RC[-4])*COS(R7C9)*COS(R7C10-RC[-3])),"""")"
@@ -5305,12 +5305,12 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("M10:R10009").Value = Range("M10:R10009").Value
     Range("M10:R10009").Sort Key1:=Range("M10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-     
+
     Range("M10:R509").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-        
+
     Range("M10:R10009").Clear
-    
+
     Range("G10").FormulaR1C1 = "=IF(AND(RC[-6]>=R6C8-R5C1,RC[-6]<=R6C8+R5C1),RC[-6],"""")"
     Range("H10:K10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     Range("L10").FormulaR1C1 = "=IF(RC[-1]<>"""",6371*ACOS(SIN(RC[-4])*SIN(R7C9)+COS(RC[-4])*COS(R7C9)*COS(R7C10-RC[-3])),"""")"
@@ -5322,7 +5322,7 @@ Application.ScreenUpdating = False
     ActiveSheet.Calculate
     Range("G10:L10009").Value = Range("G10:L10009").Value
     Range("G10:L10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-     
+
     'MATRIX
     Range("N10:BK10").FormulaR1C1 = _
         "=IF(OR(R1C="""",RC9=R3C),"""",IF(OR(R6C<RC12,6371*ACOS(SIN(RC8)*SIN(R2C)+COS(RC8)*COS(R2C)*COS(R3C-RC9))>0.5),"""",6371*ACOS(SIN(RC8)*SIN(R2C)+COS(RC8)*COS(R2C)*COS(R3C-RC9))))"
@@ -5339,11 +5339,11 @@ Application.ScreenUpdating = False
     Range("N7:BK7").Value = Range("N7:BK7").Value
     Range("M10:M50").FormulaR1C1 = "=IF(MIN(RC[1]:RC[50])=R5C9,RC[-6],"""")"
     Range("M10:M50").Value = Range("M10:M50").Value
-    
+
     Range("N10:BK50").Clear
-    
+
     Range("N8:BK11").FormulaR1C1 = "=IF(R[-1]C<>"""",R[-6]C,"""")"
-    
+
     Range("H8").FormulaR1C1 = "=MAX(R[-1]C[6]:R[-1]C[55])"
     Range("I8").FormulaR1C1 = "=MAX(RC[5]:RC[54])"
     Range("J8").FormulaR1C1 = "=MAX(R[1]C[4]:R[1]C[53])"
@@ -5351,18 +5351,18 @@ Application.ScreenUpdating = False
     Range("L8").FormulaR1C1 = "=MAX(R[3]C[2]:R[3]C[51])"
     Range("H8:L8").Value = Range("H8:L8").Value
     Range("N7:BK11").Clear
-    
+
     Range("N10:Q50").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
-    
+
     Range("H6:L6").FormulaR1C1 = "=MAX(R[4]C[5]:R[494]C[5])"
     ActiveSheet.Calculate
     Range("H6:L6").Value = Range("H6:L6").Value
-    
+
     Range("M7").FormulaR1C1 = _
         "=2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3]))"
     ActiveSheet.Calculate
     Range("I5,G10:Q10009,N1:BK6").Clear
-    
+
     'Revised 8/27/17 Franke no change
     If Range("M7") > Range("M2") Then
         Range("A1:F3").Value = Range("H6:M8").Value
@@ -5389,7 +5389,7 @@ Sub FLineLast()
     ActiveSheet.Calculate
     Range("G10:L10009").Value = Range("G10:L10009").Value
     Range("G10:L10009").Sort Key1:=Range("G10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     'Finis
     Range("O10").FormulaR1C1 = "=IF(AND(RC[-14]>=R3C8-R5C1,RC[-14]<=R3C8+R5C1),RC[-14],"""")"
     Range("P10:S10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-14],"""")"
@@ -5404,9 +5404,9 @@ Sub FLineLast()
     Range("O10:T10009").Sort Key1:=Range("O10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("O10:T190").Copy
     Range("N1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
-    
+
     Range("O10:T10009").Clear
-    
+
     'Matrix
      Range("N10:GK10").FormulaR1C1 = _
         "=IF(OR(R1C="""",R3C=RC9),"""",IF(OR(R6C<RC12,6371*ACOS(SIN(R2C)*SIN(RC8)+COS(R2C)*COS(RC8)*COS(RC9-R3C))>0.5,R6C<SQRT(RC12^2+0.25),R6C>R6C[1]),"""",IF(RC10-R4C<R9C4,R6C+RC12,R6C+RC12-((RC10-R4C-R9C4)*0.1))))"
@@ -5421,9 +5421,9 @@ Sub FLineLast()
 
     Range("M8").FormulaR1C1 = "=MAX(R[2]C[1]:R[352]C[180])"
     Range("M8").Value = Range("M8").Value
-    
+
     If Range("M8") <> 0 Then
-    
+
     Range("M10").FormulaR1C1 = "=IF(MAX(RC[1]:RC[180])=R8C13,RC[-6],"""")"
     'Copy Ref G
     With Worksheets("Sheet2")
@@ -5432,30 +5432,30 @@ Sub FLineLast()
     End With
     ActiveSheet.Calculate
     Range("M10:M10009").Value = Range("M10:M10009").Value
-    
+
     Range("N7:GK7").FormulaR1C1 = "=IF(MAX(R[3]C:R[193]C)=R8C13,R[-6]C,"""")"
     ActiveSheet.Calculate
     Range("N7:GK7").Value = Range("N7:GK7").Value
     Range("H8").FormulaR1C1 = "=MIN(R[-1]C[6]:R[-1]C[185])"
     Range("H8").Value = Range("H8").Value
-    
+
     Range("M8,N10:GK190").Clear
-    
+
     Range("N10:Q190").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
     ActiveSheet.Calculate
     Range("H6:L6").FormulaR1C1 = "=MAX(R[4]C[5]:R[194]C[5])"
     Range("H6:L6").Value = Range("H6:L6").Value
-    
+
     Range("N8:GK8").FormulaR1C1 = "=IF(R[-1]C=R8C8,R[-6]C,"""")"
     Range("N9:GK11").FormulaR1C1 = "=IF(R[-1]C<>"""",R[-6]C,"""")"
     ActiveSheet.Calculate
-    
+
     Range("I8").FormulaR1C1 = "=MAX(RC[5]:RC[184])"
     Range("J8").FormulaR1C1 = "=MAX(R[1]C[4]:R[1]C[183])"
     Range("K8").FormulaR1C1 = "=MAX(R[2]C[3]:R[2]C[182])"
     Range("L8").FormulaR1C1 = "=MAX(R[3]C[2]:R[3]C[181])"
     Range("I8:L8").Value = Range("I8:L8").Value
-    
+
     Range("H7:L7").Value = Range("H2:L2").Value
     Range("M7").FormulaR1C1 = "=2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3]))"
     Columns("N:GK").Clear
@@ -5465,7 +5465,7 @@ Sub FLineLast()
     Range("H6:M8").Clear
     Application.Run "F.xlsm!Fline1"
   End If
-     
+
 End Sub
 Sub ORRref()
 '
@@ -5478,7 +5478,7 @@ Application.ScreenUpdating = False
     If Range("H4") = "NO FIN LINE" Then
         Range("H4").Clear
     End If
-    
+
     'SORT +/- 18 SECONDS
     Range("G10").FormulaR1C1 = _
         "=IF(OR(AND(RC[-6]>=R1C8-R5C1,RC[-6]<=R1C8+R5C1),AND(RC[-6]>=R2C8-R5C1,RC[-6]<=R2C8+R5C1),AND(RC[-6]>=R3C8-R5C1,RC[-6]<=R3C8+R5C1),AND(R4C8<>"""",RC[-6]>=R4C8-R5C1,RC[-6]<=R4C8+R5C1),AND(R5C8<>"""",RC[-6]>=R5C8-R5C1,RC[-6]<=R5C8+R5C1)),RC[-6],"""")"
@@ -5499,13 +5499,13 @@ Application.ScreenUpdating = False
     Range("N10:N200").FormulaR1C1 = "=IF(RC[-1]=R8C13,RC[-7],"""")"
     Range("O10:R200").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-7],"""")"
     ActiveSheet.Calculate
-    
+
     If Range("M9") > Range("M2") Then
         Range("H2:L2").Value = Range("N8:R8").Value
         Range("M2").Value = Range("M9").Value
     End If
     Range("M8:R200").Clear
-    
+
     'CK OZ if Fini by Sector ONLY
 If Range("H4") = "" And Range("M3") = "SECTOR" Then
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet3").Range("I1:J1").Value
@@ -5525,7 +5525,7 @@ If Range("H4") = "" And Range("M3") = "SECTOR" Then
     Range("Q10").FormulaR1C1 = "=IF(R[-1]C[-4]=1,1,"""")"
     Range("R10").FormulaR1C1 = "=IF(R[-2]C[-5]=1,1,"""")"
     Range("S10").FormulaR1C1 = "=IF(R[-3]C[-6]=1,1,"""")"
-    
+
     With Worksheets("Sheet3")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("M10:S10").AutoFill Destination:=.Range("M10:S" & LastRow), Type:=xlFillDefault
@@ -5537,7 +5537,7 @@ If Range("H4") = "" And Range("M3") = "SECTOR" Then
     Range("V10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("W10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("X10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
-      
+
     With Worksheets("Sheet3")
     LastRow = .Cells(Rows.Count, "G").End(xlUp).Row
 .Range("T10:X10").AutoFill Destination:=.Range("T10:X" & LastRow), Type:=xlFillDefault
@@ -5546,7 +5546,7 @@ If Range("H4") = "" And Range("M3") = "SECTOR" Then
     Range("T10:X209").Value = Range("T10:X209").Value
     Range("M10:S209").Clear
     Range("T10:X209").Sort Key1:=Range("T10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     'Test 3 earlier, 3 later than A3
     Sheets("YDWK3").Range("C5:D5").Value = Sheets("Sheet3").Range("U10:V10").Value
     Sheets("YDWK3").Range("C6:D6").Value = Sheets("Sheet3").Range("I1:J1").Value
@@ -5612,7 +5612,7 @@ If Range("H4") = "" And Range("M3") = "SECTOR" Then
         "=R[-15]C+(1-R[-1]C)*R[-16]C*R[-3]C*(ACOS(R[-4]C)+R[-1]C*SIN(ACOS(R[-4]C))*(R[-2]C+R[-1]C*R[-4]C*(-1+2*R[-2]C*R[-2]C)))"
     Sheets("YDWK3").Calculate
     Application.Run "F.xlsm!YDWK3clear"
-    
+
     Sheets("Sheet3").Activate
     Range("M6").FormulaR1C1 = "=MIN(R[4]C:R[10]C)"
     Range("N6:Q6").FormulaR1C1 = "=MAX(R[4]C:R[10]C)"
@@ -5622,7 +5622,7 @@ If Range("H4") = "" And Range("M3") = "SECTOR" Then
     Range("O10:Q16").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[7],"""")"
     ActiveSheet.Calculate
     Range("M6:Q6").Value = Range("M6:Q6").Value
-    
+
     If Range("M6") > 0 Then
         Range("K6").Value = "OK"
         Range("H3:L3").Value = Range("M6:Q6").Value
@@ -5638,11 +5638,11 @@ If Range("H4") = "" And Range("M3") = "SECTOR" Then
         Range("N2").Clear
         Range("M3").Value = "SECTOR"
         Range("H4").Value = "NO FIN LINE"
-        
+
         Sheets("Sheet2").Range("H15:M18").Value = Sheets("Sheet3").Range("H1:N4").Value
         Sheets("Sheet3").Range("A5,H1:N3").Clear
     End If
-    
+
 ElseIf Range("I4") = "        FINISH LINE" Then
     Range("M10:M209").FormulaR1C1 = "=IF(RC[-6]="""","""",IF(AND(RC[-6]>=R1C8-R5C1,RC[-6]<=R1C8+R5C1),RC[-6],""""))"
     Range("N10:Q209").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
@@ -5651,18 +5651,18 @@ ElseIf Range("I4") = "        FINISH LINE" Then
     ActiveSheet.Calculate
     Range("M10:S209").Value = Range("M10:S209").Value
     Range("M10:S209").Sort Key1:=Range("M10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("T10:T209").FormulaR1C1 = "=IF(RC[-13]="""","""",IF(AND(RC[-13]>=R3C8-R5C1,RC[-13]<=R3C8+R5C1),RC[-13],""""))"
     Range("U10:X209").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-13],"""")"
     Range("Y10:Y209").FormulaR1C1 = "=IF(RC[-1]<>"""",6371*ACOS(SIN(RC[-17])*SIN(R2C9)+COS(RC[-17])*COS(R2C9)*COS(R2C10-RC[-16])),"""")"
     ActiveSheet.Calculate
     Range("T10:Y209").Value = Range("T10:Y209").Value
     Range("T10:Y209").Sort Key1:=Range("T10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("T10:Y209").Copy
     Range("T1").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=True
     Range("T10:Y209").Clear
- 
+
     'MATRIX
     Range("T10:HL209").FormulaR1C1 = _
         "=IF(OR(RC13="""",R1C="""",RC15=R3C),"""",IF(OR(6371*ACOS(SIN(RC14)*SIN(R2C)+COS(RC14)*COS(R2C)*COS(R3C-RC15))>0.5,R6C<RC18,R6C[1]<RC18,R6C<SQRT(RC18^2+0.25)),"""",IF(RC16-R4C<=RC19,R6C+RC18,IF(AND(RC16-R4C>RC19,R9C5<>""PR""),R6C+RC18-((RC16-R4C-RC19)*0.1),0))))"
@@ -5674,14 +5674,14 @@ ElseIf Range("I4") = "        FINISH LINE" Then
     Range("T7:HL7").FormulaR1C1 = "=IF(MAX(R[3]C:R[193]C)=R5C15,R1C,"""")"
     ActiveSheet.Calculate
     Range("T7:HL7").Value = Range("T7:HL7").Value
-    
+
     Range("S10:S209").FormulaR1C1 = "=IF(MAX(RC[1]:RC[201])=R5C15,RC[-6],"""")"
     ActiveSheet.Calculate
     Range("S10:S209").Value = Range("S10:S209").Value
-    
+
     Range("T10:HL209").Clear
     Range("T10:W209").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-6],"""")"
-    
+
     Range("N1:R1").FormulaR1C1 = "=MAX(R[9]C[5]:R[199]C[5])"
     ActiveSheet.Calculate
     Range("N1:R1").Value = Range("N1:R1").Value
@@ -5695,7 +5695,7 @@ ElseIf Range("I4") = "        FINISH LINE" Then
     Range("R3").FormulaR1C1 = "=MAX(R[8]C[2]:R[8]C[202])"
     ActiveSheet.Calculate
     Range("N3:R3").Value = Range("N3:R3").Value
-    
+
     Range("T1:HL209").Clear
     Range("S2").FormulaR1C1 = "=2*6371*ACOS(SIN(R[-1]C[-4])*SIN(RC[-4])+COS(R[-1]C[-4])*COS(RC[-4])*COS(RC[-3]-R[-1]C[-3]))"
     Range("T2").FormulaR1C1 = _
@@ -5705,7 +5705,7 @@ ElseIf Range("I4") = "        FINISH LINE" Then
     Range("S3").Value = Range("S3").Value
     Range("S2").Value = Range("T2").Value
     Range("T2,M5:S209").Clear
-    
+
     'Select New FINI + 2 fixes before, 2 fixes after
     Range("M10:M209").FormulaR1C1 = "=IF(RC[-6]=R3C14,1,"""")"
     Range("N10:N209").FormulaR1C1 = "=IF(R[2]C[-1]=1,1,"""")"
@@ -5718,7 +5718,7 @@ ElseIf Range("I4") = "        FINISH LINE" Then
     Range("R10:V209").Value = Range("R10:V209").Value
     Range("M10:Q209").Clear
     Range("R10:V209").Sort Key1:=Range("R10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Sheets("YDWK3").Activate
     Sheets("YDWK3").Range("M22:Q22").Value = Sheets("Sheet3").Range("N2:R2").Value
     Sheets("YDWK3").Range("M23:Q23").Value = Sheets("Sheet3").Range("N1:R1").Value
@@ -5751,7 +5751,7 @@ Application.Run "F.xlsm!YDWK3clear"
         Range("R10:V209").Value = Range("R10:V209").Value
         Range("M10:Q209").Clear
         Range("R10:V209").Sort Key1:=Range("R10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
         Sheets("YDWK3").Activate
         Sheets("YDWK3").Range("M22:Q22").Value = Sheets("Sheet3").Range("H2:L2").Value
         Sheets("YDWK3").Range("M23:Q23").Value = Sheets("Sheet3").Range("H1:L1").Value
@@ -5768,7 +5768,7 @@ Application.Run "F.xlsm!YDWK3clear"
 
     Application.Run "F.xlsm!YDWK3clear"
     End If
-    
+
     Sheets("Sheet3").Activate
     If Range("S2") > Range("M2") And Range("I4") = Range("O4") And Range("M3") = Range("S3") Then
         Sheets("Sheet2").Range("H15:M18").Value = Sheets("Sheet3").Range("N1:S4").Value
@@ -5792,7 +5792,7 @@ Sub OZSectorB()
         "=IF(AND(R2C6=MAX(R2C6,R2C13,R7C13),R4C1<>""NO FIN LINE""),""A1"",IF(OR(AND(R2C13=MAX(R2C13,R7C13),R3C13=""SECTOR"",R4C8=""NO FIN LINE""),AND(R2C13=MAX(R2C13,R7C13),R4C8<>""NO FIN LINE"")),""H1"",IF(AND(R6C8<>"""",R9C8<>""NO FIN LINE""),""H6"")))"
     ActiveSheet.Calculate
     Range("P1").Value = Range("P1").Value
-    
+
     If Range("P1") = "H1" Then
         Range("H10:M13").Value = Range("H1:M4").Value
     ElseIf Range("P1") = "A1" Then
@@ -5800,7 +5800,7 @@ Sub OZSectorB()
     ElseIf Range("P1") = "H6" Then
         Range("H10:M13").Value = Range("H6:M9").Value
     End If
-    
+
   If Range("A9") = "REF" Or Range("B9") = "REF2" Then
     Application.Run "F.xlsm!ORRref"
     Sheets("Sheet2").Activate
@@ -5826,7 +5826,7 @@ If Range("H15") <> "" Then
     Sheets("TASKS").Range("H14:J17").Value = Sheets("Sheet2").Range("K15:M18").Value
     Range("F17").FormulaR1C1 = "=RC[-2]"
     Range("F14:G17").Value = Range("F14:G17").Value
-     
+
 ElseIf Range("H15") = "" Then
     If Range("M12") = "SECTOR" And Range("H13") = "NO FIN LINE" Then
         Range("I12:J12").Value = Range("I10:J10").Value

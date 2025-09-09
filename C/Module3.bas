@@ -37,7 +37,7 @@ If Range("J1") = "" And Range("K1") = "OO Cert" And Range("L1") = "" Then
     Range("I7:J14").FormulaR1C1 = "=CALIBRATION!R[7]C[-2]"
     Sheets("YDWK1").Protect Password:="spike"
     Sheets("Calibration").Visible = True
-    
+
 ElseIf Range("J1") > 0 Or Range("K1") <> "OO Cert" Or Range("L1") <> "" Then
     Sheets("YDWK1").Range("E4").Value = Sheets("B").Range("A42").Value
     Sheets("YDWK1").Range("F7:G14").Value = Sheets("B").Range("A43:B50").Value
@@ -59,7 +59,7 @@ With Worksheets("TPOrder")
     Range("C3").FormulaR1C1 = "0.00335281066474748"
     Range("C5").FormulaR1C1 = "=SUMMARY!R[9]C[6]"
     Range("O1,S1,W1").FormulaR1C1 = "=IF(AND(R4C>0,R10C>0),1,0)"
-    
+
  If Range("A3") > 0 Then
     Range("H11").FormulaR1C1 = "=IF(RC[-3]="""","""",(1-R3C3)*TAN(RC[-5]))"
     Range("I11").FormulaR1C1 = "=IF(RC[-1]="""","""",ATAN(RC[-1]))"
@@ -166,7 +166,7 @@ With Worksheets("TPOrder")
     Range("AQ6").FormulaR1C1 = "=IF(R[-1]C="""","""",IF(R[-2]C[-2]-45<0,R[-2]C[-2]-45+360,RC[-2]))"
     LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("H11:W11").AutoFill Destination:=.Range("H11:W" & LastRow), Type:=xlFillDefault
-  
+
     Range("AD11").FormulaR1C1 = _
         "=IF(AND(RC[-29]<>"""",RC[-28]=R2C,RC[-26]=R4C),0,IF(RC[-19]="""","""",6371*ACOS((SIN(RC[-27])*SIN(RADIANS(R2C30))+COS(RC[-27])*COS(RADIANS(R2C30))*COS(RC[-25]-RADIANS(R4C30))))))"
     Range("AD6").FormulaR1C1 = "=MIN(R[5]C:R[10004]C)"
@@ -300,7 +300,7 @@ With Worksheets("TPOrder")
  LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("AD11:BS11").AutoFill Destination:=.Range("AD11:BS" & LastRow), Type:=xlFillDefault
 End If
- 
+
  If Range("A4") > 0 Then
     Range("BU11").FormulaR1C1 = "=IF(AND(RC[-61]>40,RC[-60]="""",RC[-58]=""""),"""",R4C[12]-RC[-68])"
     'Range("BU11").FormulaR1C1 = "=IF(AND(RC[-60]="""",RC[-58]=""""),"""",R4C[12]-RC[-68])"
@@ -467,7 +467,7 @@ If Range("A4") > 0 Or Range("A5") > 0 Or Range("A6") > 0 Then
 LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("DQ11:DV11").AutoFill Destination:=.Range("DQ11:DV" & LastRow), Type:=xlFillDefault
  End If
-    
+
  If Range("A7") > 0 Then
     Range("EB2").FormulaR1C1 = "=B!R28C1+B!R28C2/60"
     Range("EB4").FormulaR1C1 = "=B!R28C4+B!R28C5/60"
@@ -597,7 +597,7 @@ LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("FN12:FR12").AutoFill Destination:=.Range("FN12:FR" & LastRow), Type:=xlFillDefault
 End If
- 
+
  If Range("A3") > 0 Or Range("A7") > 0 Then
     Range("FT15").FormulaR1C1 = "=RC[-150]"
     Range("FV15").FormulaR1C1 = "=IF(RC[-2]+90>360,RC[-2]+90-360,RC[-2]+90)"
@@ -794,7 +794,7 @@ End With
     'AU5 Added 7/27/2015 for START Needs to be at end!
     Range("AU5").FormulaR1C1 = _
         "=IF(MAX(R4C86,R6C87,R4C102,R6C103,R4C118,R6C119)=0,"""",IF(MIN(R4C86,R6C87,R4C102,R6C103,R4C118,R6C119)<>0,MIN(R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),IF(SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),2)<>0,SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),2),IF(SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),3)<>0,SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),3),IF(SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),4)<>0,SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),4),IF(SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),5)<>0,SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),5),IF(SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),5)=0,SMALL((R4C86,R6C87,R4C102,R6C103,R4C118,R6C119),6))))))))"
-    
+
     Application.Calculation = xlCalculationAutomatic
     Sheets("YDWK2").Range("E1505").FormulaR1C1 = _
         "=R[-34]C[-2]+(1-R[-2]C)*R[-35]C[-2]*R[-14]C*(ACOS(R[-19]C)+R[-2]C*SIN(ACOS(R[-19]C))*(R[-12]C+R[-2]C*R[-19]C*(-1+2*R[-12]C*R[-12]C)))"

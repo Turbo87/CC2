@@ -17,7 +17,7 @@ Application.ScreenUpdating = False
 If Range("C23") = "      Click on the glider to continue" Then
     Dim myFile As String
     myFile = Application.GetOpenFilename("IGC Files,*.igc")
-    
+
     If myFile <> "False" Then
     Application.ScreenUpdating = True
     Workbooks("A.xlsm").Unprotect Password:="spike"
@@ -29,10 +29,10 @@ If Range("C23") = "      Click on the glider to continue" Then
         newSecond = Second(Now()) + 2
         waitTime = TimeSerial(newHour, newMinute, newSecond)
         Application.Wait waitTime
-    
+
     Sheets("All Claims").Visible = False
     Application.ScreenUpdating = False
-    
+
     Application.Cursor = xlWait
     Workbooks.OpenText Filename:=myFile, Origin:=437, StartRow:=1 _
         , DataType:=xlDelimited, TextQualifier:=xlDoubleQuote, _
@@ -79,7 +79,7 @@ If Range("C23") = "      Click on the glider to continue" Then
     ActiveWindow.ScrollWorkbookTabs Sheets:=-3
     Application.Calculate
     ActiveWindow.DisplayWorkbookTabs = True
-    
+
     Application.Cursor = xlDefault
     Application.DisplayFullScreen = True
     Application.ScreenUpdating = True

@@ -24,7 +24,7 @@ If Range("J1") = "" And Range("K1") = "" And Range("L1") = "" Then
     Range("F7:G14").FormulaR1C1 = "=CALIBRATION!R[-1]C[1]"
     Range("I7:J14").FormulaR1C1 = "=CALIBRATION!R[7]C[-2]"
     Sheets("Calibration").Visible = True
-     
+
 ElseIf Range("J1") > 0 Or Range("K1") <> "" Or Range("L1") <> "" Then
     Sheets("YDWK1").Range("E4").Value = Sheets("B").Range("A42").Value
     Sheets("YDWK1").Range("F7:G14").Value = Sheets("B").Range("A43:B50").Value
@@ -33,7 +33,7 @@ ElseIf Range("J1") > 0 Or Range("K1") <> "" Or Range("L1") <> "" Then
 End If
 Sheets("YDWK1").Protect Password:="spike"
 Sheets("YDWK1").Visible = False
-    
+
     Sheets("Claim Check").Visible = True
     ActiveWorkbook.Protect Password:="spike"
     Sheets("Claim Check").Activate

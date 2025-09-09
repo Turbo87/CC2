@@ -90,7 +90,7 @@ If Range("B25") = "            Click on the glider to continue" Then
     End If
     Sheets("Verify Task").Protect Password:="spike"
     Application.ScreenUpdating = False
-    
+
     Application.Run "C.xlsm!YDWK2"
     Workbooks("C.xlsm").Unprotect Password:="spike"
     Sheets("Worksheet").Activate
@@ -137,16 +137,16 @@ If Range("B25") = "            Click on the glider to continue" Then
     ActiveWindow.DisplayVerticalScrollBar = True
     ActiveWindow.DisplayWorkbookTabs = True
     Sheets("Claim Check").Calculate
-    
+
     Range("A1:J31").Select
     ActiveWindow.Zoom = True
     Range("B2").Select
     Sheets("Claim Check").Protect Password:="spike"
  End If
-    
+
     Workbooks("C.xlsm").Protect Password:="spike"
     Application.ScreenUpdating = True
-   
+
 End Sub
 Sub back2CC()
 
@@ -282,18 +282,18 @@ Sub YDWK2()
     Workbooks("C.xlsm").Unprotect Password:="spike"
     Sheets("YDWK2").Visible = True
     Sheets("YDWK2").Select
-    
+
     Application.Calculation = xlCalculationManual
     Range("E55,E127,E198,E270,E342,E414,E486,E558,E630").FormulaR1C1 = _
         "=R[-34]C[-2]+(1-R[-2]C)*R[-35]C[-2]*R[-14]C*(ACOS(R[-19]C)+R[-2]C*SIN(ACOS(R[-19]C))*(R[-12]C+R[-2]C*R[-19]C*(-1+2*R[-12]C*R[-12]C)))"
-    
+
     Range("E702,E774,E848,E922,O922,Y922,E995,O996,Y996").FormulaR1C1 = _
         "=R[-34]C[-2]+(1-R[-2]C)*R[-35]C[-2]*R[-14]C*(ACOS(R[-19]C)+R[-2]C*SIN(ACOS(R[-19]C))*(R[-12]C+R[-2]C*R[-19]C*(-1+2*R[-12]C*R[-12]C)))"
-    
+
     Range("E1069,E1142,E1214,E1287,E1359,E1432,E1505,E1578,O1578,E1651").FormulaR1C1 = _
         "=R[-34]C[-2]+(1-R[-2]C)*R[-35]C[-2]*R[-14]C*(ACOS(R[-19]C)+R[-2]C*SIN(ACOS(R[-19]C))*(R[-12]C+R[-2]C*R[-19]C*(-1+2*R[-12]C*R[-12]C)))"
     Application.Calculation = xlCalculationAutomatic
-    
+
     Range("A1").Select
     Sheets("YDWK2").Visible = False
     Workbooks("C.xlsm").Protect Password:="spike"

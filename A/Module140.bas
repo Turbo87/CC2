@@ -9,7 +9,7 @@ Option Explicit
 #Else
     Dim LastRow As Long
 #End If
-    
+
 Sub PreB()
 '
 ' JLR 2/8/2015  Amended to have edited fixes @ A:G for TPOrder; all post-Rel fixes @ I:M for iteration
@@ -38,7 +38,7 @@ Sheets("Sheet2").Select
     End With
     Range("D1:D60000").Value = Range("D1:D60000").Value
     Range("E1:F60000").Sort Key1:=Range("E1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-   
+
     Columns("F:F").TextToColumns Destination:=Range("F1"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(6, 1), Array(8, 1), Array(13, _
         1), Array(14, 1), Array(17, 1), Array(22, 1), Array(23, 9), Array(24, 1), Array(29, 1), _
@@ -49,7 +49,7 @@ Sheets("Sheet2").Select
     If Range("A5") = 0 Then
         Range("L1:L60000").Value = Range("M1:M60000").Value
     End If
-    
+
     'For iterative stuff eg STD, ST/FIN Fixes
     Range("AB1:AB60000").Value = Range("E1:E60000").Value
     Range("AE1:AF60000").Value = Range("L1:M60000").Value
@@ -63,7 +63,7 @@ Sheets("Sheet2").Select
 .Range("AC1:AD1").AutoFill Destination:=.Range("AC1:AD" & LastRow), Type:=xlFillDefault
     End With
     Range("AB1:AF60000").Value = Range("AB1:AF60000").Value
-      
+
     Application.Calculation = xlCalculationManual
     Range("N1").FormulaR1C1 = "=IF(RC[-6]=""N"",RADIANS(RC[-8]+(RC[-7]*0.001/60)),RADIANS(-1*(RC[-8])+-1*(RC[-7]*0.001/60)))"
     Range("O1").FormulaR1C1 = "=IF(RC[-4]=""E"",RADIANS(RC[-6]+(RC[-5]*0.001/60)),RADIANS(-1*(RC[-6])+-1*(RC[-5]*0.001/60)))"
@@ -95,15 +95,15 @@ Sheets("Sheet2").Select
     LastRow = .Cells(Rows.Count, "E").End(xlUp).Row
 .Range("R6").AutoFill Destination:=.Range("R6:R" & LastRow), Type:=xlFillDefault
     End With
-    
+
     Worksheets("Sheet2").Calculate
     Range("N1:Z60000").Value = Range("N1:Z60000").Value
     Range("T1:Z60000").Sort Key1:=Range("T1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Columns("A:S").Clear
     Range("A1:G10000").Value = Range("T1:Z10000").Value
     Columns("T:Z").Clear
     Columns("I:AA").Delete Shift:=xlToLeft
-    
+
 Application.Calculation = xlCalculationAutomatic
 End Sub

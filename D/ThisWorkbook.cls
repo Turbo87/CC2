@@ -30,7 +30,7 @@ ActiveSheet.Protect Password:="spike"
 Range("D4").Select
 Application.MoveAfterReturnDirection = xlToRight
 Workbooks("D.xlsm").Protect Password:="spike"
-    
+
 End Sub
 
 Private Sub Workbook_BeforeClose(Cancel As Boolean)

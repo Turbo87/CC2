@@ -11,7 +11,7 @@ Dim myFile As Variant
 #Else
     Dim LastRow As Long
 #End If
-    
+
 Sub NewENLA()
 '
 ' JLR 3/27/12 7/26/16 Corrected O49 on Imp (no = sign)
@@ -59,35 +59,35 @@ Sub NewENLA()
     Range("K2:K60001").FormulaR1C1 = "=IF(RC[-1]="""","""",RC[-8])"
     Range("J2:K60001") = Range("J2:K60001").Value
     Range("J1:K60000").Sort Key1:=Range("J1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("L1").FormulaR1C1 = "1"
     Range("L2:L60000").FormulaR1C1 = "=IF(RC[-1]=""""=FALSE,R[-1]C+1,"""")"
     Range("L2:L60000") = Range("L2:L60000").Value
-    
+
     If Range("E1") > 40000 Then
         Range("P6:P60000").FormulaR1C1 = "=IF(SUM(R[-5]C:R[-1]C)=0,1,0)"
         Range("P6:P60000") = Range("P6:P60000").Value
-    
+
     ElseIf Range("E1") > 30000 Then
         Range("O4:O40000").FormulaR1C1 = "=IF(SUM(R[-3]C:R[-1]C)=0,1,0)"
         Range("O4:O40000") = Range("O4:O40000").Value
-    
+
     ElseIf Range("E1") > 20000 Then
         Range("N3:N30000").FormulaR1C1 = "=IF(SUM(R[-2]C:R[-1]C)>0,0,1)"
         Range("N3:N30000") = Range("N3:N30000").Value
-    
+
     ElseIf Range("E1") > 10000 Then
         Range("M2:M20000").FormulaR1C1 = "=IF(R[-1]C=0,1,0)"
         Range("M2:M20000") = Range("M2:M20000").Value
     End If
-    
+
     Range("Q1").FormulaR1C1 = "1"
     Range("Q2:Q60000").FormulaR1C1 = "=IF(RC[-5]="""","""",IF(R1C5<=10000,RC[-5],IF(AND(R1C5>10000,R1C5<=20000,RC[-4]=1),RC[-5],IF(AND(R1C5>20000,R1C5<=30000,RC[-3]=1),RC[-5],IF(AND(R1C5>30000,R1C5<=40000,RC[-2]=1),RC[-5],IF(AND(R1C5>40000,R1C5<=60000,RC[-1]=1),RC[-5],""""))))))"
     Range("Q1:Q60000") = Range("Q1:Q60000").Value
     Range("R1:R60000").FormulaR1C1 = "=IF(RC[-1]=RC[-6],RC[-7],"""")"
     Range("R1:R60000") = Range("R1:R60000").Value
     Range("Q1:R60000").Sort Key1:=Range("Q1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("X1:X10000").Value = Range("R1:R10000").Value
     Columns("X:X").TextToColumns Destination:=Range("W1"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 1), Array(6, 1), Array(8, 1), Array(10, _
@@ -95,9 +95,9 @@ Sub NewENLA()
         TrailingMinusNumbers:=True
     Range("AK1:AL10000").Value = Range("Q1:R10000").Value
     Range("AK1:AL10000").Sort Key1:=Range("AK1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Sheets("IMP").Range("A1:A1000").Value = Sheets("BR").Range("D1:D1000").Value
-    
+
     Sheets("IMP").Select
     Range("B1:B1000") = Range("A1:A1000").Value
     Columns("B:B").TextToColumns Destination:=Range("B1"), DataType:=xlFixedWidth, _
@@ -129,7 +129,7 @@ Sub NewENLA()
         TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=False, Tab:=False, _
         Semicolon:=False, Comma:=False, Space:=False, Other:=True, OtherChar _
         :=":", FieldInfo:=Array(Array(1, 2), Array(2, 2)), TrailingMinusNumbers:=True
-    
+
    'PUT H RECORDS IN TECH SPECS ORDER 4/16/15
     Range("R1").Value = "FPLT"
     Range("S1").Value = "FCM2"
@@ -141,13 +141,13 @@ Sub NewENLA()
     Range("Y1").Value = "FFTY"
     Range("Z1").Value = "FGPS"
     Range("AA1").Value = "FPRS"
-    
+
     Range("L4:L50").FormulaR1C1 = "=IF(RC2=""H"",RC3,"""")"
     Range("M4:M50").FormulaR1C1 = "=IF(RC2=""H"",RC4,"""")"
     Range("N4:N50").FormulaR1C1 = "=IF(RC2=""H"",RC5,"""")"
-    
+
     Range("L4:N50").Value = Range("L4:N50").Value
-    
+
     Range("R4:R50").FormulaR1C1 = "=IF(OR(RC12=R1C,RC12=""OPLT"",RC12=""PPLT""),1,"""")"
     Range("S4:S50").FormulaR1C1 = "=IF(OR(RC12=R1C,RC12=""OCM2"",RC12=""PCM2""),2,"""")"
     Range("T4:T50").FormulaR1C1 = "=IF(OR(RC12=R1C,R24C12=""OGTY"",R24C12=""PGTY""),3,"""")"
@@ -158,12 +158,12 @@ Sub NewENLA()
     Range("Y4:Y50").FormulaR1C1 = "=IF(RC12=R1C,8,"""")"
     Range("Z4:Z50").FormulaR1C1 = "=IF(RC12=R1C,9,"""")"
     Range("AA4:AA50").FormulaR1C1 = "=IF(RC12=R1C,10,"""")"
-  
+
     Range("R4:AA50").Value = Range("R4:AA50").Value
-    
+
     Range("O4:O50").FormulaR1C1 = "=IF(MAX(RC[3]:RC[13])=0,"""",MAX(RC[3]:RC[13]))"
     Range("O4:O50").Value = Range("O4:O50").Value
-    
+
     Range("L4:O50").Sort Key1:=Range("O10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     'Amended 4/30/15 delete former ref to FW/HW conundrum, go with order only; revised 5/5/15 for strict order; no FFTY added 5/11/15
     Range("O45").FormulaR1C1 = "=IF(R4C=1,"""",1)"
@@ -209,7 +209,7 @@ Sub NewENLA()
         End If
     End If
     Range("G1").FormulaR1C1 = "='[A.xlsm]ALL CLAIMS'!R18C6"
-    
+
     Sheets("Sheet1").Select
     Range("A1").FormulaR1C1 = "=IF(IMP!R1C8=0,""NO I Record"",IF(IMP!R1C17=0,""No ENL"",""ENL""))"
     Sheets("Sheet1").Range("A11:A10010").Value = Sheets("BR").Range("AL1:AL10000").Value
@@ -217,7 +217,7 @@ Sub NewENLA()
         OtherChar:="E", FieldInfo:=Array(Array(0, 1), Array(2, 1), Array(4, 1), Array(6, 1 _
         ), Array(8, 1), Array(13, 1), Array(14, 1), Array(17, 1), Array(22, 1), Array(23, 1), Array( _
         24, 1), Array(29, 1), Array(34, 2)), TrailingMinusNumbers:=True
-    
+
     Dim MyCell As Range
     Application.Calculation = xlCalculationManual
         Range("D11:E10010").Select
@@ -233,7 +233,7 @@ Sub NewENLA()
     End If
     Next
 Application.Calculation = xlCalculationAutomatic
-    
+
     If Range("A1") = "ENL" Then
     Range("O1").Value = Sheets("IMP").Range("Q1").Value
     Range("P1").Value = Sheets("IMP").Range("Q2").Value
@@ -324,7 +324,7 @@ Application.Calculation = xlCalculationAutomatic
     Range("Z2").FormulaR1C1 = "=IF(R1C1=""NO ENL"",0,IF(R[6]C=0,R[2]C,R[6]C))"
     Range("Z3").FormulaR1C1 = "=MIN(R[22]C:R[10006]C)"
     Range("Z4").FormulaR1C1 = "=MAX(R[21]C:R[10005]C)"
-    
+
     If Range("AA4") <> 0 And Range("AA4") < Range("Z4") And Range("AA5") >= 0.001388889 Then
          Range("Z25:Z10009").FormulaR1C1 = "=IF(AND(RC[-10]<R4C27,RC[-10]>=R3C27,R[-1]C[-1]=1,R[1]C[-1]<>1,SUM(R[-15]C[-1]:R[-1]C[-1])>=8),RC[-10],"""")"
     End If
@@ -341,7 +341,7 @@ Application.Calculation = xlCalculationAutomatic
     ''''Range("AA3").FormulaR1C1 = "=IF(OR(R3C25=2,R3C25=4,MIN(R[22]C:R[10006]C)-RC[-1]<=0.000694),0,MIN(R[22]C:R[10006]C))"
     ''''Range("AA4").FormulaR1C1 = "=MAX(R[21]C:R[10005]C)"
     ''''Range("AA3:AA4").Value = Range("AA3:AA4").Value
-    
+
     Range("AB2").FormulaR1C1 = "=IF(R[2]C=R3C16+PRS!R2C2/24,R[1]C,R[2]C)"
     Range("AB3").FormulaR1C1 = "=IF(R[-1]C[-8]=0,R[-1]C[-6],MAX(RC[-2],R[2]C))"
 
@@ -471,12 +471,12 @@ Application.Calculation = xlCalculationAutomatic
     Range("CJ2").FormulaR1C1 = "=MAX(R[9]C:R[10008]C)"
     Range("CK2").FormulaR1C1 = "=MAX(R[9]C:R[10008]C)"
     Range("A1").Select
-    
+
     Sheets("Sheet1").Range("C3").Value = Sheets("PRS").Range("B10").Value
     If Range("C3") > 10000 Then
         Application.Run "Ab.xlsm!RefineLDG"
     End If
-    
+
     If Range("Y3") = 3 And Range("C4") > 10000 Then
         Application.Run "Ab.xlsm!ENLrefine"
     End If
@@ -491,7 +491,7 @@ Sub RefineLDG()
     Range("AV1").FormulaR1C1 = "=MAX(RC[-2]:R[60000]C[-2])-1/24"
     Range("AV2:AV60001").FormulaR1C1 = "=IF(RC[-2]>R1C,RC[-2],"""")"
     Range("AW2:AW60001").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-2],"""")"
-   
+
     Range("AV2:AW60001").Value = Range("AV2:AW60001").Value
     ActiveWorkbook.Worksheets("BR").Sort.SortFields.Clear
     ActiveWorkbook.Worksheets("BR").Sort.SortFields.Add Key:=Range("AV2:AV60001") _
@@ -504,7 +504,7 @@ Sub RefineLDG()
         .SortMethod = xlPinYin
         .Apply
     End With
-    
+
     Range("AW2:AW3601").Select
     Selection.TextToColumns Destination:=Range("AW2"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(6, 1), Array(8, 1), Array(13, _
@@ -513,7 +513,7 @@ Sub RefineLDG()
 
     Range("BD1").FormulaR1C1 = "=MIN(R[1]C:R[3600]C)"
     Range("BD2:BI2").FormulaR1C1 = "=MIN(R[1]C:R[3598]C)"
-    
+
     Range("BD3").FormulaR1C1 = "=IF(AND(RC[-7]=R[1]C[-7],RC[-6]=R[1]C[-6],RC[-4]=R[1]C[-4],RC[-3]=R[1]C[-3],ABS(RC[-1]-PRS!R8C4)<4),RC[-8],"""")"
     Range("BE3").FormulaR1C1 = "=IF(RC[-1]<>R1C56,"""",IF(RC[-6]=""S"",-1*RC[-8],RC[-8]))"
     Range("BF3").FormulaR1C1 = "=IF(RC[-1]="""","""",IF(RC[-7]=""S"",-1*(RC[-8]/1000),RC[-8]/1000))"
@@ -537,7 +537,7 @@ Sub RefineLDG()
         Sheets("Sheet1").Range("AZ2").Value = Sheets("BR").Range("BH2").Value
         Sheets("Sheet1").Range("BB2").Value = Sheets("BR").Range("BI2").Value
     End If
-        
+
 End Sub
 
 Sub ENLrefine()
@@ -550,7 +550,7 @@ Sub ENLrefine()
     Range("G1").Value = 0.00005787037037
     Range("I1:I60000").FormulaR1C1 = "=IF(OR(AND(RC[1]<=Sheet1!R2C26+R1C7,RC[1]>=Sheet1!R2C26-R1C7),AND(RC[1]<=Sheet1!R4C38+R1C7,RC[1]>=Sheet1!R4C38-R1C7)),RC[1],"""")"
     Range("I1:I60000").Value = Range("I1:I60000").Value
-    
+
     Range("AT1:AT60000").Value = Range("I1:I60000").Value
     Range("I1:I60000").FormulaR1C1 = "=IF(RC[37]<>"""",RC[2],"""")"
     Range("AU1:AU60000").Value = Range("I1:I60000").Value
@@ -571,16 +571,16 @@ Sub ENLrefine()
     Range("AR2").FormulaR1C1 = "=MAX(R[10]C[12]:R[20]C[12])"
     Range("AS1").FormulaR1C1 = "=Sheet1!R6C25"
     Range("AS2").FormulaR1C1 = "=IMP!R[-1]C[-28]-1"
-    
+
     Range("BC1:BC22").FormulaR1C1 = "=MID(RC[-8],R2C45,3)"
     Range("BC1:BC22").Value = Range("BC1:BC22").Value
     Range("BD1:BD22").FormulaR1C1 = "=IF(RC[-1]<R1C45,RC[-10],"""")"
     Range("BE1:BE22").FormulaR1C1 = "=IF(OR(RC[-1]=R1C44,RC[-1]=R2C44),RC[-1],"""")"
     Range("BF1:BF22").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-11],"""")"
     Range("BG1:BG22").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-4],"""")"
-    
+
     Range("BE1:BG22").Value = Range("BE1:BG22").Value
-    
+
     ActiveWorkbook.Worksheets("BR").Sort.SortFields.Clear
     ActiveWorkbook.Worksheets("BR").Sort.SortFields.Add Key:=Range("BE1"), _
         SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
@@ -592,10 +592,10 @@ Sub ENLrefine()
         .SortMethod = xlPinYin
         .Apply
     End With
-   
+
     Range("AT1:BD22").Select
     Selection.Clear
-    
+
     Range("AT1:AV2").Value = Range("BE1:BG2").Value
     Range("BC1:BC2").Value = Range("AV1:AV2").Value
     Range("AV1:AV2").Clear
@@ -604,20 +604,20 @@ Sub ENLrefine()
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(6, 1), Array(8, 1), Array(13, _
         1), Array(14, 1), Array(17, 1), Array(22, 1), Array(23, 9), Array(24, 1), Array(29, 1), _
         Array(34, 9)), TrailingMinusNumbers:=True
-    
+
     Range("AT3:AT4").FormulaR1C1 = "=R[-2]C"
     Range("AU3:AU4").FormulaR1C1 = "=IF(R[-2]C[2]=""N"",R[-2]C,-1*R[-2]C)"
     Range("AV3:AV4").FormulaR1C1 = "=IF(R[-2]C[1]=""N"",R[-2]C/1000,-1*(R[-2]C/1000))"
     Range("AX3:AX4").FormulaR1C1 = "=IF(R[-2]C[2]=""E"",R[-2]C,-1*R[-2]C)"
     Range("AY3:AY4").FormulaR1C1 = "=IF(R[-2]C[1]=""E"",R[-2]C/1000,-1*(R[-2]C/1000))"
     Range("BA3:BC4").FormulaR1C1 = "=R[-2]C"
-    
+
     Range("AT3:BC4").Value = Range("AT3:BC4").Value
     Range("AR1:BG2").Clear
-    
+
     Range("AT1:BC2").Value = Range("AT3:BC4").Value
     Range("AT3:BC4").Clear
-    
+
     Sheets("Sheet1").Activate
     Range("Z8").FormulaR1C1 = "=BR!R[-7]C[20]"
     Range("AD8").FormulaR1C1 = "=BR!R[-7]C[17]"
@@ -916,21 +916,21 @@ Sub NEWHilo()
 Application.Calculation = xlCalculationAutomatic
     Range("A1:CK10").Value = Range("A1:CK10").Value
     Range("Q11:CK10010").Clear
-    
+
     Range("BD11:BD10010").FormulaR1C1 = "=IF(RC[-40]=R4C,RC[-44],"""")"
     Range("BE11:BE10010").FormulaR1C1 = "=IF(RC[-41]=R2C[-1],RC[-45],"""")"
     Range("BG11:BG10010").FormulaR1C1 = "=IF(RC[-43]=R2C,RC[-47],"""")"
-    
+
     Range("BF2").FormulaR1C1 = "=MAX(R[9]C[-1]:R[10008]C[-1])"
     Range("BF4").FormulaR1C1 = "=MAX(R[7]C[-2]:R[10006]C[-2])"
     Range("BI2").FormulaR1C1 = "=MAX(R[9]C[-2]:R[10008]C[-2])"
     Range("BF2:BI4").Value = Range("BF2:BI4").Value
     Range("A11:BG10010").Clear
-    
+
     Sheets("PRS").Range("J2").Value = Sheets("Sheet1").Range("BF4").Value
     Sheets("PRS").Range("J5").Value = Sheets("Sheet1").Range("BF2").Value
     Sheets("PRS").Range("J8").Value = Sheets("Sheet1").Range("BI2").Value
-    
+
     'Added 10/16/2015 for ST@TP or goofy dec
     'Sheets("PRS").Activate
     'Range("J24").FormulaR1C1 = _
@@ -942,7 +942,7 @@ Application.Calculation = xlCalculationAutomatic
         'Range("A24:G24").Value = Range("A20:G20").Value
     'End If
     Application.Run "Ab.xlsm!Detangler"
-    
+
 End Sub
 Sub Detangler()
 '
@@ -951,7 +951,7 @@ Sub Detangler()
 '
     'Step 1: Do nothing if declared order is plausible, with or without duplicates
     'Range("T20:T28").Value = Range("L20:L28").Value
-    
+
     Sheets("PRS").Activate
     Range("E12").FormulaR1C1 = _
         "=IF(AND(OR(R20C11<>R28C11,R20C12<>R28C12),OR(AND(R20C11=R22C11,R20C12=R22C12),AND(R20C11=R24C11,R20C12=R24C12),AND(R20C11=R26C11,R20C12=R26C12)),OR(AND(R28C11=R26C11,R28C12=R26C12),AND(R28C11=R24C11,R28C12=R24C12),AND(R28C11=R22C11,R28C12=R22C12))),""S&F@TPS"",IF(AND(R20C11=R28C11,R20C12=R28C12,OR(AND(R20C11=R22C11,R20C12=R22C12),AND(R20C11=R24C11,R20C12=R24C12),AND(R20C11=R26C11,R20C12=R26C12))),""SF@TP"",IF(OR(AND(R20C11=R22C11,R20C12=R22C12),AND(R20C11=R24C11,R20C12=R24C12),AND(R20C11=R26C11,R20C12=R26C12)),""ST@TP"",IF(OR(AND(R28C11=R26C11,R28C12=R26C12),AND(R28C11=R24C11,R28C12=R24C12),AND(R28C11=R22C11,R28C12=R22C12)),""FI@TP"",""""))))"
@@ -959,7 +959,7 @@ Sub Detangler()
         Range("J20").FormulaR1C1 = _
             "=IF(AND(R12C5="""",OR(AND(R14C2=3,R22C11=R24C11,R24C11=R26C11,R22C12=R24C12,R24C12=R26C12),AND(R14C2=2,R22C11=R24C11,R22C12=R24C12))),""1 TP"",IF(R28C10=0,0,IF(AND(R14C2=2,R28C10<3),""1 TP"",IF(AND(R14C2=2,R28C=3),""2 TP"",IF(AND(R14C2=3,OR(R28C10<3,AND(R22C10=""X"",R24C10=""X""),AND(R24C10=""X"",R26C10=""X""),AND(R22C10=""X"",R26C10=""X""))),""1 TP"",IF(AND(R14C2=3,OR(R22C10=""X"",R24C10=""X"",R26C10=""X"")),""2 TP"",""3 TP""))))))"
         ActiveSheet.Calculate
-    
+
         Range("J22").FormulaR1C1 = _
             "=IF(AND(OR(RC[1]<>R[-2]C[1],RC[2]<>R[-2]C[2]),OR(RC[1]<>R[2]C[1],RC[2]<>R[2]C[2])),1,""X"")"
         If Range("B14") = 3 Then
@@ -979,9 +979,9 @@ Sub Detangler()
             Range("J20").Value = "TPO"
         End If
     End If
-    
+
     Range("J28").FormulaR1C1 = "=SUM(R22C:R26C)"
-    
+
     If Range("B14") = 2 And Range("J28") = 3 Then
         Range("J20:J28").Clear
         Range("I22").Value = 1
@@ -995,7 +995,7 @@ Sub Detangler()
         Range("M20:S28").Value = Range("A20:G28").Value
     Exit Sub
     End If
-    
+
     'Step 2a:Bungled without ST or Fin as TP
      If Range("E12") = "" Then
      'When B14 = 2 here - has to be 1 TP
@@ -1025,7 +1025,7 @@ Sub Detangler()
             End If
         End If
      End If
-    
+
     'Step 2b: Bungled TP with 2 declared OK 12/14/15
     If Range("B14") = 2 Then
         If Range("E12") = "ST@TP" Then
@@ -1052,7 +1052,7 @@ Sub Detangler()
             End If
         End If
     End If
-    
+
     'Step 2c: Bungled TP with 3 Declared
     If Range("B14") = 3 And Range("E12") = "ST@TP" Then
         'OK 12/14/15 2&3 OK 1 invalid
@@ -1088,7 +1088,7 @@ Sub Detangler()
             Range("J24").Value = 1
             Range("J26").Value = 3
         End If
-    
+
     ElseIf Range("B14") = 3 And Range("E12") = "S&F@TPS" Then
         If Range("J28") = 5 Then
             If Range("J22") = "X" Then
@@ -1163,7 +1163,7 @@ Sub Detangler()
                 Range("J26").Value = 1
             End If
         End If
-    
+
     ElseIf Range("B14") = 3 And Range("E12") = "SF@TP" Then
         If Range("J28") = 5 Then
             Range("J22").Value = 2
@@ -1210,7 +1210,7 @@ Sub Detangler()
                 Range("J26").Value = 2
             End If
         End If
-        
+
     ElseIf Range("B14") = 3 And Range("E12") = "FI@TP" Then
         If Range("J28") = 3 Then
             If Range("J26") = "X" Then
@@ -1278,29 +1278,29 @@ Sub Detangler()
      End If
      'Range("I22:I26").Value = Range("J22:J26").Value
      Range("J22:J26").Value = Range("J22:J26").Value
-     
+
      Range("M22:S26").Value = Range("A22:G26").Value
-        
+
      If Range("B14") >= 2 And Range("J22") <> "X" And Range("J24") <> "X" And Range("J26") <> "X" Then
         If Range("J24") = 1 Then
             Range("A22:G22").Value = Range("M24:S24").Value
         ElseIf Range("J26") = 1 Then
             Range("A22:G22").Value = Range("M26:S26").Value
         End If
-     
+
         If Range("J22") = 2 Then
             Range("A24:G24").Value = Range("M22:S22").Value
         ElseIf Range("J26") = 2 Then
             Range("A24:G24").Value = Range("M26:S26").Value
         End If
-     
+
         If Range("J22") = 3 Then
             Range("A26:G26").Value = Range("M22:S22").Value
         ElseIf Range("J24") = 3 Then
             Range("A26:G26").Value = Range("M24:S24").Value
         End If
      End If
-     
+
      If Range("J20") = "1 TP" And Range("B14") = 2 Then
         If Range("J22") = "X" Then
             Range("A22:G22").Value = Range("M24:S24").Value
@@ -1344,7 +1344,7 @@ Sub Detangler()
             Range("A26:G26").Clear
         End If
     End If
-                  
+
 End Sub
 
 Sub ClearAb()
@@ -1359,7 +1359,7 @@ Sub ClearAb()
     Range("E22").FormulaR1C1 = "=IF(R14C2<1,0,IF(R[-9]C[-1]<>3,IMP!R[-20]C[41],[A.xlsm]OTHER!R62C10))"
     Range("F22").FormulaR1C1 = "=IF(RC[-2]>0,""E"",""W"")"
     Range("G22").FormulaR1C1 = "=IF(AND(R[-8]C[-5]>0,R[-9]C[-3]<>3),IMP!R[-21]C[41],[A.xlsm]OTHER!R22C3)"
-    
+
     Range("A24").FormulaR1C1 = "=IF(R14C2<2,0,IF(R[-11]C[3]<>3,IMP!R[-22]C[48],[A.xlsm]OTHER!R64C5))"
     Range("B24").FormulaR1C1 = "=IF(R14C2<2,0,IF(R[-11]C[2]<>3,IMP!R[-22]C[48],[A.xlsm]OTHER!R64C6))"
     Range("C24").FormulaR1C1 = "=IF(RC[-2]>0,""N"",""S"")"
@@ -1367,7 +1367,7 @@ Sub ClearAb()
     Range("E24").FormulaR1C1 = "=IF(R14C2<2,0,IF(R[-11]C[-1]<>3,IMP!R[-22]C[48],[A.xlsm]OTHER!R64C10))"
     Range("F24").FormulaR1C1 = "=IF(RC[-2]>0,""E"",""W"")"
     Range("G24").FormulaR1C1 = "=IF(AND(R[-10]C[-5]>=2,R[-11]C[-3]<>3),IMP!R[-23]C[48],[A.xlsm]OTHER!R24C3)"
-    
+
     Range("A26").FormulaR1C1 = "=IF(AND(R[-12]C[1]>2,R[-13]C[3]<>3),IMP!R[-24]C[55],IF(R[-12]C[1]>2,[A.xlsm]OTHER!R66C5,0))"
     Range("B26").FormulaR1C1 = "=IF(AND(R14C2>2,R[-13]C[2]<>3),IMP!R[-24]C[55],IF(R[-12]C>2,[A.xlsm]OTHER!R66C6,0))"
     Range("C26").FormulaR1C1 = "=IF(RC[-2]>0,""N"",""S"")"
@@ -1375,20 +1375,20 @@ Sub ClearAb()
     Range("E26").FormulaR1C1 = "=IF(AND(R[-12]C[-3]>2,R[-13]C[-1]<>3),IMP!R[-24]C[55],IF(R[-12]C[-3]>2,[A.xlsm]OTHER!R66C10,0))"
     Range("F26").FormulaR1C1 = "=IF(RC[-2]>0,""E"",""W"")"
     Range("G26").FormulaR1C1 = "=IF(AND(R14C2=3,R[-13]C[-3]<>3),IMP!R[-25]C[55],[A.xlsm]OTHER!R26C3)"
-   
+
 End Sub
 Sub Duration()
 ' Finds best Duration w/out LoH penalty FOR AB SHEET2 After PreB; in corporates F.xlsm pressure correction; amended 9/5/15 to cite GPS alts
 ' 6/4/2017 Amended to add Duration on/after 10/1/2017, NO LOH LIMIT
     Application.ScreenUpdating = False
-   
+
 '
     Application.ScreenUpdating = False
     Sheets("Sheet2").Activate
     Sheets("Sheet2").Range("H1").Value = Sheets("PRS").Range("A2").Value
     Sheets("Sheet2").Range("H2").Value = 43009
     ' FIRST IF: Duration as of 10/01/2017 - NO LOH LIMIT
-    
+
  If Range("H1") >= Range("H2") Then
          Range("O1").FormulaR1C1 = "=RC[-6]"
          Range("P1").FormulaR1C1 = "=RC[-4]"
@@ -1397,7 +1397,7 @@ Sub Duration()
          Range("P2:Q2").FormulaR1C1 = "=MAX(R[1]C:R[59998]C)"
          Range("P3").FormulaR1C1 = "=IF(RC[-7]=R2C15,RC[-4],"""")"
          Range("Q3").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-4],"""")"
-    
+
         'Copy P3,Q3 per Col I
     Application.Calculation = xlCalculationManual
  With Worksheets("Sheet2")
@@ -1406,10 +1406,10 @@ Sub Duration()
     End With
 Sheets("Sheet2").Calculate
     'Application.Calculation = xlCalculationAutomatic
-    
+
          Range("O1:Q2").Value = Range("O1:Q2").Value
          Range("O3:Q60000").Clear
-    
+
          Sheets("PRS").Range("G14").Value = Sheets("Sheet2").Range("O1").Value
          Sheets("PRS").Range("H14").Value = Sheets("Sheet2").Range("P1").Value
          Sheets("PRS").Range("G15").Value = Sheets("Sheet2").Range("Q1").Value
@@ -1421,7 +1421,7 @@ Sheets("Sheet2").Calculate
         Range("I1:M60000").Cut Destination:=Range("I10:M60009")
 
 ElseIf Range("H1") < Range("H2") Then
-    
+
     'Leave PR altitude data alone
     Sheets("Sheet2").Activate
     Range("I1:M60000").Cut Destination:=Range("I10:M60009")
@@ -1451,7 +1451,7 @@ ElseIf Range("H1") < Range("H2") Then
     Range("L10:L60009").Value = Range("R10:R60009").Value
     Columns("R:T").Clear
     End If
-    
+
     Range("I3").FormulaR1C1 = "=MAX(R[7]C:R[60006]C)"
     Range("J3").FormulaR1C1 = "=MAX(R[7]C14:R[60006]C14)"
     Range("O5").FormulaR1C1 = "=MIN(R[5]C:R[60004]C)"
@@ -1459,7 +1459,7 @@ ElseIf Range("H1") < Range("H2") Then
     Range("I5").FormulaR1C1 = "=MAX(R[5]C:R[60004]C)-MIN(R[5]C:R[60004]C)"
     Range("I7").FormulaR1C1 = "=R[-2]C/2"
     Range("I3:I7").Value = Range("I3:I7").Value
-    
+
     Range("N10").FormulaR1C1 = "=IF(RC[-5]=R3C9,RC[-2],"""")"
     'Copy N10 Ref I
     Application.Calculation = xlCalculationManual
@@ -1469,9 +1469,9 @@ ElseIf Range("H1") < Range("H2") Then
     End With
 Sheets("Sheet2").Calculate
 'Application.Calculation = xlCalculationAutomatic
-    
+
     Range("L5").FormulaR1C1 = "=R10C-R3C10"
-    
+
 If Range("L5") <= Range("L9") Then
         'Rel @ G1:K1; Ldg/MoP @ G2:K2
         Range("I1:M1").Value = Range("I10:M10").Value
@@ -1484,10 +1484,10 @@ If Range("L5") <= Range("L9") Then
     End With
 Sheets("Sheet2").Calculate
 'Application.Calculation = xlCalculationAutomatic
-        
+
         Range("I2:M2").FormulaR1C1 = "=MAX(R[8]C[6]:R[60009]C[6])"
         Range("I2:M2").Value = Range("I2:M2").Value
-        
+
 ' When Rel/ldg NOT OK, look for lowest pt in first half of flight, w/ LoH < D9
 ElseIf Range("L5") > Range("L9") Then
     Range("O10").FormulaR1C1 = "=IF(RC[-6]<=R10C9+R7C9,RC[-3],"""")"
@@ -1503,12 +1503,12 @@ ElseIf Range("L5") > Range("L9") Then
     End With
 Sheets("Sheet2").Calculate
 'Application.Calculation = xlCalculationAutomatic
-    
+
     Range("P5:V5").Value = Range("P5:V5").Value
     Range("P10:V60009").Clear
-    
+
     Range("W5:AB5").FormulaR1C1 = "=MAX(R[5]C:R[60004]C)"
-    
+
     Range("W10").FormulaR1C1 = "=IF(AND(RC[-14]<R5C18,RC[-11]-R5C21<R9C12),R5C18-RC[-14],"""")"
     Range("X10").FormulaR1C1 = "=IF(RC[-1]=R5C23,RC[-15],"""")"
     Range("Y10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-15],"""")"
@@ -1525,9 +1525,9 @@ Sheets("Sheet2").Calculate
 'Application.Calculation = xlCalculationAutomatic
 
     Range("W5:AB5").Value = Range("W5:AB5").Value
-    
+
     Range("P5:V5").FormulaR1C1 = "=MAX(R[5]C:R[60004]C)"
-    
+
     Range("P10").FormulaR1C1 = "=IF(AND(RC[-7]>R5C24,R5C27-RC[-4]<R9C12),RC[-7]-R5C24,"""")"
     Range("Q10").FormulaR1C1 = "=IF(RC[-1]=R5C16,RC[-8],"""")"
     Range("R10:V10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-8],"""")"
@@ -1542,7 +1542,7 @@ Sheets("Sheet2").Calculate
 
     Range("I1:M1").Value = Range("X5:AB5").Value
     Range("I2:M2").Value = Range("Q5:U5").Value
- 
+
   End If
     Columns("N:AH").Clear
     Range("I3:M7").Clear
@@ -1571,7 +1571,7 @@ Application.ScreenUpdating = False
  'NOW, STD from Release
     Range("O8:U8").FormulaR1C1 = "=MAX(R[2]C:R[60001]C)"
     Range("O7").FormulaR1C1 = "=IF(R1509C<>"""",LARGE(R[3]C:R[60002]C,1500),MAX(R[3]C:R[60002]C))"
-   
+
     Range("O10").FormulaR1C1 = _
         "=IF(RC[-4]=R10C11,"""",IF(RC[-6]>R10C9,6371*ACOS(SIN(RC[-5])*SIN(R10C10)+COS(RC[-5])*COS(R10C10)*COS(R10C11-RC[-4])),""""))"
     'Copy Ref I
@@ -1582,20 +1582,20 @@ Application.ScreenUpdating = False
     End With
 'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet2").Calculate
-    
+
     Range("P10").FormulaR1C1 = _
         "=IF(RC[-1]="""","""",IF(OR(AND(RC[-1]>100,RC[-1]>=R7C15,R10C12-RC[-4]<=R9C12),AND(R9C13="""",RC[-1]<=100,RC[-1]>=R7C15,R10C12-RC[-4]<=10*RC[-1]),(AND(R9C13=""PR"",RC[-1]<=100,RC[-1]>R7C15,R10C4-RC[-4]<=(10*RC[-1])-100))),RC[-1],""""))"
-   
+
     'OLD thru 9/30/2018; NEW as of 10/1/2018
     If Range("A1") < 43374 Then
         Range("Q10").FormulaR1C1 = "=IF(RC[-1]=R8C16,RC[-8],"""")"
-   
+
     ElseIf Range("A1") >= 43374 Then
         Range("O4").FormulaR1C1 = "=RADIANS(PRS!R[14]C[-14]+(PRS!R[14]C[-13]/60))"
         Range("O5").FormulaR1C1 = "=RADIANS(PRS!R[13]C[-11]+(PRS!R[13]C[-10]/60))"
         Range("Q10").FormulaR1C1 = "=IF(AND(RC[-1]=R8C16,6371*ACOS(SIN(RC[-7])*SIN(R4C15)+COS(RC[-7])*COS(R4C15)*COS(R5C15-RC[-6]))>=50),RC[-8],"""")"
     End If
-   
+
  Range("R10:U10").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-8],"""")"
     'Copy Ref I
      Application.Calculation = xlCalculationManual
@@ -1605,13 +1605,13 @@ Application.ScreenUpdating = False
     End With
 'Application.Calculation = xlCalculationAutomatic
     Sheets("Sheet2").Calculate
-    
+
     'For Longest Flight(!)
  If Range("P8") = 0 Then
     Range("O7").FormulaR1C1 = "=LARGE(R[3]C:R[60002]C,3000)"
     Sheets("Sheet2").Calculate
  End If
- 
+
     'For Mphillip (no Silver - max STD from Rel)
  If Range("Q8") = 0 Then
     Range("Q10").FormulaR1C1 = "=IF(RC[-1]=R8C16,RC[-8],"""")"
@@ -1621,7 +1621,7 @@ Application.ScreenUpdating = False
     End With
     Sheets("Sheet2").Calculate
  End If
-    
+
     Range("I1:M1").Value = Range("Q8:U8").Value
      'CK best Fix from St Pt
     Range("J10").FormulaR1C1 = "=RADIANS(PRS!R[10]C[-9]+(PRS!R[10]C[-8]/60))"
@@ -1632,19 +1632,19 @@ Application.ScreenUpdating = False
     Range("J10").FormulaR1C1 = "=RADIANS(PRS!R4C6+(PRS!R4C7/60))"
     Range("K10").FormulaR1C1 = "=RADIANS(PRS!R5C6+(PRS!R5C7/60))"
     Range("J10:K10").Value = Range("J10:K10").Value
-    
+
     Range("O7:U60009").Clear
-   
+
    'Restore Pressure Altitude as recorded
     Sheets("Sheet2").Range("R1").Value = Sheets("PRS").Range("F1").Value
     Sheets("Sheet2").Range("S1").Value = Sheets("PRS").Range("F2").Value
     Sheets("Sheet2").Range("T1").Value = Sheets("PRS").Range("F3").Value
-   
+
     Range("P1:P2").FormulaR1C1 = "=IF(RC[-7]<=R1C19,RC[-4]-R1C18,RC[-4]-R1C20)"
     Sheets("Sheet2").Calculate
     Range("L1:L2").Value = Range("P1:P2").Value
     Range("P1:T2").Clear
-   
+
    'Put it somewhere!
     Sheets("PRS").Range("J11").Value = Sheets("Sheet2").Range("I1").Value
     Sheets("PRS").Range("J12").Value = Sheets("Sheet2").Range("J1").Value
@@ -1674,7 +1674,7 @@ Sheets("Sheet2").Activate
     Range("O3").FormulaR1C1 = "=PRS!R14C2"
     Range("P1").FormulaR1C1 = "=PRS!R20C11"
     Range("Q1").FormulaR1C1 = "=PRS!R20C12"
-    
+
     Range("P2").FormulaR1C1 = "=PRS!R22C11"
     Range("Q2").FormulaR1C1 = "=PRS!R22C12"
     Range("R2").FormulaR1C1 = "=6371*ACOS(SIN(RC[-2])*SIN(R[-1]C[-2])+COS(RC[-2])*COS(R[-1]C[-2])*COS(RC[-1]-R[-1]C[-1]))"
@@ -1683,16 +1683,16 @@ Sheets("Sheet2").Activate
     Range("Q4").FormulaR1C1 = "=PRS!R24C12"
     Range("R4").FormulaR1C1 = "=6371*ACOS(SIN(RC[-2])*SIN(R[-2]C[-2])+COS(RC[-2])*COS(R[-2]C[-2])*COS(R[-2]C[-1]-RC[-1]))"
     Range("S4").Value = "2nd leg"
-    
+
     Range("P6").FormulaR1C1 = "=PRS!R28C11"
     Range("Q6").FormulaR1C1 = "=PRS!R28C12"
     Range("R6").FormulaR1C1 = "=6371*ACOS(SIN(R[-2]C[-2])*SIN(RC[-2])+COS(R[-2]C[-2])*COS(RC[-2])*COS(R[-2]C[-1]-RC[-1]))"
     Range("S6").Value = "last leg"
-    
+
     Range("R9").Value = 1000
-    
+
     ActiveSheet.Calculate
-    
+
     'TRIGGER
     If Range("O1") > 150 Or Range("O2") <> "FAI" Then
         Range("Q1:S6").Clear
@@ -1715,7 +1715,7 @@ Sheets("Sheet2").Activate
     Range("AA10:AC10009").Value = Range("AA10:AC10009").Value
     'SORT Range("AC1:AC60000")
      Range("AC1:AC10009").Sort Key1:=Range("AC10"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
- 
+
     'Start Line Times
     Range("U10").FormulaR1C1 = "=6371*ACOS(SIN(R[-9]C[-18])*SIN(R1C16)+COS(R[-9]C[-18])*COS(R1C16)*COS(R[-9]C[-16]-R1C17))"
     Range("V10").FormulaR1C1 = "=IF(RC[-1]<=0.5,R[-9]C[-21],"""")"
@@ -1727,14 +1727,14 @@ Sheets("Sheet2").Activate
      LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("U10:Y10").AutoFill Destination:=.Range("U10:Y" & LastRow), Type:=xlFillDefault
     End With
-    
+
     ActiveSheet.Calculate
-    
+
     Range("X1:Y10009").Value = Range("X1:Y10009").Value
     Range("X1:Y10009").Sort Key1:=Range("X1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
 
     Range("U10:Y10009").Clear
-    
+
     'Start Line Correction
     Range("Z1:Z10").FormulaR1C1 = "=IF(RC[-1]="""","""",IF(RC[-2]<=PRS!R2C6,RC[-1] +PRS!R1C6,IF(RC[-2]>PRS!R2C6,RC[-1]+PRS!R3C6)))"
     ActiveSheet.Calculate
@@ -1746,22 +1746,22 @@ Sheets("Sheet2").Activate
     Range("AD10").FormulaR1C1 = "=6371*ACOS(SIN(R[-9]C[-27])*SIN(R4C16)+COS(R[-9]C[-27])*COS(R4C16)*COS(R4C17-R[-9]C[-25]))"
     Range("AE10").FormulaR1C1 = "=IF(AND(RC[-1]<5,6371*ACOS(SIN(R[-9]C[-28])*SIN(R6C16)+COS(R[-9]C[-28])*COS(R6C16)*COS(R6C17-R[-9]C[-26]))>=R6C18,6371*ACOS(SIN(R[-9]C[-28])*SIN(R2C16)+COS(R[-9]C[-28])*COS(R2C16)*COS(R2C17-R[-9]C[-26]))>=R4C4),R[-9]C[-30],"""")"
     Range("AF10").FormulaR1C1 = "=IF(R[1]C[-1]="""",RC[-1],"""")"
-    
+
      With Worksheets("Sheet2")
      LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("AD10:AF10").AutoFill Destination:=.Range("AD10:AF" & LastRow), Type:=xlFillDefault
     End With
-    
+
     ActiveSheet.Calculate
-    
+
     Range("AE3").Value = Range("AE3").Value
-    
+
     Range("AF1:AF10009").Value = Range("AF1:AF10009").Value
     'SORT
     Range("AF1:AF10009").Sort Key1:=Range("AF1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-   
+
     Range("AA10:AF10009").ClearContents
-  
+
     'Finish Line Time
     Range("T10").FormulaR1C1 = "=6371*ACOS(SIN(R[-9]C[-17])*SIN(R6C16)+COS(R[-9]C[-17])*COS(R6C16)*COS(R[-9]C[-15]-R6C17))"
     Range("U10").FormulaR1C1 = "=IF(AND(RC[-1]<=0.5,6371*ACOS(SIN(R[-9]C[-18])*SIN(R4C16)+COS(R[-9]C[-18])*COS(R4C16)*COS(R4C17-R[-9]C[-16]))>=R6C18,R[-9]C[-20]>R3C27,R[-9]C[-20]>R3C31),R[-9]C[-20],"""")"
@@ -1772,9 +1772,9 @@ Sheets("Sheet2").Activate
      LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("T10:W10").AutoFill Destination:=.Range("T10:W" & LastRow), Type:=xlFillDefault
     End With
-     
+
      ActiveSheet.Calculate
-     
+
      Range("T10:W10009").Value = Range("T10:W10009").Value
      Range("T10:U10009").Clear
     'SORT VW
@@ -1792,14 +1792,14 @@ Sheets("Sheet2").Activate
     Range("Z1:Z10").FormulaR1C1 = "=IF(RC[-1]<>"""",""ST"","""")"
     Range("AD1:AD6").FormulaR1C1 = "=IF(RC[-1]<>"""",1,"""")"
     Range("AG1:AG6").FormulaR1C1 = "=IF(RC[-1]<>"""",2,"""")"
-    
+
     ActiveSheet.Calculate
-    
+
     Range("U10:U16").Value = Range("U10:U16").Value
     Range("Z1:Z10").Value = Range("Z1:Z10").Value
     Range("AD1:AD6").Value = Range("AD1:AD6").Value
     Range("AG1:AG6").Value = Range("AG1:AG6").Value
-   
+
     Range("X11:X16").Value = Range("AC1:AC6").Value
     Range("Z11:Z16").Value = Range("AD1:AD6").Value
     Range("X17:X22").Value = Range("AF1:AF6").Value
@@ -1811,7 +1811,7 @@ Sheets("Sheet2").Activate
     'SORT LAPS
     Range("X1:Z28").Sort Key1:=Range("X1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("X1:X28").NumberFormat = "h:mm:ss;@"
-    
+
     Range("AC1:AG6").Clear
 
     ' BEST 3 ETs including LoH
@@ -1829,7 +1829,7 @@ Sheets("Sheet2").Activate
     Range("V3").FormulaR1C1 = "=SMALL(R[-2]C[6]:R[25]C[11],3)"
     ActiveSheet.Calculate
     Range("V1:V3").Value = Range("V1:V3").Value
-   
+
     Range("AC1:AC28").FormulaR1C1 = "=IF(RC[-1]="""","""",IF(OR(RC[-1]=R1C22,RC[-1]=R2C22,RC[-1]=R3C22),RC[-5]))"
     ActiveSheet.Calculate
     Range("AC1:AC28").Value = Range("AC1:AC28").Value
@@ -1849,10 +1849,10 @@ Sheets("Sheet2").Activate
      LastRow = .Cells(Rows.Count, "A").End(xlUp).Row
 .Range("O2:U2").AutoFill Destination:=.Range("O2:U" & LastRow), Type:=xlFillDefault
     End With
-    
+
     ActiveSheet.Calculate
     Range("A1:G10000").Value = Range("O1:U10000").Value
-    
+
     Columns("O:AG").Clear
   End If
 

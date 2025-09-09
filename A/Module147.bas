@@ -30,7 +30,7 @@ If Range("C24") = " Click on the glider to continue" Then
     Sheets("Data Entry Check").Visible = False
     Application.ScreenUpdating = False
     Application.Cursor = xlWait
-    
+
     On Error Resume Next
     Workbooks("D.xlsm").Activate
   If Err = 0 Then
@@ -49,7 +49,7 @@ If Range("C24") = " Click on the glider to continue" Then
     Workbooks.Open Filename:=ThisWorkbook.Path & "\C.xlsm"
     Windows("C.xlsm").Activate
     ActiveWindow.WindowState = xlMinimized
-        
+
     Workbooks("C.xlsm").Unprotect Password:="spike"
     Workbooks("C.xlsm").Sheets("B").Range("A1:S30").Value = Workbooks("Ab.xlsm").Sheets("PRS").Range("A1:S30").Value
     Workbooks("C.xlsm").Sheets("B").Range("A39:B64").Value = Workbooks("Ab.xlsm").Sheets("PRS").Range("A39:B64").Value
@@ -57,7 +57,7 @@ If Range("C24") = " Click on the glider to continue" Then
     Workbooks("C.xlsm").Sheets("TPOrder").Range("A11:G10010").Value = Workbooks("Ab.xlsm").Sheets("Sheet2").Range("A1:G10000").Value
     Workbooks("C.xlsm").Sheets("TPOrder").Protect Password:="spike"
     Workbooks("C.xlsm").Sheets("Sheet11").Range("A9:E60009").Value = Workbooks("Ab.xlsm").Sheets("Sheet2").Range("I9:M60009").Value
-    
+
     Workbooks("Ab.xlsm").Activate
     Application.DisplayAlerts = False
     Workbooks("Ab.xlsm").Close
@@ -73,7 +73,7 @@ If Range("C24") = " Click on the glider to continue" Then
     Range("A1").Select
     Sheets("Worksheet").Protect Password:="spike"
     Sheets("Worksheet").Visible = False
-    
+
     Sheets("Claim Check").Visible = True
     Sheets("Claim Check").Activate
     Sheets("Claim Check").Unprotect Password:="spike"
@@ -109,7 +109,7 @@ ElseIf Range("C24") = "Click on the glider to continue" Then
     Sheets("Data Entry Check").Visible = False
     Application.ScreenUpdating = False
     Application.Cursor = xlWait
-    
+
     On Error Resume Next
     Workbooks("D.xlsm").Activate
   If Err = 0 Then
@@ -131,19 +131,19 @@ ElseIf Range("C24") = "Click on the glider to continue" Then
     Workbooks("F.xlsm").Sheets("B").Range("A39:B64").Value = Workbooks("Ab.xlsm").Sheets("PRS").Range("A39:B64").Value
     Workbooks("F.xlsm").Sheets("Sheet2").Unprotect Password:="spike"
     Workbooks("F.xlsm").Sheets("Sheet2").Range("A9:E60008").Value = Workbooks("Ab.xlsm").Sheets("Sheet2").Range("I9:M60008").Value
-    
+
     Workbooks("Ab.xlsm").Activate
     Application.DisplayAlerts = False
     Workbooks("Ab.xlsm").Close
     Workbooks("F.xlsm").Activate
     Sheets("Sheet2").Select
     Application.Run ("F.xlsm!ASelect")
-    
+
     Workbooks("A.xlsm").Activate
     Workbooks("A.xlsm").Sheets("Parsed").Range("O1:Y26").Value = Workbooks("F.xlsm").Sheets("TASKS").Range("C8:M33").Value
     Workbooks("A.xlsm").Sheets("Parsed").Range("A1:M64").Value = Workbooks("F.xlsm").Sheets("B").Range("A1:M64").Value
     Workbooks("F.xlsm").Close False
-   
+
     Workbooks("A.xlsm").Activate
     Application.DisplayAlerts = False
     'linkArray = ActiveWorkbook.LinkSources(xlExcelLinks)

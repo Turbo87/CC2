@@ -3,11 +3,11 @@
 ' Manages automatic calculations and cell change responses.
 
 Private Sub Worksheet_Activate()
- 
+
  'Application.ScreenUpdating=False
  Application.Calculate
  'Application.ScreenUpdating = True
- 
+
  End Sub
 
 Private Sub Worksheet_Change(ByVal Target As Range)

@@ -45,9 +45,9 @@ End Function
 
 Function degToRad(angleDeg)
 '// Convert degree angle to radians
-        
+
         degToRad = (Application.WorksheetFunction.Pi() * angleDeg / 180#)
-        
+
 End Function
 
 
@@ -74,14 +74,14 @@ Dim A As Double, B As Double, JD As Double
          year = year - 1
          month = month + 12
         End If
-        
+
         A = Application.WorksheetFunction.Floor(year / 100, 1)
         B = 2 - A + Application.WorksheetFunction.Floor(A / 4, 1)
 
         JD = Application.WorksheetFunction.Floor(365.25 * (year + 4716), 1) + _
              Application.WorksheetFunction.Floor(30.6001 * (month + 1), 1) + day + B - 1524.5
         calcJD = JD
-    
+
 'gp put the year and month back where they belong
         If month = 13 Then
          month = 1
@@ -155,7 +155,7 @@ Dim l0 As Double
            If l0 > 360 Then l0 = l0 - 360
            If l0 < 0 Then l0 = l0 + 360
         Loop
-        
+
         calcGeomMeanLongSun = l0
 
 End Function
@@ -172,14 +172,14 @@ Function calcGeomMeanAnomalySun(t)
 '* Return value:
 '*   the Geometric Mean Anomaly of the Sun in degrees
 '***********************************************************************/
-    
+
 Dim m As Double
-    
+
         m = 357.52911 + t * (35999.05029 - 0.0001537 * t)
         calcGeomMeanAnomalySun = m
-        
+
 End Function
-        
+
 
 Function calcEccentricityEarthOrbit(t)
 
@@ -197,7 +197,7 @@ Dim e As Double
 
         e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t)
         calcEccentricityEarthOrbit = e
-        
+
 End Function
 
 
@@ -225,9 +225,9 @@ Dim c As Double
 
         c = sinm * (1.914602 - t * (0.004817 + 0.000014 * t)) _
             + sin2m * (0.019993 - 0.000101 * t) + sin3m * 0.000289
-        
+
         calcSunEqOfCenter = c
-        
+
 End Function
 
 
@@ -250,7 +250,7 @@ Dim l0 As Double, c As Double, O As Double
 
         O = l0 + c
         calcSunTrueLong = O
-        
+
 End Function
 
 
@@ -273,7 +273,7 @@ Dim m As Double, c As Double, v As Double
 
         v = m + c
         calcSunTrueAnomaly = v
-        
+
 End Function
 
 
@@ -293,10 +293,10 @@ Dim v As Double, e As Double, R As Double
 
         v = calcSunTrueAnomaly(t)
         e = calcEccentricityEarthOrbit(t)
- 
+
         R = (1.000001018 * (1 - e * e)) / (1 + e * Cos(degToRad(v)))
         calcSunRadVector = R
-        
+
 End Function
 
 
@@ -340,9 +340,9 @@ Dim seconds As Double, e0 As Double
         seconds = 21.448 - t * (46.815 + t * (0.00059 - t * (0.001813)))
         e0 = 23# + (26# + (seconds / 60#)) / 60#
         calcMeanObliquityOfEcliptic = e0
-        
+
 End Function
-    
+
 
 Function calcObliquityCorrection(t)
 
@@ -363,9 +363,9 @@ Dim e0 As Double, omega As Double, e As Double
         omega = 125.04 - 1934.136 * t
         e = e0 + 0.00256 * Cos(degToRad(omega))
         calcObliquityCorrection = e
-        
+
 End Function
-        
+
 
 Function calcSunRtAscension(t)
 
@@ -384,7 +384,7 @@ Dim alpha As Double
 
         e = calcObliquityCorrection(t)
         lambda = calcSunApparentLong(t)
- 
+
         tananum = (Cos(degToRad(e)) * Sin(degToRad(lambda)))
         tanadenom = (Cos(degToRad(lambda)))
 
@@ -394,7 +394,7 @@ Dim alpha As Double
 
 'translated using Excel VBA Application.WorksheetFunction.Atan2(x,y) convention:
         alpha = radToDeg(Application.WorksheetFunction.Atan2(tanadenom, tananum))
-        
+
         calcSunRtAscension = alpha
 
 End Function
@@ -459,10 +459,10 @@ Dim cos2l0 As Double, sin4l0 As Double, sin2m As Double, Etime As Double
                 - 0.5 * y * y * sin4l0 - 1.25 * e * e * sin2m
 
         calcEquationOfTime = radToDeg(Etime) * 4#
-        
+
 End Function
-    
-    
+
+
 Function calcHourAngleDawn(lat, solarDec, solardepression)
 
 '***********************************************************************/
@@ -490,7 +490,7 @@ Dim latRad As Double, sdRad As Double, HAarg As Double, HA As Double
               / (Cos(latRad) * Cos(sdRad)) - Tan(latRad) * Tan(sdRad)))
 
         calcHourAngleDawn = HA
-        
+
 End Function
 
 
@@ -523,7 +523,7 @@ Dim latRad As Double, sdRad As Double, HAarg As Double, HA As Double
               / (Cos(latRad) * Cos(sdRad)) - Tan(latRad) * Tan(sdRad)))
 
         calcHourAngleSunrise = HA
-        
+
 End Function
 
 
@@ -556,7 +556,7 @@ Dim latRad As Double, sdRad As Double, HAarg As Double, HA As Double
                / (Cos(latRad) * Cos(sdRad)) - Tan(latRad) * Tan(sdRad)))
 
         calcHourAngleSunset = -HA
-        
+
 End Function
 
 
@@ -587,7 +587,7 @@ Dim latRad As Double, sdRad As Double, HAarg As Double, HA As Double
                / (Cos(latRad) * Cos(sdRad)) - Tan(latRad) * Tan(sdRad)))
 
         calcHourAngleDusk = -HA
-        
+
 End Function
 
 
@@ -704,15 +704,15 @@ Function calcSolNoonUTC(t, longitude)
 '* Return value:
 '*   time in minutes from zero Z
 '***********************************************************************/
-        
+
 Dim newt As Double, eqtime As Double, solarNoonDec As Double, solNoonUTC As Double
-        
+
         newt = calcTimeJulianCent(calcJDFromJulianCent(t) + 0.5 + longitude / 360#)
 
         eqtime = calcEquationOfTime(newt)
         solarNoonDec = calcSunDeclination(newt)
         solNoonUTC = 720 + (longitude * 4) - eqtime
-        
+
         calcSolNoonUTC = solNoonUTC
 
 End Function
@@ -732,11 +732,11 @@ Function calcSunsetUTC(JD, latitude, longitude)
 '* Return value:
 '*   time in minutes from zero Z
 '***********************************************************************/
-        
+
 Dim t As Double, eqtime As Double, solarDec As Double, hourangle As Double
 Dim delta As Double, timeDiff As Double, timeUTC As Double
 Dim newt As Double
-                
+
         t = calcTimeJulianCent(JD)
 
 '        // First calculates sunrise and approx length of day
@@ -782,11 +782,11 @@ Function calcDuskUTC(JD, latitude, longitude, solardepression)
 '* Return value:
 '*   time in minutes from zero Z
 '***********************************************************************/
-        
+
 Dim t As Double, eqtime As Double, solarDec As Double, hourangle As Double
 Dim delta As Double, timeDiff As Double, timeUTC As Double
 Dim newt As Double
-                
+
         t = calcTimeJulianCent(JD)
 
 '        // First calculates sunrise and approx length of day
@@ -817,7 +817,7 @@ End Function
 
 
 Function dawn(lat, lon, year, month, day, timezone, dlstime, solardepression)
-    
+
 '***********************************************************************/
 '* Name:    dawn
 '* Type:    Main Function called by spreadsheet
@@ -853,12 +853,12 @@ Dim riseTimeGMT As Double, riseTimeLST As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
             JD = calcJD(year, month, day)
 
 '            // Calculate sunrise for this date
             riseTimeGMT = calcDawnUTC(JD, latitude, longitude, solardepression)
-             
+
 '            //  adjust for time zone and daylight savings time in minutes
             riseTimeLST = riseTimeGMT + (60 * timezone) + (dlstime * 60)
 
@@ -869,7 +869,7 @@ End Function
 
 
 Function sunrise(lat, lon, year, month, day, timezone, dlstime)
-    
+
 '***********************************************************************/
 '* Name:    sunrise
 '* Type:    Main Function called by spreadsheet
@@ -904,12 +904,12 @@ Dim riseTimeGMT As Double, riseTimeLST As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
             JD = calcJD(year, month, day)
 
 '            // Calculate sunrise for this date
             riseTimeGMT = calcSunriseUTC(JD, latitude, longitude)
-             
+
 '            //  adjust for time zone and daylight savings time in minutes
             riseTimeLST = riseTimeGMT + (60 * timezone) + (dlstime * 60)
 
@@ -940,26 +940,26 @@ Function solarnoon(lat, lon, year, month, day, timezone, dlstime)
 '* Return value:
 '*   time of solar noon in local time days
 '***********************************************************************/
-        
+
 Dim longitude As Double, latitude As Double, JD As Double
 Dim t As Double, newt As Double, eqtime As Double
 Dim solarNoonDec As Double, solNoonUTC As Double
-                
+
 ' change sign convention for longitude from negative to positive in western hemisphere
         longitude = lon * -1
         latitude = lat
         If (latitude > 89.8) Then latitude = 89.8
         If (latitude < -89.8) Then latitude = -89.8
-        
+
         JD = calcJD(year, month, day)
         t = calcTimeJulianCent(JD)
-        
+
         newt = calcTimeJulianCent(calcJDFromJulianCent(t) + 0.5 + longitude / 360#)
 
         eqtime = calcEquationOfTime(newt)
         solarNoonDec = calcSunDeclination(newt)
         solNoonUTC = 720 + (longitude * 4) - eqtime
-        
+
 '            //  adjust for time zone and daylight savings time in minutes
         solarnoon = solNoonUTC + (60 * timezone) + (dlstime * 60)
 
@@ -970,7 +970,7 @@ End Function
 
 
 Function sunset(lat, lon, year, month, day, timezone, dlstime)
-    
+
 '***********************************************************************/
 '* Name:    sunset
 '* Type:    Main Function called by spreadsheet
@@ -996,7 +996,7 @@ Function sunset(lat, lon, year, month, day, timezone, dlstime)
 '* Return value:
 '*   sunset time in local time (days)
 '***********************************************************************/
-            
+
 Dim longitude As Double, latitude As Double, JD As Double
 Dim setTimeGMT As Double, setTimeLST As Double
 
@@ -1005,12 +1005,12 @@ Dim setTimeGMT As Double, setTimeLST As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
             JD = calcJD(year, month, day)
 
 '           // Calculate sunset for this date
             setTimeGMT = calcSunsetUTC(JD, latitude, longitude)
-            
+
 '            //  adjust for time zone and daylight savings time in minutes
             setTimeLST = setTimeGMT + (60 * timezone) + (dlstime * 60)
 
@@ -1021,7 +1021,7 @@ End Function
 
 
 Function dusk(lat, lon, year, month, day, timezone, dlstime, solardepression)
-    
+
 '***********************************************************************/
 '* Name:    dusk
 '* Type:    Main Function called by spreadsheet
@@ -1048,7 +1048,7 @@ Function dusk(lat, lon, year, month, day, timezone, dlstime, solardepression)
 '* Return value:
 '*   dusk time in local time (days)
 '***********************************************************************/
-            
+
 Dim longitude As Double, latitude As Double, JD As Double
 Dim setTimeGMT As Double, setTimeLST As Double
 
@@ -1057,12 +1057,12 @@ Dim setTimeGMT As Double, setTimeLST As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
             JD = calcJD(year, month, day)
 
 '           // Calculate sunset for this date
             setTimeGMT = calcDuskUTC(JD, latitude, longitude, solardepression)
-            
+
 '            //  adjust for time zone and daylight savings time in minutes
             setTimeLST = setTimeGMT + (60 * timezone) + (dlstime * 60)
 
@@ -1110,7 +1110,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
 'change time zone to ppositive hours in western hemisphere
             zone = timezone * -1
             daySavings = dlstime * 60
@@ -1139,7 +1139,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             Do While (trueSolarTime > 1440)
                 trueSolarTime = trueSolarTime - 1440
             Loop
-            
+
             hourangle = trueSolarTime / 4# - 180#
             '//    Thanks to Louis Schwarzmayr for the next line:
             If (hourangle < -180) Then hourangle = hourangle + 360#
@@ -1156,11 +1156,11 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             ElseIf (csz < -1#) Then
                 csz = -1#
             End If
-            
+
             zenith = radToDeg(Application.WorksheetFunction.Acos(csz))
 
             azDenom = (Cos(degToRad(latitude)) * Sin(degToRad(zenith)))
-            
+
             If (Abs(azDenom) > 0.001) Then
                 azRad = ((Sin(degToRad(latitude)) * _
                     Cos(degToRad(zenith))) - _
@@ -1188,7 +1188,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             If (azimuth < 0#) Then
                 azimuth = azimuth + 360#
             End If
-                        
+
             exoatmElevation = 90# - zenith
 
 'beginning of complex expression commented out
@@ -1230,9 +1230,9 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
                 refractionCorrection = refractionCorrection / 3600#
             End If
 'end of simplified expression
-            
+
             solarzen = zenith - refractionCorrection
-                     
+
 '            If (solarZen < 108#) Then
               solarazimuth = azimuth
 '              solarelevation = 90# - solarZen
@@ -1288,7 +1288,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
 'change time zone to ppositive hours in western hemisphere
             zone = timezone * -1
             daySavings = dlstime * 60
@@ -1317,7 +1317,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             Do While (trueSolarTime > 1440)
                 trueSolarTime = trueSolarTime - 1440
             Loop
-            
+
             hourangle = trueSolarTime / 4# - 180#
             '//    Thanks to Louis Schwarzmayr for the next line:
             If (hourangle < -180) Then hourangle = hourangle + 360#
@@ -1334,11 +1334,11 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             ElseIf (csz < -1#) Then
                 csz = -1#
             End If
-            
+
             zenith = radToDeg(Application.WorksheetFunction.Acos(csz))
 
             azDenom = (Cos(degToRad(latitude)) * Sin(degToRad(zenith)))
-            
+
             If (Abs(azDenom) > 0.001) Then
                 azRad = ((Sin(degToRad(latitude)) * _
                     Cos(degToRad(zenith))) - _
@@ -1366,7 +1366,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             If (azimuth < 0#) Then
                 azimuth = azimuth + 360#
             End If
-                        
+
             exoatmElevation = 90# - zenith
 
 'beginning of complex expression commented out
@@ -1408,9 +1408,9 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
                 refractionCorrection = refractionCorrection / 3600#
             End If
 'end of simplified expression
-            
+
             solarzen = zenith - refractionCorrection
-                     
+
 '            If (solarZen < 108#) Then
 '              solarazimuth = azimuth
               solarelevation = 90# - solarzen
@@ -1466,7 +1466,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             latitude = lat
             If (latitude > 89.8) Then latitude = 89.8
             If (latitude < -89.8) Then latitude = -89.8
-            
+
 'change time zone to ppositive hours in western hemisphere
             zone = timezone * -1
             daySavings = dlstime * 60
@@ -1495,7 +1495,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             Do While (trueSolarTime > 1440)
                 trueSolarTime = trueSolarTime - 1440
             Loop
-            
+
             hourangle = trueSolarTime / 4# - 180#
             '//    Thanks to Louis Schwarzmayr for the next line:
             If (hourangle < -180) Then hourangle = hourangle + 360#
@@ -1512,11 +1512,11 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             ElseIf (csz < -1#) Then
                 csz = -1#
             End If
-            
+
             zenith = radToDeg(Application.WorksheetFunction.Acos(csz))
 
             azDenom = (Cos(degToRad(latitude)) * Sin(degToRad(zenith)))
-            
+
             If (Abs(azDenom) > 0.001) Then
                 azRad = ((Sin(degToRad(latitude)) * _
                     Cos(degToRad(zenith))) - _
@@ -1544,7 +1544,7 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
             If (azimuth < 0#) Then
                 azimuth = azimuth + 360#
             End If
-                        
+
             exoatmElevation = 90# - zenith
 
 'beginning of complex expression commented out
@@ -1587,10 +1587,10 @@ Dim refractionCorrection As Double, te As Double, solarzen As Double
                 refractionCorrection = refractionCorrection / 3600#
             End If
 'end of simplified expression
-            
-            
+
+
             solarzen = zenith - refractionCorrection
-                     
+
 '            If (solarZen < 108#) Then
               solarazimuth = azimuth
               solarelevation = 90# - solarzen

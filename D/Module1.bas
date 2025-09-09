@@ -52,7 +52,7 @@ If Range("N9") = "NO" Then
         End If
     Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlDescending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-    
+
     Range("B50:B74").FormulaR1C1 = _
         "=CONCATENATE(R[-34]C,""::"",R[-34]C[1],"":"",R[-34]C[2],"":"",R[-34]C[3],"":"",R[-34]C[4],"":"",R[-34]C[5],""::"",R[-34]C[6],"":"",R[-34]C[7],"":"",R[-34]C[8],"":"",R[-34]C[9],"":"",R[-34]C[10])"
       Range("D4").FormulaR1C1 = "1"
@@ -91,10 +91,10 @@ Else
             Range("J1").EntireColumn.Hidden = True
             Range("K1").EntireColumn.Hidden = False
         End If
-        
+
     Range("B16:L40").SpecialCells(xlCellTypeBlanks).Select
     Range("C" & ActiveCell.Row & ":L" & ActiveCell.Row).ClearContents
-    
+
         If Range("B16") = "" Then
             Range("B16:L16").Value = Range("B40:L40").Value
             Range("B40:L40").ClearContents
@@ -102,7 +102,7 @@ Else
         End If
     Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlDescending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
     Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
-   
+
       Range("B50:B74").FormulaR1C1 = _
         "=CONCATENATE(R[-34]C,""::"",R[-34]C[1],"":"",R[-34]C[2],"":"",R[-34]C[3],"":"",R[-34]C[4],"":"",R[-34]C[5],""::"",R[-34]C[6],"":"",R[-34]C[7],"":"",R[-34]C[8],"":"",R[-34]C[9],"":"",R[-34]C[10])"
       Range("B9:L9").ClearContents
@@ -121,7 +121,7 @@ Sub Rwritt()
 '
 Dim Visible As Variant, w As Workbook
     Application.ScreenUpdating = False
-    
+
     On Error Resume Next
     Workbooks("A.xlsm").Activate
   If Err = 0 Then
