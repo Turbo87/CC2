@@ -594,12 +594,20 @@ Sub RefineLDG()
 End Sub
 
 Sub ENLrefine()
-'
-' ENLrefine Macro
-' Improved accuracy for ENL on flights >10000 fixes
-'
+    ' ENLrefine() enhances Engine Noise Level analysis for high-density flight data
+    ' This function refines ENL detection for flights with >10,000 GPS fixes where standard processing
+    ' may miss subtle engine operation periods due to data volume and processing limitations
+    ' It applies time-based filtering around known ENL events and extracts precise coordinates
+    ' Critical for accurate motor operation detection in self-launching glider competitions
+    '
+    ' ENLrefine Macro
+    ' Improved accuracy for ENL on flights >10000 fixes
+
+    ' Disable screen updating for performance during intensive processing
     Application.ScreenUpdating = False
+    ' Switch to BR sheet containing raw flight data
     Sheets("BR").Activate
+    ' Set time tolerance window (0.00005787037037 = ~5 seconds) for ENL event detection
     Range("G1").Value = 0.00005787037037
     Range("I1:I60000").FormulaR1C1 = "=IF(OR(AND(RC[1]<=Sheet1!R2C26+R1C7,RC[1]>=Sheet1!R2C26-R1C7),AND(RC[1]<=Sheet1!R4C38+R1C7,RC[1]>=Sheet1!R4C38-R1C7)),RC[1],"""")"
     Range("I1:I60000").Value = Range("I1:I60000").Value
@@ -652,12 +660,14 @@ Sub ENLrefine()
     Range("AT1:AV2").Value = Range("BE1:BG2").Value
     Range("BC1:BC2").Value = Range("AV1:AV2").Value
     Range("AV1:AV2").Clear
+    ' Parse refined ENL event coordinates into components (time, lat/lon degrees/minutes/directions, altitudes)
     Range("AU1:AU2").Select
     Selection.TextToColumns Destination:=Range("AU1"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(6, 1), Array(8, 1), Array(13, _
         1), Array(14, 1), Array(17, 1), Array(22, 1), Array(23, 9), Array(24, 1), Array(29, 1), _
         Array(34, 9)), TrailingMinusNumbers:=True
 
+    ' Convert refined ENL coordinates to decimal degrees with hemisphere corrections
     Range("AT3:AT4").FormulaR1C1 = "=R[-2]C"
     Range("AU3:AU4").FormulaR1C1 = "=IF(R[-2]C[2]=""N"",R[-2]C,-1*R[-2]C)"
     Range("AV3:AV4").FormulaR1C1 = "=IF(R[-2]C[1]=""N"",R[-2]C/1000,-1*(R[-2]C/1000))"
@@ -671,6 +681,7 @@ Sub ENLrefine()
     Range("AT1:BC2").Value = Range("AT3:BC4").Value
     Range("AT3:BC4").Clear
 
+    ' Transfer refined ENL coordinates back to main analysis sheet
     Sheets("Sheet1").Activate
     Range("Z8").FormulaR1C1 = "=BR!R[-7]C[20]"
     Range("AD8").FormulaR1C1 = "=BR!R[-7]C[17]"
