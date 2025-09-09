@@ -518,16 +518,26 @@ Application.Calculation = xlCalculationAutomatic
     Application.Run "Ab.xlsm!NewBRecords"
 End Sub
 Sub RefineLDG()
-'
-' Revise Landing if over 10K fixes  7/17/18
-'
+    ' RefineLDG improves landing point accuracy for flights with high fix counts (>10,000)
+    ' This function re-processes the last portion of flight data to identify a more precise landing location
+    ' It sorts data by time, filters for landing candidates, and updates coordinate information
+    ' Used when initial processing may have missed the exact landing point due to data volume
+    '
+    ' Revise Landing if over 10K fixes  7/17/18
+
+    ' Activate BR sheet containing processed flight data
     Sheets("BR").Activate
+    ' Copy time and record data for landing analysis
     Range("AT1:AU60000").Value = Range("J1:K60000").Value
+    ' Calculate cutoff time (max time minus 1 hour) to focus on landing phase
     Range("AV1").FormulaR1C1 = "=MAX(RC[-2]:R[60000]C[-2])-1/24"
+    ' Filter for records in the last hour of flight (potential landing candidates)
     Range("AV2:AV60001").FormulaR1C1 = "=IF(RC[-2]>R1C,RC[-2],"""")"
+    ' Extract corresponding record data for filtered times
     Range("AW2:AW60001").FormulaR1C1 = "=IF(RC[-1]<>"""",RC[-2],"""")"
 
     Range("AV2:AW60001").Value = Range("AV2:AW60001").Value
+    ' Sort landing candidates chronologically for processing
     ActiveWorkbook.Worksheets("BR").Sort.SortFields.Clear
     ActiveWorkbook.Worksheets("BR").Sort.SortFields.Add Key:=Range("AV2:AV60001") _
         , SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
@@ -540,6 +550,8 @@ Sub RefineLDG()
         .Apply
     End With
 
+    ' Parse filtered B-record data into coordinate components for landing analysis
+    ' Extracts: time, lat degrees, lat minutes, lat direction, lon degrees, lon minutes, lon direction, altitudes
     Range("AW2:AW3601").Select
     Selection.TextToColumns Destination:=Range("AW2"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(6, 1), Array(8, 1), Array(13, _
@@ -563,13 +575,19 @@ Sub RefineLDG()
     End With
     Application.Calculation = xlCalculationAutomatic
 
+    ' Switch to main data sheet to update landing coordinates
     Sheets("Sheet1").Activate
+    ' Update landing data only if refined landing time differs from current value
     If Sheets("Sheet1").Range("AU4") <> Sheets("BR").Range("BD2") Then
+        ' Update refined landing time
         Sheets("Sheet1").Range("AU4").Value = Sheets("BR").Range("BD2").Value
+        ' Update refined landing coordinates (latitude degrees and minutes)
         Sheets("Sheet1").Range("AV2").Value = Sheets("BR").Range("BE2").Value
         Sheets("Sheet1").Range("AW2").Value = Sheets("BR").Range("BF2").Value
+        ' Update refined landing coordinates (longitude degrees and minutes)
         Sheets("Sheet1").Range("AY2").Value = Sheets("BR").Range("BG2").Value
         Sheets("Sheet1").Range("AZ2").Value = Sheets("BR").Range("BH2").Value
+        ' Update refined landing altitude
         Sheets("Sheet1").Range("BB2").Value = Sheets("BR").Range("BI2").Value
     End If
 
