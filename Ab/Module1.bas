@@ -1057,17 +1057,28 @@ Sub NEWHilo()
 
 End Sub
 Sub Detangler()
-'
-' Determines what to do with bungled declarations; E12 value must be calculated here!ELSEWHERE, Ck dependents on E12!
-' 12/16/15: Use K22:K26 for TP Order?(w/names @ S22:S26) NEED SOMETHING QUICK WHEN B14=0 or B14=1
-'
+    ' Detangler() resolves task declaration inconsistencies and corrects turn point sequencing
+    ' This critical function handles "bungled" declarations where pilots declare waypoints in incorrect order
+    ' or with duplicates, and attempts to determine the intended task based on flight path analysis
+    ' It validates start/finish points against turn points and reorders declarations when possible
+    ' Essential for competitive soaring where task declaration errors could invalidate otherwise valid flights
+    '
+    ' Determines what to do with bungled declarations; E12 value must be calculated here!ELSEWHERE, Ck dependents on E12!
+    ' 12/16/15: Use K22:K26 for TP Order?(w/names @ S22:S26) NEED SOMETHING QUICK WHEN B14=0 or B14=1
+
     'Step 1: Do nothing if declared order is plausible, with or without duplicates
     'Range("T20:T28").Value = Range("L20:L28").Value
 
+    ' Switch to PRS sheet for declaration analysis
     Sheets("PRS").Activate
+    ' Analyze declaration pattern and classify the type of bungling
+    ' S&F@TPS = Start and Finish both match turn points, ST@TP = Start matches TP, FI@TP = Finish matches TP, SF@TP = Start/Finish same point
     Range("E12").FormulaR1C1 = _
         "=IF(AND(OR(R20C11<>R28C11,R20C12<>R28C12),OR(AND(R20C11=R22C11,R20C12=R22C12),AND(R20C11=R24C11,R20C12=R24C12),AND(R20C11=R26C11,R20C12=R26C12)),OR(AND(R28C11=R26C11,R28C12=R26C12),AND(R28C11=R24C11,R28C12=R24C12),AND(R28C11=R22C11,R28C12=R22C12))),""S&F@TPS"",IF(AND(R20C11=R28C11,R20C12=R28C12,OR(AND(R20C11=R22C11,R20C12=R22C12),AND(R20C11=R24C11,R20C12=R24C12),AND(R20C11=R26C11,R20C12=R26C12))),""SF@TP"",IF(OR(AND(R20C11=R22C11,R20C12=R22C12),AND(R20C11=R24C11,R20C12=R24C12),AND(R20C11=R26C11,R20C12=R26C12)),""ST@TP"",IF(OR(AND(R28C11=R26C11,R28C12=R26C12),AND(R28C11=R24C11,R28C12=R24C12),AND(R28C11=R22C11,R28C12=R22C12)),""FI@TP"",""""))))"
+    ' Process tasks with multiple turn points (B14 > 1)
     If Range("B14") > 1 Then
+        ' Determine actual number of valid turn points based on task type and duplicates
+        ' Accounts for duplicate turn points and marks unusable TPs with "X"
         Range("J20").FormulaR1C1 = _
             "=IF(AND(R12C5="""",OR(AND(R14C2=3,R22C11=R24C11,R24C11=R26C11,R22C12=R24C12,R24C12=R26C12),AND(R14C2=2,R22C11=R24C11,R22C12=R24C12))),""1 TP"",IF(R28C10=0,0,IF(AND(R14C2=2,R28C10<3),""1 TP"",IF(AND(R14C2=2,R28C=3),""2 TP"",IF(AND(R14C2=3,OR(R28C10<3,AND(R22C10=""X"",R24C10=""X""),AND(R24C10=""X"",R26C10=""X""),AND(R22C10=""X"",R26C10=""X""))),""1 TP"",IF(AND(R14C2=3,OR(R22C10=""X"",R24C10=""X"",R26C10=""X"")),""2 TP"",""3 TP""))))))"
         ActiveSheet.Calculate
