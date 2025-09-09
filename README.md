@@ -28,6 +28,9 @@ The VBA source code has been extracted from each Excel file into corresponding d
 - `D/` - Waypoint management and calibration
 - `F/` - Flight data import and processing
 
+### User Interface Documentation
+- **[ui_layout_reference.md](ui_layout_reference.md)** - Comprehensive documentation of all Excel worksheet layouts, user interface elements, and their corresponding cell references for cross-referencing with VBA macros
+
 ## Key Features
 
 ### Flight Record Types Supported
