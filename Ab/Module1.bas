@@ -782,14 +782,29 @@ Sub NEWHilo()
 '
 ' JLR 4/9/14; amended 9/5/2015 for GPS altitude
 '
+' The NEWHilo subroutine processes flight data to determine high and low points in a flight path.
+' It is typically called after the main data import and initial processing of flight logs.
+' The function reads data from the "Sheet1" worksheet, which contains the processed flight data points.
+' It performs a series of calculations to identify significant altitude changes, taking into account various flight parameters.
+' The results, including key high and low altitude points, are written to the "Sheet2" worksheet.
+' This subroutine is a critical step in analyzing flight performance and is used in preparation for generating flight summaries and reports.
+' It relies on several other subroutines and functions, such as 'Duration' and 'Detangler', to ensure the data is correctly processed and categorized.
+' The logic handles different scenarios based on the flight date and specific data patterns found in the logs.
+'
+    ' Initialize workbook and prepare data sheets
     Workbooks("Ab.xlsm").Activate
     Sheets("Sheet2").Select
     Application.Run "A.xlsm!PreB"
     Application.Run "Ab.xlsm!Duration"
     Sheets("Sheet1").Select
+    ' Convert formulas to values to improve processing speed
     Range("A1:CK10010").Value = Range("A1:CK10010").Value
+    ' Disable automatic calculation for performance during bulk operations
     Application.Calculation = xlCalculationManual
+      ' Check if GPS altitude data is available (L5 cell empty or not)
+      ' This determines which altitude column to use for calculations
       If Range("L5") = "" Then
+        ' Process using barometric altitude when GPS altitude not available
         Range("BC11:BC10010").FormulaR1C1 = _
         "=IF(R[1]C[-54]="""","""",IF(AND(RC[-39]>R2C28,R[1]C[-44]>RC[-44],R[2]C[-44]>RC[-44],R[3]C[-44]>RC[-44],R[4]C[-44]>RC[-44]),1,""""))"
         Range("BD11:BD10010").FormulaR1C1 = _
@@ -798,6 +813,7 @@ Sub NEWHilo()
         "=IF(R2C40=0,MAX(R[7]C[-46]:R[10005]C[-46]),MAX(R[7]C[-1]:R[10005]C[-1]))"
         Range("BE11:BE10010").FormulaR1C1 = "=IF(RC[-1]="""","""",IF(RC[-46]=R4C57,RC[-41],""""))"
       ElseIf Range("L5") <> "" Then
+        ' Process using GPS altitude when available (amended 9/5/2015)
         Range("BC11:BC10010").FormulaR1C1 = _
         "=IF(R[1]C[-54]="""","""",IF(AND(RC[-39]>R2C28,R[1]C[-43]>RC[-43],R[2]C[-43]>RC[-43],R[3]C[-43]>RC[-43],R[4]C[-43]>RC[-43]),1,""""))"
         Range("BD11:BD10010").FormulaR1C1 = _
@@ -806,15 +822,19 @@ Sub NEWHilo()
         "=IF(R2C40=0,MAX(R[7]C[-45]:R[10005]C[-45]),MAX(R[7]C[-1]:R[10005]C[-1]))"
         Range("BE11:BE10010").FormulaR1C1 = "=IF(RC[-1]="""","""",IF(RC[-45]=R4C57,RC[-41],""""))"
       End If
+    ' Calculate maximum altitude in flight data range
     Range("BD4").FormulaR1C1 = "=MAX(R[7]C[1]:R[10005]C[1])"
+      ' Identify low altitude points based on GPS availability
       If Range("L5") = "" Then
         Range("BG11:BG10010").FormulaR1C1 = "=IF(AND(RC[-43]>=R2C28,RC[-43]<R4C56),RC[-48],"""")"
-        ElseIf Range("L5") <> "" Then
+      ElseIf Range("L5") <> "" Then
         Range("BG11:BG10010").FormulaR1C1 = "=IF(AND(RC[-43]>=R2C28,RC[-43]<R4C56,RC[-47]<>0),RC[-47],"""")"
       End If
+    ' Calculate minimum altitude values for low point identification
     Range("BH4").FormulaR1C1 = "=MIN(R[7]C[-1]:R[10005]C[-1])"
     Range("BH11:BH10010").FormulaR1C1 = "=IF(RC[-1]=R4C,RC[-44],"""")"
     Range("BG4").FormulaR1C1 = "=MIN(R[7]C[1]:R[10005]C[1])"
+    ' Calculate altitude difference between high and low points
     Range("BF5").FormulaR1C1 = "=R[-1]C[-1]-R[-1]C[2]"
       If Range("L5") = "" Then
         Range("BJ11:BJ10010").FormulaR1C1 = _
@@ -852,6 +872,9 @@ Sub NEWHilo()
     Range("BQ2").FormulaR1C1 = "=PRS!R[2]C[-65]"
     Range("BQ3").FormulaR1C1 = "=PRS!R[7]C[-62]"
     Range("BQ11:BQ10010").FormulaR1C1 = "=IF(RC[-1]=R7C68,RC[-53],"""")"
+    ' Calculate great circle distances using haversine formula
+    ' Formula: 6371 * ACOS(SIN(lat1)*SIN(lat2) + COS(lat1)*COS(lat2)*COS(lon2-lon1))
+    ' where 6371 is Earth's radius in kilometers
     If Range("L5") = "" Then
     Range("BR11:BR10010").FormulaR1C1 = _
         "=IF(OR(AND(R1C[-1]=0,RC[-54]>R2C[-1],RC[-54]<R3C[-1]),AND(RC[-54]>R2C[-1],RC[-54]<MIN(R1C[-1],R3C[-1]))),6371*ACOS(SIN(R2C)*SIN((RC[-66]+(RC[-65]*0.001)/60)*PI()/180)+COS(R2C)*COS((RC[-66]+(RC[-65]*0.001)/60)*PI()/180)*COS(R3C-((RC[-63]+(RC[-62]*0.001)/60)*PI()/180))),"""")"
@@ -913,10 +936,14 @@ Sub NEWHilo()
         "=IF(MAX(R[3]C[-1],R[3]C[4],R[3]C[8])=R[3]C[-1],R[2]C,IF(MAX(R[3]C[-1],R[3]C[4],R[3]C[8])=R[3]C[4],R[6]C[5],R[6]C[8]))"
     Range("BH2").FormulaR1C1 = _
         "=IF(MAX(R[3]C[-2],R[3]C[3],R[3]C[7])=R[3]C[-2],R[2]C,IF(MAX(R[3]C[-2],R[3]C[3],R[3]C[7])=R[3]C[3],R[5]C[4],R[5]C[7]))"
-Application.Calculation = xlCalculationAutomatic
+    ' Re-enable automatic calculation after bulk formula operations
+    Application.Calculation = xlCalculationAutomatic
+    ' Convert header formulas to values for performance
     Range("A1:CK10").Value = Range("A1:CK10").Value
+    ' Clear temporary calculation columns
     Range("Q11:CK10010").Clear
 
+    ' Final calculations to identify exact high/low points and times
     Range("BD11:BD10010").FormulaR1C1 = "=IF(RC[-40]=R4C,RC[-44],"""")"
     Range("BE11:BE10010").FormulaR1C1 = "=IF(RC[-41]=R2C[-1],RC[-45],"""")"
     Range("BG11:BG10010").FormulaR1C1 = "=IF(RC[-43]=R2C,RC[-47],"""")"
@@ -941,6 +968,7 @@ Application.Calculation = xlCalculationAutomatic
         'Range("A26:G26").Value = Range("A24:G24").Value
         'Range("A24:G24").Value = Range("A20:G20").Value
     'End If
+    ' Run Detangler subroutine to finalize data processing and cleanup
     Application.Run "Ab.xlsm!Detangler"
 
 End Sub
