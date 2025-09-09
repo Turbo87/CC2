@@ -13,14 +13,19 @@ Dim myFile As Variant
 #End If
 
 Sub NewENLA()
-'
-' JLR 3/27/12 7/26/16 Corrected O49 on Imp (no = sign)
-' JLR 3/2/17 Added Range 07 now used in Corrected Z11:Z10010 & AL25:AL10010; corrected AM25:AM10010
-' JLR 6/3/17 Amended '' for interim MoP @ ZZ25, AA3, AA4, AA25, AL25 Works for Mirja
-' JLR 7/6/17 Amended Z2,Z3,Z4,Z25:et al & AL4,AL5 & AN4 for NON-interim MoP (eg: engine run before task ONLY) for Sibylle Andresen, July 2 & 3 WORLD RECORDS!!
-' JLR 7/7/17 Amended AA3 & AL4 to differentiate between Mirja (re-start after task) from Sibylle (No re-start after task); re-activated O11:AB10010 value
-' JLR 11/30/2017 Amended AL4 for Schart (no re-start after second ENL); Z2,Z4,Z25,AL4,AN4,AO11 for Anja
-'' JLR 07/14/2018 AN11 amended for landing time (Howard2)
+    ' NewENLA processes Engine Noise Level (ENL) data from IGC flight files
+    ' This function analyzes motor operation periods for self-launching gliders
+    ' It extracts and processes both I-records (intermittent data) and H-records (header data)
+    ' The function determines Motor Operating Periods (MoP) and engine noise levels for competition verification
+    '
+    ' JLR 3/27/12 7/26/16 Corrected O49 on Imp (no = sign)
+    ' JLR 3/2/17 Added Range 07 now used in Corrected Z11:Z10010 & AL25:AL10010; corrected AM25:AM10010
+    ' JLR 6/3/17 Amended '' for interim MoP @ ZZ25, AA3, AA4, AA25, AL25 Works for Mirja
+    ' JLR 7/6/17 Amended Z2,Z3,Z4,Z25:et al & AL4,AL5 & AN4 for NON-interim MoP (eg: engine run before task ONLY) for Sibylle Andresen, July 2 & 3 WORLD RECORDS!!
+    ' JLR 7/7/17 Amended AA3 & AL4 to differentiate between Mirja (re-start after task) from Sibylle (No re-start after task); re-activated O11:AB10010 value
+    ' JLR 11/30/2017 Amended AL4 for Schart (no re-start after second ENL); Z2,Z4,Z25,AL4,AN4,AO11 for Anja
+    ' JLR 07/14/2018 AN11 amended for landing time (Howard2)
+
     'Workbooks("Ab.xlsm").Activate
     'ActiveWorkbook.Unprotect Password:="spike"
     'Sheets("BR").Select
@@ -31,33 +36,49 @@ Sub NewENLA()
     'ActiveWindow.WindowState = xlMaximized
     'Application.ScreenUpdating = True
     'ActiveWindow.DisplayWorkbookTabs = False
+    ' Disable screen updating for performance during bulk operations
     Application.ScreenUpdating = False
     Workbooks("Ab.xlsm").Activate
+    ' Convert formulas to values in raw IGC data range
     Sheets("BR").Range("A1:A60000") = Sheets("BR").Range("A1:A60000").Value
+    ' Parse IGC records by splitting first character (record type) from data
     Columns("A:A").TextToColumns Destination:=Range("B1"), DataType:=xlFixedWidth, FieldInfo:=Array(Array(0, 1), Array(1, 1)), TrailingMinusNumbers:=True
+    ' Extract non-B records (everything except GPS position fixes)
     Range("D1:D1001").FormulaR1C1 = "=IF(RC[-2]<>""B"",RC[-3],"""")"
+    ' Mark rows containing B-records for counting
     Range("E3:E60002").FormulaR1C1 = "=IF(RC[-3]=""B"",1,"""")"
     Range("E3:E60002") = Range("E3:E60002").Value
+    ' Count total number of B-records in the flight file
     Range("E1").FormulaR1C1 = "=SUM(R[3]C:R[60000]C)"
     Range("E1").Value = Range("E1").Value
+    ' Parse first B-record for time reference
     Range("E2") = Range("D2").Value
     Range("E2").TextToColumns Destination:=Range("E2"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(5, 4)), _
         TrailingMinusNumbers:=True
+    ' Extract B-record data where marked
     Range("F3:F60002").FormulaR1C1 = "=IF(RC[-1]=1,RC[-3],"""")"
     Range("F3:F60002") = Range("F3:F60002").Value
+    ' Parse B-records into time components (hours, minutes, seconds) and position data
     Columns("F:F").TextToColumns Destination:=Range("F1"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 1), Array(2, 1), Array(4, 1), Array(6, 9 _
         )), TrailingMinusNumbers:=True
+    ' Find maximum time value in B-record hours column
     Range("F2").FormulaR1C1 = "=MAX(R[2]C:R[49998]C)"
     Range("F2").Value = Range("F2").Value
+    ' Identify B-records that follow 7+ consecutive non-B records (flight restart detection)
     Range("E8:E600").FormulaR1C1 = "=IF(AND(R[-1]C[-3]<>""B"",R[-2]C[-3]<>""B"",R[-3]C[-3]<>""B"",R[-4]C[-3]<>""B"",R[-5]C[-3]<>""B"",R[-6]C[-3]<>""B"",R[-7]C[-3]<>""B"",RC[-3]=""B""),RC[1],"""")"
+    ' Find maximum time among flight restart candidates
     Range("F3").FormulaR1C1 = "=MAX(R[5]C[-1]:R[597]C[-1])"
     Range("F3").Value = Range("F3").Value
+    ' Convert time components to Excel time format, handling day rollover
+    ' If time is within normal range, add base time; if rolled over, add 1 day
     Range("J2:J60001").FormulaR1C1 = _
         "=IF(RC[-2]="""","""",IF(AND(RC[-4]<=R2C6,RC[-4]>=R3C6),TIME(RC[-4],RC[-3],RC[-2])+R2C5,TIME(RC[-4],RC[-3],RC[-2])+R2C5+1))"
+    ' Copy record type indicator for each time entry
     Range("K2:K60001").FormulaR1C1 = "=IF(RC[-1]="""","""",RC[-8])"
     Range("J2:K60001") = Range("J2:K60001").Value
+    ' Sort all data by time to create chronological sequence
     Range("J1:K60000").Sort Key1:=Range("J1"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
 
     Range("L1").FormulaR1C1 = "1"
@@ -98,19 +119,26 @@ Sub NewENLA()
 
     Sheets("IMP").Range("A1:A1000").Value = Sheets("BR").Range("D1:D1000").Value
 
+    ' Switch to IMP sheet for H-record processing
     Sheets("IMP").Select
+    ' Copy non-B record data for header analysis
     Range("B1:B1000") = Range("A1:A1000").Value
+    ' Parse record type from data content
     Columns("B:B").TextToColumns Destination:=Range("B1"), DataType:=xlFixedWidth, _
         FieldInfo:=Array(Array(0, 1), Array(1, 1)), TrailingMinusNumbers:=True
+    ' Extract first character and remaining data from first record
     Range("C1").TextToColumns Destination:=Range("C1"), DataType:=xlFixedWidth, _
         OtherChar:="E", FieldInfo:=Array(Array(0, 1), Array(1, 9)), _
         TrailingMinusNumbers:=True
+        ' Handle different H-record formats based on first character
         If Range("C1") = "X" Then
+            ' Process X-type records (manufacturer extension format)
             Range("D1").Value = Range("A1").Value
             Range("D1").TextToColumns Destination:=Range("D1"), DataType:=xlFixedWidth, _
             OtherChar:=":", FieldInfo:=Array(Array(0, 9), Array(2, 1), Array(4, 1)), _
             TrailingMinusNumbers:=True
         ElseIf Range("C1") = "X" = False Then
+            ' Process standard H-record format
             Range("D1").Value = Range("A1").Value
             Range("D1").TextToColumns Destination:=Range("D1"), DataType:=xlFixedWidth, _
             OtherChar:="E", FieldInfo:=Array(Array(0, 9), Array(1, 1), Array(4, 1), Array(7, 9)), TrailingMinusNumbers:=True
@@ -177,11 +205,14 @@ Sub NewENLA()
     Range("C4:E13").Value = Range("L4:N13").Value
     Range("R1:AB1,J9:J10,L4:AB50").Clear
 
+    ' Extract I-records (intermittent data records containing ENL information)
     Range("G2:G50").FormulaR1C1 = "=IF(RC[-5]=""I"",RC[-6],"""")"
     Range("G2:G50").Value = Range("G2:G50").Value
+    ' Count I-records to determine if ENL data is available
     Range("H2:H50").FormulaR1C1 = "=IF(RC[-6]<>""I"",0,1)"
     Range("H1").FormulaR1C1 = "=SUM(R[1]C:R[49]C)"
     Range("H1").Value = Range("H1").Value
+    ' Process ENL data if I-records are found
     If Range("H1") > 0 Then
      Range("H2").FormulaR1C1 = "ENL"
      Range("G3:G50").FormulaR1C1 = "=IF(RC[-5]<>""I"","""",IF(ISERROR(FIND(R2C[1],RC[-6]))=TRUE,"""",RC[-6]))"
@@ -210,7 +241,9 @@ Sub NewENLA()
     End If
     Range("G1").FormulaR1C1 = "='[A.xlsm]ALL CLAIMS'!R18C6"
 
+    ' Switch to main data sheet for coordinate processing
     Sheets("Sheet1").Select
+    ' Determine ENL status based on I-record availability
     Range("A1").FormulaR1C1 = "=IF(IMP!R1C8=0,""NO I Record"",IF(IMP!R1C17=0,""No ENL"",""ENL""))"
     Sheets("Sheet1").Range("A11:A10010").Value = Sheets("BR").Range("AL1:AL10000").Value
     Range("A11:A10010").TextToColumns Destination:=Range("A11"), DataType:=xlFixedWidth, _
@@ -220,12 +253,14 @@ Sub NewENLA()
 
     Dim MyCell As Range
     Application.Calculation = xlCalculationManual
+        ' Convert latitude coordinates: apply negative multiplier for Southern hemisphere
         Range("D11:E10010").Select
         For Each MyCell In Selection.Cells
     If Range("F" & MyCell.Row) = "S" Then
         MyCell.Value = MyCell.Value * (-1)
     End If
     Next
+        ' Convert longitude coordinates: apply negative multiplier for Western hemisphere
         Range("G11:H10010").Select
         For Each MyCell In Selection.Cells
     If Range("I" & MyCell.Row) = "W" Then
