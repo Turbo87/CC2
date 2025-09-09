@@ -1501,18 +1501,25 @@ Sub ClearAb()
 
 End Sub
 Sub Duration()
-' Finds best Duration w/out LoH penalty FOR AB SHEET2 After PreB; in corporates F.xlsm pressure correction; amended 9/5/15 to cite GPS alts
-' 6/4/2017 Amended to add Duration on/after 10/1/2017, NO LOH LIMIT
+    ' Duration() calculates flight duration for official soaring records
+    ' This function processes altitude data to find optimal duration segments without Loss of Height (LoH) penalties
+    ' It handles two different rule sets: post-Oct 1, 2017 (no LoH limit) and pre-2017 rules with LoH restrictions
+    ' Incorporates pressure corrections and GPS altitude data for accurate duration calculations
+    ' Critical for duration record validation and official record claims
+    '
+    ' Finds best Duration w/out LoH penalty FOR AB SHEET2 After PreB; in corporates F.xlsm pressure correction; amended 9/5/15 to cite GPS alts
+    ' 6/4/2017 Amended to add Duration on/after 10/1/2017, NO LOH LIMIT
+
+    ' Disable screen updating for performance during calculations
     Application.ScreenUpdating = False
 
-'
-    Application.ScreenUpdating = False
     Sheets("Sheet2").Activate
     Sheets("Sheet2").Range("H1").Value = Sheets("PRS").Range("A2").Value
     Sheets("Sheet2").Range("H2").Value = 43009
     ' FIRST IF: Duration as of 10/01/2017 - NO LOH LIMIT
 
  If Range("H1") >= Range("H2") Then
+         ' No Loss of Height limit, find maximum duration
          Range("O1").FormulaR1C1 = "=RC[-6]"
          Range("P1").FormulaR1C1 = "=RC[-4]"
          Range("Q1").FormulaR1C1 = "=RC[-4]"
@@ -1558,7 +1565,7 @@ ElseIf Range("H1") < Range("H2") Then
     ElseIf Range("L8") <> Range("M8") Then
         Range("L9").Value = 1000
         Range("L8:M8").Clear
-'HpA correction REVISED NOW AT F1:F3 on PRS
+' Apply pressure altitude correction factors from F.xlsm (HpA correction)
     Sheets("Sheet2").Range("R1").Value = Sheets("PRS").Range("F1").Value
     Sheets("Sheet2").Range("S1").Value = Sheets("PRS").Range("F2").Value
     Sheets("Sheet2").Range("T1").Value = Sheets("PRS").Range("F3").Value
@@ -1575,11 +1582,14 @@ ElseIf Range("H1") < Range("H2") Then
     Columns("R:T").Clear
     End If
 
+    ' Calculate altitude statistics for Loss of Height analysis
     Range("I3").FormulaR1C1 = "=MAX(R[7]C:R[60006]C)"
     Range("J3").FormulaR1C1 = "=MAX(R[7]C14:R[60006]C14)"
     Range("O5").FormulaR1C1 = "=MIN(R[5]C:R[60004]C)"
     Range("P5:V5").FormulaR1C1 = "=MAX(R[5]C:R[60004]C)"
+    ' Calculate altitude range (max - min) for LoH penalty assessment
     Range("I5").FormulaR1C1 = "=MAX(R[5]C:R[60004]C)-MIN(R[5]C:R[60004]C)"
+    ' Calculate half of altitude range for LoH threshold
     Range("I7").FormulaR1C1 = "=R[-2]C/2"
     Range("I3:I7").Value = Range("I3:I7").Value
 
