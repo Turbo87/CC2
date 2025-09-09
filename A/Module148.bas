@@ -10,12 +10,19 @@ Dim newSecond As Variant
 Dim waitTime As Variant
 Sub OpenAb()
 Attribute OpenAb.VB_ProcData.VB_Invoke_Func = " \n14"
-'
-' JLR 6/1/2011
-'
+
+' OpenAb() handles the opening and processing of IGC flight files
+' This is the main entry point for flight analysis workflow
+' It prompts user to select an IGC file, opens it, transfers data to analysis workbook,
+' and initiates the flight processing chain (NewENLA and CALx)
+' Finally sets up the user interface for flight data review and verification
+
+' Disable screen updating during file operations for better performance
 Application.ScreenUpdating = False
+' Check if user interface is ready for file selection (glider click prompt visible)
 If Range("C23") = "      Click on the glider to continue" Then
     Dim myFile As String
+    ' Open file dialog to select IGC flight file
     myFile = Application.GetOpenFilename("IGC Files,*.igc")
 
     If myFile <> "False" Then
@@ -34,50 +41,68 @@ If Range("C23") = "      Click on the glider to continue" Then
     Application.ScreenUpdating = False
 
     Application.Cursor = xlWait
+    ' Open selected IGC file as text with specific formatting parameters
     Workbooks.OpenText Filename:=myFile, Origin:=437, StartRow:=1 _
         , DataType:=xlDelimited, TextQualifier:=xlDoubleQuote, _
         ConsecutiveDelimiter:=False, Tab:=False, Semicolon:=False, Comma:=False _
         , Space:=False, Other:=False, FieldInfo:=Array(1, 1), _
         TrailingMinusNumbers:=True
     Application.ScreenUpdating = False
+    ' Copy all IGC file content from column A
     Columns("A:A").Copy
+    ' Suppress alerts during workbook operations
     Application.DisplayAlerts = False
+    ' Close the IGC file workbook (data now copied)
     ActiveWorkbook.Close
     Application.DisplayAlerts = False
 
     'linkArray = ActiveWorkbook.LinkSources(xlExcelLinks)
     'ActiveWorkbook.OpenLinks linkArray(4)
+    ' Open the analysis workbook (Ab.xlsm) for flight data processing
     Workbooks.Open Filename:=ThisWorkbook.Path & "\Ab.xlsm"
     Workbooks("Ab.xlsm").Activate
     ActiveWorkbook.Unprotect Password:="spike"
+    ' Select BR (Basic Records) sheet for raw IGC data storage
     Sheets("BR").Select
     Range("A1").Select
+    ' Paste copied IGC file content into analysis workbook
     ActiveSheet.Paste
     Application.CutCopyMode = False
     ActiveWindow.WindowState = xlMinimized
        Windows("A.xlsm").Activate
        ActiveWindow.WindowState = xlMaximized
        Application.ScreenUpdating = True
+    ' Execute the flight processing chain
+    ' Step 1: Process Engine Noise Level data and coordinate information
     Application.Run "Ab.xlsm!NewENLA"
+    ' Step 2: Perform flight calculations and analysis
     Application.Run "A.xlsm!CALx"
+    ' Set up user interface for flight data review
+    ' Hide intermediate processing sheet
     Sheets("Parsed").Visible = False
+    ' Show and activate flight declaration sheet
     Sheets("E-Dec").Visible = True
     Sheets("E-Dec").Activate
         ActiveSheet.Unprotect Password:="spike"
+    ' Zoom to fit flight declaration data range
     Range("A1:J29").Select
     ActiveWindow.Zoom = True
         ActiveSheet.Protect Password:="spike"
+    ' Configure final UI state
     Sheets("Logo").Visible = False
     Sheets("All Claims").Visible = True
     Sheets("Data Entry Check").Visible = True
     Sheets("Data Entry Check").Select
         ActiveSheet.Unprotect Password:="spike"
+    ' Zoom to fit data entry check range
     Range("A1:K30").Select
     ActiveWindow.Zoom = True
         ActiveSheet.Protect Password:="spike"
     Range("G12:H12").Select
     ActiveWindow.ScrollWorkbookTabs Sheets:=-3
+    ' Ensure all calculations are complete
     Application.Calculate
+    ' Restore normal application state and finalize UI
     ActiveWindow.DisplayWorkbookTabs = True
 
     Application.Cursor = xlDefault
