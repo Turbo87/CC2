@@ -1,0 +1,1241 @@
+olevba 0.60.2 on Python 3.11.3 - http://decalage.info/python/oletools
+===============================================================================
+FILE: D_vbaProject.bin
+Type: OLE
+-------------------------------------------------------------------------------
+VBA MACRO Module1.bas 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Module1'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+
+Sub ADDwp()
+'
+' JLR 9/7/2011
+'
+ Application.ScreenUpdating = False
+ Sheets("Saved Way Points").Unprotect Password:="spike"
+ If Range("D4") = 1 Then
+    ActiveSheet.Shapes("Picture 3").Visible = True
+    ActiveSheet.Shapes("Picture 6").Visible = False
+    Range("D4").Select
+ElseIf Range("D4") = 2 Then
+    Range("E1").EntireColumn.Hidden = False
+    Range("F1").EntireColumn.Hidden = True
+    Range("J1").EntireColumn.Hidden = False
+    Range("K1").EntireColumn.Hidden = True
+    Range("F9,K9").ClearContents
+    ActiveSheet.Shapes("Picture 3").Visible = True
+    ActiveSheet.Shapes("Picture 6").Visible = False
+    Range("B9").Select
+ElseIf Range("D4") = 3 Then
+    Range("E1").EntireColumn.Hidden = True
+    Range("F1").EntireColumn.Hidden = False
+    Range("J1").EntireColumn.Hidden = True
+    Range("K1").EntireColumn.Hidden = False
+    Range("E9,J9").ClearContents
+    ActiveSheet.Shapes("Picture 3").Visible = False
+    ActiveSheet.Shapes("Picture 6").Visible = True
+    Range("B9").Select
+End If
+Sheets("Saved Way Points").Protect Password:="spike"
+Application.ScreenUpdating = True
+End Sub
+Sub AdDeleteWP()
+'
+' JLR 9/7/2011
+'
+Application.ScreenUpdating = False
+
+If Range("N9") = "NO" Then
+    ActiveSheet.Unprotect Password:="spike"
+    Range("B16:L40").SpecialCells(xlCellTypeBlanks).Select
+    Range("C" & ActiveCell.Row & ":L" & ActiveCell.Row).ClearContents
+        If Range("B16") = "" Then
+            Range("B16:L16").Value = Range("B40:L40").Value
+            Range("B40:L40").ClearContents
+        End If
+    Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlDescending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+    Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+    
+    Range("B50:B74").FormulaR1C1 = _
+        "=CONCATENATE(R[-34]C,""::"",R[-34]C[1],"":"",R[-34]C[2],"":"",R[-34]C[3],"":"",R[-34]C[4],"":"",R[-34]C[5],""::"",R[-34]C[6],"":"",R[-34]C[7],"":"",R[-34]C[8],"":"",R[-34]C[9],"":"",R[-34]C[10])"
+      Range("D4").FormulaR1C1 = "1"
+      Range("A1:M22").Select
+      ActiveWindow.Zoom = True
+      ActiveSheet.Protect Password:="spike"
+      ActiveWorkbook.Save
+      Application.ScreenUpdating = True
+    Range("D4").Select
+Else
+    Sheets("Saved Way Points").Unprotect Password:="spike"
+    Range("B40:L40").Value = Range("B9:L9").Value
+    Range("E8:L8").EntireColumn.Hidden = False
+    If Range("E40") = "" And Range("B40") <> "" Then
+        Range("E40").Formula = "=ROUND(RC[1]/60,3)"
+        Range("E40").Value = Range("E40").Value
+    ElseIf Range("F40") = "" And Range("B40") <> "" Then
+        Range("F40").FormulaR1C1 = "=ROUND(RC[-1]*60,0)"
+        Range("F40").Value = Range("F40").Value
+    End If
+      If Range("J40") = "" And Range("B40") <> "" Then
+        Range("J40").Formula = "=ROUND(RC[1]/60,3)"
+        Range("J40").Value = Range("J40").Value
+      ElseIf Range("K40") = "" And Range("B40") <> "" Then
+        Range("K40").FormulaR1C1 = "=ROUND(RC[-1]*60,0)"
+        Range("K40").Value = Range("K40").Value
+      End If
+        If Range("D4") <= 2 Then
+            Range("E1").EntireColumn.Hidden = False
+            Range("F1").EntireColumn.Hidden = True
+            Range("J1").EntireColumn.Hidden = False
+            Range("K1").EntireColumn.Hidden = True
+        ElseIf Range("D4") = 3 Then
+            Range("E1").EntireColumn.Hidden = True
+            Range("F1").EntireColumn.Hidden = False
+            Range("J1").EntireColumn.Hidden = True
+            Range("K1").EntireColumn.Hidden = False
+        End If
+        
+    Range("B16:L40").SpecialCells(xlCellTypeBlanks).Select
+    Range("C" & ActiveCell.Row & ":L" & ActiveCell.Row).ClearContents
+    
+        If Range("B16") = "" Then
+            Range("B16:L16").Value = Range("B40:L40").Value
+            Range("B40:L40").ClearContents
+            Range("B9:L9").ClearContents
+        End If
+    Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlDescending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+    Range("B16:L40").Sort Key1:=Range("B16"), Order1:=xlAscending, Header:=xlGuess, OrderCustom:=1, MatchCase:=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+   
+      Range("B50:B74").FormulaR1C1 = _
+        "=CONCATENATE(R[-34]C,""::"",R[-34]C[1],"":"",R[-34]C[2],"":"",R[-34]C[3],"":"",R[-34]C[4],"":"",R[-34]C[5],""::"",R[-34]C[6],"":"",R[-34]C[7],"":"",R[-34]C[8],"":"",R[-34]C[9],"":"",R[-34]C[10])"
+      Range("B9:L9").ClearContents
+      Range("D4").FormulaR1C1 = "1"
+      Range("A1:M22").Select
+      ActiveWindow.Zoom = True
+      Range("A1").Select
+      ActiveSheet.Protect Password:="spike"
+      ActiveWorkbook.Save
+      Application.ScreenUpdating = True
+End If
+End Sub
+Sub Rwritt()
+'
+' JLR 9/8/2011
+'
+Dim Visible As Variant, w As Workbook
+    Application.ScreenUpdating = False
+    
+    On Error Resume Next
+    Workbooks("A.xlsm").Activate
+  If Err = 0 Then
+    Workbooks("D.xlsm").Activate
+    Application.Run "D.xlsm!WPSave"
+    Sheets("Saved Way Points").Select
+    ActiveWindow.ScrollRow = 1
+    Range("D4:G4").Select
+    Workbooks("A.xlsm").Activate
+    Application.DisplayFullScreen = True
+    Sheets("OTHER").Select
+    ActiveSheet.Unprotect Password:="spike"
+    If ActiveSheet.Shapes("Oval 14").Visible = True Then
+    Range("K15") = 2
+    Else: Range("K15") = 1
+    End If
+    Range("A1:N36").Select
+    ActiveWindow.Zoom = True
+    ActiveSheet.Protect Password:="spike"
+    Range("K15:L15").Select
+    Application.ScreenUpdating = True
+  Else
+    Sheets("Saved Way Points").Select
+    ActiveWindow.ScrollRow = 1
+    Range("D4:G4").Select
+    For Each w In Application.Workbooks
+    w.Save
+Next w
+Application.Quit
+End If
+End Sub
+-------------------------------------------------------------------------------
+VBA MACRO Sheet9.cls 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Sheet9'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO ThisWorkbook.cls 
+in file: D_vbaProject.bin - OLE stream: 'VBA/ThisWorkbook'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+Private Sub Workbook_Open()
+
+Application.DisplayFullScreen = True
+Application.EnableAutoComplete = False
+Workbooks("D.xlsm").Unprotect Password:="spike"
+Sheets("Calibration").Select
+ActiveSheet.Unprotect Password:="spike"
+Range("A1").Select
+ActiveSheet.Protect Password:="spike"
+Sheets("Saved Way Points").Select
+ActiveSheet.Unprotect Password:="spike"
+Range("B2").FormulaR1C1 = "For Written Declarations:  ADD A SAVED WAY POINT"
+Range("A4:A13").EntireRow.Hidden = False
+Range("A28:A40").EntireRow.Hidden = False
+ActiveSheet.Shapes("Rectangle 1").Visible = True
+ActiveSheet.Shapes("Rectangle 2").Visible = False
+ActiveSheet.Shapes("Drop Down 1").Visible = True
+Range("B16:B40").Locked = False
+Range("A1").ColumnWidth = 25
+Range("A1:M22").Select
+ActiveWindow.Zoom = True
+Range("D4").FormulaR1C1 = "1"
+ActiveWindow.ScrollRow = 1
+ActiveSheet.Protect Password:="spike"
+Range("D4").Select
+Application.MoveAfterReturnDirection = xlToRight
+Workbooks("D.xlsm").Protect Password:="spike"
+    
+End Sub
+
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+Workbooks("D.xlsm").Saved = True
+Application.DisplayFullScreen = False
+End Sub
+
+
+-------------------------------------------------------------------------------
+VBA MACRO Module3.bas 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Module3'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+Sub SVenter()
+Attribute SVenter.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+' JLR 8/2/2012
+'
+Application.ScreenUpdating = False
+Workbooks("A.xlsm").Activate
+Sheets("Other").Activate
+ActiveSheet.Unprotect Password:="spike"
+Range("C69:C93").NumberFormat = "@"
+
+ If Range("C" & ActiveCell.Row) = Range("C69") And Range("C69") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R69C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C70") And Range("C70") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R70C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C71") And Range("C71") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R71C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C72") And Range("C72") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R72C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C73") And Range("C73") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R73C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C74") And Range("C74") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R74C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C75") And Range("C75") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R75C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C76") And Range("C76") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R76C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C77") And Range("C77") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R77C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C78") And Range("C78") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R78C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C79") And Range("C79") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R79C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C80") And Range("C80") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R80C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C81") And Range("C81") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R81C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C82") And Range("C82") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R82C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C83") And Range("C83") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R83C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C84") And Range("C84") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R84C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C85") And Range("C85") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R85C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C86") And Range("C86") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R86C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C87") And Range("C87") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R87C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C88") And Range("C88") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R88C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C89") And Range("C89") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R89C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C90") And Range("C90") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R90C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C91") And Range("C91") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R91C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C92") And Range("C92") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R92C"
+ ElseIf Range("C" & ActiveCell.Row) = Range("C93") And Range("C93") <> "" Then
+    Range("E" & ActiveCell.Row & ":M" & ActiveCell.Row).Formula = "=R93C"
+ End If
+ Range("I20:I28").ClearContents
+ActiveSheet.Protect Password:="spike"
+Application.ScreenUpdating = True
+End Sub
+-------------------------------------------------------------------------------
+VBA MACRO Module2.bas 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Module2'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+Sub WPSave()
+Attribute WPSave.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+' JLR 9/13/2011
+'
+Workbooks("A.xlsm").Activate
+Sheets("Other").Select
+Application.ScreenUpdating = False
+If Range("D15") > 1 And Range("K15") = 2 And Range("N18") = 1 Then
+    Workbooks("D.xlsm").Activate
+    ActiveWindow.WindowState = xlMaximized
+    Range("D4").Select
+ElseIf Range("D15") > 1 And Range("K15") = 2 And Range("N18") = 2 Then
+    Application.DisplayAlerts = False
+    ActiveSheet.Unprotect Password:="spike"
+    Workbooks("A.xlsm").Sheets("OTHER").Range("C69:C93").Value = Workbooks("D.xlsm").Sheets("SAVED Way Points").Range("B50:B74").Value
+    
+    If Range("D15") = 2 Then
+    Application.DisplayAlerts = False
+    Range("C69:C93").TextToColumns Destination:=Range("C69"), DataType:=xlDelimited, _
+        TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=False, Tab:=True, _
+        Semicolon:=False, Comma:=False, Space:=False, Other:=True, OtherChar _
+        :=":", FieldInfo:=Array(Array(1, 1), Array(2, 1), Array(3, 1), Array(4, 1), Array(5, _
+        1), Array(6, 9), Array(7, 1), Array(8, 1), Array(9, 1), Array(10, 1), Array(11, 1), Array(12 _
+        , 9), Array(13, 1)), TrailingMinusNumbers:=True
+    Range("I20:I28").ClearContents
+    
+    ElseIf Range("D15") = 3 Then
+    Application.DisplayAlerts = False
+    Range("C69:C93").TextToColumns Destination:=Range("C69"), DataType:=xlDelimited, _
+        TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=False, Tab:=True, _
+        Semicolon:=False, Comma:=False, Space:=False, Other:=True, OtherChar _
+        :=":", FieldInfo:=Array(Array(1, 1), Array(2, 1), Array(3, 1), Array(4, 1), Array(5, _
+        9), Array(6, 1), Array(7, 1), Array(8, 1), Array(9, 1), Array(10, 1), Array(11, 9), Array(12 _
+        , 1), Array(13, 1)), TrailingMinusNumbers:=True
+    Range("I20:I28").ClearContents
+    End If
+
+    ActiveSheet.Shapes("Oval 14").Visible = True
+    ActiveSheet.Shapes("Oval 16").Visible = True
+    ActiveSheet.Shapes("Oval 18").Visible = True
+    ActiveSheet.Shapes("Oval 20").Visible = True
+    ActiveSheet.Shapes("Oval 22").Visible = True
+    ActiveSheet.Shapes("Rectangle 1").Visible = True
+    ActiveSheet.Protect Password:="spike"
+    Range("C20").Select
+    Workbooks("A.xlsm").Activate
+    ActiveWindow.WindowState = xlMaximized
+    Application.DisplayFullScreen = True
+    Application.DisplayAlerts = True
+    ActiveWorkbook.Protect Password:="spike"
+    Application.ScreenUpdating = True
+End If
+End Sub
+-------------------------------------------------------------------------------
+VBA MACRO Module4.bas 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Module4'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+Sub List()
+Attribute List.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+' JLR 9/26/11
+'
+Application.ScreenUpdating = False
+Workbooks("D.xlsm").Activate
+Sheets("Saved Way Points").Select
+ActiveSheet.Unprotect Password:="spike"
+Range("B2").FormulaR1C1 = "For Written Declarations:  SAVED WAY POINTS"
+ActiveSheet.Shapes("Rectangle 1").Visible = False
+If Range("O10") < 25 Then
+ActiveSheet.Shapes("Rectangle 2").Visible = True
+Else: ActiveSheet.Shapes("Rectangle 2").Visible = False
+End If
+ActiveSheet.Shapes("Drop Down 1").Visible = False
+Range("A4:A13").Select
+Selection.EntireRow.Hidden = True
+Workbooks("D.xlsm").Sheets("Saved Way Points").Range("D4").Value = Workbooks("A.xlsm").Sheets("OTHER").Range("D15").Value
+If Range("D4") = 2 Then
+    Range("E1").EntireColumn.Hidden = False
+    Range("F1").EntireColumn.Hidden = True
+    Range("J1").EntireColumn.Hidden = False
+    Range("K1").EntireColumn.Hidden = True
+    Range("F9,K9").ClearContents
+    ActiveSheet.Shapes("Picture 3").Visible = True
+    ActiveSheet.Shapes("Picture 6").Visible = False
+    Range("B9").Select
+ElseIf Range("D4") = 3 Then
+    Range("E1").EntireColumn.Hidden = True
+    Range("F1").EntireColumn.Hidden = False
+    Range("J1").EntireColumn.Hidden = True
+    Range("K1").EntireColumn.Hidden = False
+    Range("E9,J9").ClearContents
+    ActiveSheet.Shapes("Picture 3").Visible = False
+    ActiveSheet.Shapes("Picture 6").Visible = True
+    Range("B9").Select
+End If
+If Range("O10") < 12 Then
+    Range("A28:A40").Select
+    Selection.EntireRow.Hidden = True
+Else
+    Range("A1:M47").Select
+    ActiveWindow.Zoom = True
+    Range("A1").ColumnWidth = 55
+    ActiveWindow.DisplayVerticalScrollBar = False
+End If
+Range("B16:B40").Locked = True
+ActiveWindow.ScrollRow = 1
+Range("B2").Select
+ActiveSheet.Protect Password:="spike"
+Application.ScreenUpdating = True
+'
+End Sub
+-------------------------------------------------------------------------------
+VBA MACRO Module5.bas 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Module5'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+Sub resz()
+Attribute resz.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+' JLR 9/26/2011
+'
+Application.ScreenUpdating = False
+Application.DisplayFullScreen = True
+Workbooks("D.xlsm").Unprotect Password:="spike"
+Sheets("Saved Way Points").Select
+ActiveSheet.Unprotect Password:="spike"
+Range("B2").FormulaR1C1 = "For Written Declarations:  ADD A SAVED WAY POINT"
+Range("A4:A13").EntireRow.Hidden = False
+Range("A28:A40").EntireRow.Hidden = False
+ActiveSheet.Shapes("Rectangle 1").Visible = True
+ActiveSheet.Shapes("Rectangle 2").Visible = False
+ActiveSheet.Shapes("Drop Down 1").Visible = True
+Range("B16:B40").Locked = False
+Range("A1").ColumnWidth = 25
+Range("A1:M22").Select
+ActiveWindow.Zoom = True
+Range("D4").FormulaR1C1 = "1"
+ActiveWindow.ScrollRow = 1
+ActiveSheet.Protect Password:="spike"
+Range("D4").Select
+Workbooks("D.xlsm").Protect Password:="spike"
+Application.ScreenUpdating = True
+'
+End Sub
+-------------------------------------------------------------------------------
+VBA MACRO Sheet10.cls 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Sheet10'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO frmCAL.frm 
+in file: D_vbaProject.bin - OLE stream: 'VBA/frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Private Sub UserForm_Initialize()
+    Load frmCAL
+End Sub
+
+-------------------------------------------------------------------------------
+VBA MACRO Module6.bas 
+in file: D_vbaProject.bin - OLE stream: 'VBA/Module6'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Option Explicit
+Sub Buhby()
+    
+    ActiveWorkbook.Saved = True
+    MsgBox "Thanks for using Claim Check! Click OK to exit"
+    Application.Quit
+
+End Sub
+Sub RoundedRectangle1_Click()
+Sheets("Calibration").Select
+    frmCAL.Show
+End Sub
+
+Sub RoundedRectangle12_Click()
+Sheets("Calibration").Select
+    frmUNIT.Show
+End Sub
+
+Sub MoveC()
+'
+' MoveCursor after drop-down 2 or 30
+'
+    If Range("E8") < 3 Then
+        Range("F12").Select
+    ElseIf Range("E8") >= 3 Then
+        Range("F14").Select
+    End If
+End Sub
+Sub Cal()
+Attribute Cal.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+' Cal Macro retains key defaults
+'
+    Application.ScreenUpdating = False
+    Sheets("Calibration").Select
+    Sheets("Calibration").Unprotect Password:="spike"
+    Range("B8:C8").FormulaR1C1 = _
+        "=IF(R[46]C[-1]<>R[45]C[-1],CONCATENATE(R[45]C[-1],"" Calibrations saved""),IF(R[46]C[-1]=1,CONCATENATE(R[46]C[-1],"" Calibration saved""),CONCATENATE(R[46]C[-1],"" Calibrations saved"")))"
+    Range("E8:F8").FormulaR1C1 = "1"
+    Range("E8:F8").Locked = False
+    Range("E8:F8").FormulaHidden = True
+    ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoFalse
+    ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoTrue
+    Range("E10:F10").FormulaR1C1 = "1"
+    ActiveSheet.Rows("11:12").Hidden = False
+    Range("D12").ClearContents
+    Range("E12").Value = "FR Serial #:"
+    Range("F12").ClearContents
+    Range("F12").Select
+    With Selection.Validation
+        .Delete
+        .Add Type:=xlValidateTextLength, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlEqual, Formula1:="3"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = "Three characters are required"
+        .ShowInput = False
+        .ShowError = True
+    End With
+    Range("F12").Locked = False
+    Range("F12").FormulaHidden = True
+    Range("F14").ClearContents
+    Range("F14").Locked = False
+    Range("F14").FormulaHidden = True
+    Range("F16").FormulaR1C1 = "1"
+    Range("F16").Locked = False
+    Range("F16").FormulaHidden = True
+    Range("B10").FormulaR1C1 = _
+        "=IF(R10C5=2,R[2]C[9],IF(R10C5=3,R[3]C[9],IF(R10C5=4,R[4]C[9],IF(R10C5=5,R[5]C[9],IF(R10C5=6,R16C11,"""")))))"
+    Range("B11").FormulaR1C1 = _
+        "=IF(R10C5=7,R[6]C[9],IF(R10C5=8,R[7]C[9],IF(R10C5=9,R[8]C[9],IF(R10C5=10,R[9]C[9],IF(R10C5=11,R[10]C[9],"""")))))"
+    Range("B12").FormulaR1C1 = _
+        "=IF(R10C5=12,R[10]C[9],IF(R10C5=13,R[11]C[9],IF(R10C5=14,R[12]C[9],IF(R10C5=15,R[13]C[9],IF(R10C5=16,R[14]C[9],"""")))))"
+    Range("B13").FormulaR1C1 = _
+        "=IF(R10C5=17,R[14]C[9],IF(R10C5=18,R[15]C[9],IF(R10C5=19,R[16]C[9],IF(R10C5=20,R[17]C[9],""""))))"
+    Range("B14").FormulaR1C1 = _
+        "=IF(R10C5=21,R[17]C[9],IF(R10C5=22,R[18]C[9],IF(R10C5=23,R[19]C[9],IF(R10C5=24,R[20]C[9],""""))))"
+    
+    Range("B16").FormulaR1C1 = _
+        "=IF(R[-6]C<>"""",CONCATENATE(R[-6]C,"" "",R[-4]C[4]),IF(R[-5]C<>"""",CONCATENATE(R[-5]C,"" "",R[-4]C[4]),IF(R[-4]C<>"""",CONCATENATE(R[-4]C,"" "",R[-4]C[4]),IF(R[-3]C<>"""",CONCATENATE(R[-3]C,"" "",R[-4]C[4]),""""))))"
+    Range("B17").FormulaR1C1 = "=CONCATENATE(""                       "",R[-1]C)"
+    Range("C16").FormulaR1C1 = "=IF(OR(COUNTIF(R15C13:R24C13,R[1]C[-1]),AND(R8C5=3,R53C1>0)),""dupe"","""")"
+    Range("D16").FormulaR1C1 = _
+        "=IF(AND(SUM(R[-8]C[1],R[-6]C[1])>2,R[-6]C[1]<25,R[-4]C[2]<>"""",R[-2]C[2]<>"""",RC[-1]=""""),""OK"","""")"
+    Range("C10").FormulaR1C1 = _
+        "=IF(AND(R8C5=3,R10C5=2),RIGHT(R[5]C[10],7),IF(AND(R8C5=3,R10C5=3),RIGHT(R[6]C[10],7),IF(AND(R8C5=3,R10C5=4),RIGHT(R[7]C[10],7),IF(AND(R8C5=3,R10C5=5),RIGHT(R[8]C[10],7),IF(AND(R8C5=3,R10C5=6),RIGHT(R[9]C[10],7),"""")))))"
+    Range("C12").FormulaR1C1 = _
+        "=IF(AND(R8C5=3,R10C5=7),RIGHT(R[8]C[10],7),IF(AND(R8C5=3,R10C5=8),RIGHT(R[9]C[10],7),IF(AND(R8C5=3,R10C5=9),RIGHT(R[10]C[10],7),IF(AND(R8C5=3,R10C5=10),RIGHT(R[11]C[10],7),IF(AND(R8C5=3,R10C5=11),RIGHT(R[12]C[10],7),"""")))))"
+    Range("C14").FormulaR1C1 = "=IF(R8C5=1,"""",MATCH(R[1]C,R[41]C2:R55C11,0)+1)"
+    Range("C15").FormulaR1C1 = _
+        "=IF(AND(R[-5]C="""",R[-3]C=""""),R[1]C[-1],IF(R[-5]C<>"""",R[-5]C,R[-3]C))"
+    Range("A53").FormulaR1C1 = "=IF(AND(R[1]C=1,R[4]C[1]=""""),0,R[1]C)"
+    Range("A54").FormulaR1C1 = "=IF(R[3]C[1]="""",0,SUM(RC[1]:RC[10]))"
+    Range("B54:K54").FormulaR1C1 = "=IF(R[4]C<>"""",1,"""")"
+    Range("A55").FormulaR1C1 = "=10-R[-1]C"
+    Range("E8:F8").Select
+    Sheets("Calibration").Protect Password:="spike"
+    Application.ScreenUpdating = True
+End Sub
+Sub Caltyp()
+Attribute Caltyp.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+' Caltyp Macro on selection at second drop-down (#2) w/no cal saved
+'
+    Application.ScreenUpdating = False
+    Sheets("Calibration").Unprotect Password:="spike"
+    
+    If Range("E8") >= 3 And Range("L7") <> "" Then
+        ActiveSheet.Shapes.Range(Array("Rounded Rectangle 1")).Visible = msoFalse
+        ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoFalse
+        ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoTrue
+        ActiveSheet.Rows("11:12").Hidden = True
+        If Range("E8") = 4 Then
+            ActiveSheet.Shapes.Range(Array("Rounded Rectangle 3")).Visible = msoTrue
+        End If
+        
+    ElseIf Range("E8") < 3 Or Range("L7") = "" Then
+    ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoFalse
+    ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoTrue
+    ActiveSheet.Shapes.Range(Array("Rounded Rectangle 1")).Visible = msoTrue
+    ActiveSheet.Shapes.Range(Array("Rounded Rectangle 3")).Visible = msoFalse
+    ActiveSheet.Rows("11:12").Hidden = False
+   
+    End If
+    Range("E10").Select
+    Sheets("Calibration").Protect Password:="spike"
+    Application.ScreenUpdating = True
+End Sub
+
+Sub AddAmendCal()
+
+' Copies headers to 55:57 when Units selected, pass dupe to ViewCal
+
+Application.ScreenUpdating = False
+Sheets("Calibration").Unprotect Password:="spike"
+
+Range("F12") = UCase(Left(Range("F12"), 7))
+
+If Range("D16") = "OK" And Range("E8") < 4 Then
+    If Range("A54") = 0 Then
+        Range("B55").Value = Range("B16").Value
+        Range("B56").Value = Range("F14").Value
+    ElseIf Range("A54") = 1 Then
+        Range("C55").Value = Range("B16").Value
+        Range("C56").Value = Range("F14").Value
+    ElseIf Range("A54") = 2 Then
+        Range("D55").Value = Range("B16").Value
+        Range("D56").Value = Range("F14").Value
+    ElseIf Range("A54") = 3 Then
+        Range("E55").Value = Range("B16").Value
+        Range("E56").Value = Range("F14").Value
+    ElseIf Range("A54") = 4 Then
+        Range("F55").Value = Range("B16").Value
+        Range("F56").Value = Range("F14").Value
+    ElseIf Range("A54") = 5 Then
+        Range("G55").Value = Range("B16").Value
+        Range("G56").Value = Range("F14").Value
+    ElseIf Range("A54") = 6 Then
+        Range("H55").Value = Range("B16").Value
+        Range("H56").Value = Range("F14").Value
+    ElseIf Range("A54") = 7 Then
+        Range("I55").Value = Range("B16").Value
+        Range("I56").Value = Range("F14").Value
+    ElseIf Range("A54") = 8 Then
+        Range("J55").Value = Range("B16").Value
+        Range("J56").Value = Range("F14").Value
+    ElseIf Range("A54") = 9 Then
+        Range("K55").Value = Range("B16").Value
+        Range("K56").Value = Range("F14").Value
+    End If
+    Range("E22").Select
+
+ElseIf Range("E8") < 4 Then Application.Run "D.xlsm!ViewCal"
+End If
+Sheets("Calibration").Protect Password:="spike"
+Application.ScreenUpdating = True
+End Sub
+
+Sub CalDONE()
+' SAVE on glider click
+'
+ Application.ScreenUpdating = False
+ Sheets("Calibration").Unprotect Password:="spike"
+
+If Range("D16") = "OK" Then
+    If Range("B16") = Range("B55") Then
+        Range("B57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("B58:B78").FormulaR1C1 = "=CONCATENATE(R[-36]C[3],"" "",R[-36]C[4])"
+        Range("B55:B78").Value = Range("B55:B78").Value
+    ElseIf Range("B16") = Range("C55") Then
+        Range("C57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("C58:C78").FormulaR1C1 = "=CONCATENATE(R[-36]C[2],"" "",R[-36]C[3])"
+        Range("C55:C78").Value = Range("C55:C78").Value
+    ElseIf Range("B16") = Range("D55") Then
+        Range("D57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("D58:D78").FormulaR1C1 = "=CONCATENATE(R[-36]C[1],"" "",R[-36]C[2])"
+        Range("D55:D78").Value = Range("D55:D78").Value
+    ElseIf Range("B16") = Range("E55") Then
+        Range("E57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("E58:E78").FormulaR1C1 = "=CONCATENATE(R[-36]C,"" "",R[-36]C[1])"
+        Range("E55:E78").Value = Range("E55:E78").Value
+    ElseIf Range("B16") = Range("F55") Then
+        Range("F57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("F58:F78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-1],"" "",R[-36]C)"
+        Range("F55:F78").Value = Range("F55:F78").Value
+    ElseIf Range("B16") = Range("G55") Then
+        Range("G57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("G58:G78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-2],"" "",R[-36]C[-1])"
+        Range("G55:G78").Value = Range("G55:G78").Value
+    ElseIf Range("B16") = Range("H55") Then
+        Range("H57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("H58:H78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-3],"" "",R[-36]C[-2])"
+        Range("H55:H78").Value = Range("H55:H78").Value
+    ElseIf Range("B16") = Range("I55") Then
+        Range("I57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("I58:I78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-4],"" "",R[-36]C[-3])"
+        Range("I55:I78").Value = Range("I55:I78").Value
+    ElseIf Range("B16") = Range("J55") Then
+        Range("J57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("J58:J78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-5],"" "",R[-36]C[-4])"
+        Range("J55:J78").Value = Range("J55:J78").Value
+    ElseIf Range("B16") = Range("K55") Then
+        Range("K57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("K58:K78").FormulaR1C1 = "=CONCATENATE(R[-36]C[-6],"" "",R[-36]C[-5])"
+        Range("K55:K78").Value = Range("K55:K78").Value
+    End If
+ 
+ ElseIf Range("C16") = "dupe" Then
+ 
+    If Range("C17") = Range("M15") Or Range("C15") = Range("B55") Then
+        Range("B56").Value = Range("F14").Value
+        Range("B57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("B58:B78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("B55:B78").Value = Range("B55:B78").Value
+    ElseIf Range("C17") = Range("M16") Or Range("C15") = Range("C55") Then
+        Range("C56").Value = Range("F14").Value
+        Range("C57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("C58:C78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("C55:C78").Value = Range("C55:C78").Value
+    ElseIf Range("C17") = Range("M17") Or Range("C15") = Range("D55") Then
+        Range("D56").Value = Range("F14").Value
+        Range("D57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("D58:D78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("D55:D78").Value = Range("D55:D78").Value
+    ElseIf Range("C17") = Range("M18") Or Range("C15") = Range("E55") Then
+        Range("E56").Value = Range("F14").Value
+        Range("E57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("E58:E78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("E55:E78").Value = Range("E55:E78").Value
+    ElseIf Range("C17") = Range("M19") Or Range("C15") = Range("F55") Then
+        Range("F56").Value = Range("F14").Value
+        Range("F57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("F58:F78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("F55:F78").Value = Range("F55:F78").Value
+    ElseIf Range("C17") = Range("M20") Or Range("C15") = Range("G55") Then
+        Range("G56").Value = Range("F14").Value
+        Range("G57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("G58:G78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("G55:G78").Value = Range("G55:G78").Value
+    ElseIf Range("C17") = Range("M21") Or Range("C15") = Range("H55") Then
+        Range("H56").Value = Range("F14").Value
+        Range("H57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("H58:H78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("H55:H78").Value = Range("H55:H78").Value
+    ElseIf Range("C17") = Range("M22") Or Range("C15") = Range("I55") Then
+        Range("I56").Value = Range("F14").Value
+        Range("I57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("I58:I78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("I55:I78").Value = Range("I55:I78").Value
+    ElseIf Range("C17") = Range("M23") Or Range("C15") = Range("J55") Then
+        Range("J56").Value = Range("F14").Value
+        Range("J57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("J58:J78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("J55:J78").Value = Range("J55:J78").Value
+    ElseIf Range("C17") = Range("M24") Or Range("C15") = Range("K55") Then
+        Range("K56").Value = Range("F14").Value
+        Range("K57").FormulaR1C1 = "=IF(R16C6=2,""Metres"",""Feet"")"
+        Range("K58:K78").FormulaR1C1 = "=CONCATENATE(R[-36]C5,"" "",R[-36]C6)"
+        Range("K55:K78").Value = Range("K55:K78").Value
+    End If
+ End If
+ 
+ Application.Run "D.xlsm!Clear"
+ Range("E8").Select
+ Sheets("Calibration").Protect Password:="spike"
+ ActiveWorkbook.Save
+ Application.ScreenUpdating = True
+End Sub
+
+Sub ViewCal()
+'
+' ViewCal Macro On selection second drop-down (#30) w/saved Calibration
+'
+    Application.ScreenUpdating = False
+    Application.DisplayAlerts = False
+    Sheets("Calibration").Unprotect Password:="spike"
+    
+    ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoFalse
+    ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoTrue
+    ActiveSheet.Rows("11:12").Hidden = True
+    Range("E8").Select
+        If Range("E8") = 2 Then
+        Range("E8").Value = 3
+        Range("E10").Select
+        Range("E10").Value = Range("C14").Value
+        End If
+    
+    If Range("E10") = 2 Or Range("B17") = Range("M15") Then
+        Range("F14").Value = Range("B56").Value
+        If Range("B57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("B58:B78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 3 Or Range("B17") = Range("M16") Then
+        Range("F14").Value = Range("C56").Value
+        If Range("C57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("C58:C78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 4 Or Range("B17") = Range("M17") Then
+        Range("F14").Value = Range("D56").Value
+        If Range("D57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("D58:D78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 5 Or Range("B17") = Range("M18") Then
+        Range("F14").Value = Range("E56").Value
+        If Range("E57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("E58:E78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 6 Or Range("B17") = Range("M19") Then
+        Range("F14").Value = Range("F56").Value
+        If Range("F57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("F58:F78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 7 Or Range("B17") = Range("M20") Then
+        Range("F14").Value = Range("G56").Value
+        If Range("G57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("G58:G78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 8 Or Range("B17") = Range("M21") Then
+        Range("F14").Value = Range("H56").Value
+        If Range("H57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("H58:H78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 9 Or Range("B17") = Range("M22") Then
+        Range("F14").Value = Range("I56").Value
+        If Range("I57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("I58:I78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 10 Or Range("B17") = Range("M23") Then
+        Range("F14").Value = Range("J56").Value
+        If Range("J57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("J58:J78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    ElseIf Range("E10") = 11 Or Range("B17") = Range("M24") Then
+        Range("F14").Value = Range("K56").Value
+        If Range("K57") = "Metres" Then
+            Range("F16").Value = 2
+            Else: Range("F16").Value = 3
+        End If
+        Range("K58:K78").TextToColumns Destination:=Range("E22"), DataType:=xlDelimited, _
+            TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=True, Tab:=True, _
+            Semicolon:=False, Comma:=False, Space:=True, Other:=False, FieldInfo _
+            :=Array(Array(1, 1), Array(2, 1)), TrailingMinusNumbers:=True
+    End If
+  
+  Range("F14").Select
+  Sheets("Calibration").Protect Password:="spike"
+  Application.DisplayAlerts = True
+  Application.ScreenUpdating = True
+End Sub
+
+Sub DeleteCal()
+'
+' Macro12 Macro need button!
+'
+Application.ScreenUpdating = False
+Sheets("Calibration").Unprotect Password:="spike"
+If Range("E8") = 4 Then
+    If Range("E10") = 2 Then
+        Range("B55:B78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 3 Then
+        Range("C55:C78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 4 Then
+        Range("D55:D78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 5 Then
+        Range("E55:E78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 6 Then
+        Range("F55:F78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 7 Then
+        Range("G55:G78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 8 Then
+        Range("H55:H78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 9 Then
+        Range("I55:I78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 10 Then
+        Range("J55:J78").Delete Shift:=xlToLeft
+    ElseIf Range("E10") = 11 Then
+        Range("K55:K78").Delete Shift:=xlToLeft
+    End If
+
+Application.Run "D.xlsm!Clear"
+End If
+Range("E8").Select
+Sheets("Calibration").Protect Password:="spike"
+Application.ScreenUpdating = True
+End Sub
+
+Sub Clear()
+
+Application.ScreenUpdating = False
+Sheets("Calibration").Unprotect Password:="spike"
+ActiveSheet.Rows("11:12").Hidden = False
+ActiveSheet.Shapes.Range(Array("Drop Down 30")).Visible = msoFalse
+ActiveSheet.Shapes.Range(Array("Drop Down 2")).Visible = msoTrue
+Range("F12,F14,E22:F42").ClearContents
+Range("E8,E10,F16").Value = 1
+Range("C14").FormulaR1C1 = "=IF(R8C5=1,"""",MATCH(R[1]C,R[41]C2:R55C11,0)+1)"
+Range("C16").FormulaR1C1 = "=IF(OR(COUNTIF(R15C13:R24C13,R[1]C[-1]),AND(R8C5=3,R53C1>0)),""dupe"","""")"
+Range("A53").FormulaR1C1 = "=IF(AND(R[1]C=1,R[4]C[1]=""""),0,R[1]C)"
+Range("A54").FormulaR1C1 = "=IF(R[1]C[1]="""",0,SUM(RC[1]:RC[10]))"
+Range("B54:K54").FormulaR1C1 = "=IF(R[4]C<>"""",1,""X"")"
+If Range("B54") = "X" Then Range("B55:B78").ClearContents
+If Range("C54") = "X" Then Range("C55:C78").ClearContents
+If Range("D54") = "X" Then Range("D55:D78").ClearContents
+If Range("E54") = "X" Then Range("E55:E78").ClearContents
+If Range("F54") = "X" Then Range("F55:F78").ClearContents
+If Range("G54") = "X" Then Range("G55:G78").ClearContents
+If Range("H54") = "X" Then Range("H55:H78").ClearContents
+If Range("I54") = "X" Then Range("I55:I78").ClearContents
+If Range("G54") = "X" Then Range("J55:J78").ClearContents
+If Range("H54") = "X" Then Range("K55:K78").ClearContents
+Range("B55:K78").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+Range("M14").FormulaR1C1 = "=IF(R8C5=4,""                   FR TO DELETE"",""               FR TO VIEW / UPDATE"")"
+Range("M15").FormulaR1C1 = "=IF(R58C2<>"""",CONCATENATE(""                       "",R55C2),"""")"
+Range("M16").FormulaR1C1 = "=IF(R58C3<>"""",CONCATENATE(""                       "",R55C3),"""")"
+Range("M17").FormulaR1C1 = "=IF(R58C4<>"""",CONCATENATE(""                       "",R55C4),"""")"
+Range("M18").FormulaR1C1 = "=IF(R58C5<>"""",CONCATENATE(""                       "",R55C5),"""")"
+Range("M19").FormulaR1C1 = "=IF(R58C6<>"""",CONCATENATE(""                       "",R55C6),"""")"
+Range("M20").FormulaR1C1 = "=IF(R58C7<>"""",CONCATENATE(""                       "",R55C7),"""")"
+Range("M21").FormulaR1C1 = "=IF(R58C8<>"""",CONCATENATE(""                       "",R55C8),"""")"
+Range("M22").FormulaR1C1 = "=IF(R58C9<>"""",CONCATENATE(""                       "",R55C9),"""")"
+Range("M23").FormulaR1C1 = "=IF(R58C10<>"""",CONCATENATE(""                       "",R55C10),"""")"
+Range("M24").FormulaR1C1 = "=IF(R58C11<>"""",CONCATENATE(""                       "",R55C11),"""")"
+ActiveSheet.Shapes.Range(Array("Rounded Rectangle 3")).Visible = msoFalse
+ActiveSheet.Shapes.Range(Array("Rounded Rectangle 1")).Visible = msoTrue
+Range("A1").Select
+Sheets("Calibration").Protect Password:="spike"
+ActiveWorkbook.Save
+Application.ScreenUpdating = True
+
+End Sub
+-------------------------------------------------------------------------------
+VBA MACRO frmUNIT.frm 
+in file: D_vbaProject.bin - OLE stream: 'VBA/frmUNIT'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Private Sub UserForm_Initialize()
+    Load frmUNIT
+End Sub
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+� ZANDER/SDI GP941 V2.11
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ArialJC
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�Aria
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�GCSa�
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial78
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�2HOaN
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ArialJC
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�Aria�
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ArialJC
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ArialJC
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�73FLIGHT:1
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial78
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�5FPa4
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�in the first line of every IGC file.0
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�An FR records itsKC
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�MANUFACTURER CODE
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ArialKC
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�&ria�
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�SERIAL #�
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�EXAMPLES:
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ArialL #
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial78
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�Each is 3 characters long.
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmCAL/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial78
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�CALIBRATION TERMS 
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial19
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+� "LAB" altitude is what a calibration lab may refer to as ...
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial20
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�... the "TRUE" or "REFERENCE" or "ACTUAL" or "ICAO" or "CORRECTED"  altitude
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial19
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�"FR" altitude is what a calibration lab may refer to as.....	&
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial18
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+�... the "RECORDED" or "INDICATED" or "DISPLAYED"  altitude..I
+-------------------------------------------------------------------------------
+VBA FORM STRING IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT/o'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Arial18
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label2'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label4'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label5'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label6'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label7'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label8'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label9'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label10'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label11'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label12'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label13'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label14'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label15'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label16'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label17'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label18'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label19'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label20'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label21'" IN 'D_vbaProject.bin' - OLE stream: 'frmCAL'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label1'" IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label2'" IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label3'" IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label4'" IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
+-------------------------------------------------------------------------------
+VBA FORM Variable "b'Label5'" IN 'D_vbaProject.bin' - OLE stream: 'frmUNIT'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+None
++----------+--------------------+---------------------------------------------+
+|Type      |Keyword             |Description                                  |
++----------+--------------------+---------------------------------------------+
+|AutoExec  |Workbook_Open       |Runs when the Excel Workbook is opened       |
+|AutoExec  |Workbook_BeforeClose|Runs when the Excel Workbook is closed       |
+|AutoExec  |RoundedRectangle1_Cl|Runs when the file is opened and ActiveX     |
+|          |ick                 |objects trigger events                       |
+|Suspicious|Run                 |May run an executable file or a system       |
+|          |                    |command                                      |
+|Suspicious|Hex Strings         |Hex-encoded strings were detected, may be    |
+|          |                    |used to obfuscate strings (option --decode to|
+|          |                    |see all)                                     |
+|Suspicious|Base64 Strings      |Base64-encoded strings were detected, may be |
+|          |                    |used to obfuscate strings (option --decode to|
+|          |                    |see all)                                     |
++----------+--------------------+---------------------------------------------+
+
