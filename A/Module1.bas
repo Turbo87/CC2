@@ -74,24 +74,3 @@ Application.ScreenUpdating = False
   End If
 Application.ScreenUpdating = True
 End Sub
-+----------+--------------------+---------------------------------------------+
-|Type      |Keyword             |Description                                  |
-+----------+--------------------+---------------------------------------------+
-|AutoExec  |Workbook_Open       |Runs when the Excel Workbook is opened       |
-|AutoExec  |Workbook_BeforeClose|Runs when the Excel Workbook is closed       |
-|AutoExec  |Worksheet_Change    |Runs when the file is opened and ActiveX     |
-|          |                    |objects trigger events                       |
-|Suspicious|Open                |May open a file                              |
-|Suspicious|Run                 |May run an executable file or a system       |
-|          |                    |command                                      |
-|Suspicious|Windows             |May enumerate application windows (if        |
-|          |                    |combined with Shell.Application object)      |
-|Suspicious|Lib                 |May run code from a DLL                      |
-|Suspicious|Hex Strings         |Hex-encoded strings were detected, may be    |
-|          |                    |used to obfuscate strings (option --decode to|
-|          |                    |see all)                                     |
-|Suspicious|Base64 Strings      |Base64-encoded strings were detected, may be |
-|          |                    |used to obfuscate strings (option --decode to|
-|          |                    |see all)                                     |
-|IOC       |wininet.dll         |Executable file name                         |
-+----------+--------------------+---------------------------------------------+

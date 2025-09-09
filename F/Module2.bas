@@ -5849,30 +5849,3 @@ Columns("F:P").Clear
 Application.Run "F.xlsm!ORDS"
 
 End Sub
-
-+----------+--------------------+---------------------------------------------+
-|Type      |Keyword             |Description                                  |
-+----------+--------------------+---------------------------------------------+
-|AutoExec  |Workbook_Open       |Runs when the Excel Workbook is opened       |
-|Suspicious|Run                 |May run an executable file or a system       |
-|          |                    |command                                      |
-|Suspicious|Hex Strings         |Hex-encoded strings were detected, may be    |
-|          |                    |used to obfuscate strings (option --decode to|
-|          |                    |see all)                                     |
-|Suspicious|Base64 Strings      |Base64-encoded strings were detected, may be |
-|          |                    |used to obfuscate strings (option --decode to|
-|          |                    |see all)                                     |
-|Hex String|G""""""             |47222222222222                               |
-|Base64    |7]5                 |N101                                         |
-|String    |                    |                                             |
-|Base64    |3]9                 |M105                                         |
-|String    |                    |                                             |
-|Base64    |#]9                 |I105                                         |
-|String    |                    |                                             |
-|Base64    |']9                 |J105                                         |
-|String    |                    |                                             |
-|Base64    |+]9                 |K105                                         |
-|String    |                    |                                             |
-|Base64    |DAv                 |REF2                                         |
-|String    |                    |                                             |
-+----------+--------------------+---------------------------------------------+
